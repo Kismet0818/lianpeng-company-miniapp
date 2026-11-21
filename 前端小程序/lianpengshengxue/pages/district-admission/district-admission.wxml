@@ -1,0 +1,95 @@
+﻿<view class="admission-page">
+  <view class="district-hero">
+    <view class="district-heading">
+      <text class="district-title">{{district}}</text>
+      <text class="district-eyebrow">ADMISSION PLAN</text>
+    </view>
+    <image class="hero-chart-icon" src="/assets/icons/chafengongju/fenshuxian.svg" mode="aspectFit"></image>
+  </view>
+
+  <view class="brand-divider"></view>
+
+  <view class="plan-card">
+    <view class="card-heading-row">
+      <text class="card-title">计划统计</text>
+      <text class="data-status" wx:if="{{!hasPlan}}">数据整理中</text>
+    </view>
+
+    <view class="table-head">
+      <text></text><text>{{year}}年</text><text>相较上年</text>
+    </view>
+
+    <view class="plan-row">
+      <view class="plan-label"><view class="label-dot"></view><text>能上市重点</text></view>
+      <view class="plan-value"><text>{{plan.key.value}}</text><text wx:if="{{plan.key.percent !== '--'}}">（{{plan.key.percent}}）</text></view>
+      <text class="plan-change {{plan.key.trend === 'down' ? 'change-down' : ''}}">{{plan.key.change === '--' ? '--' : (plan.key.trend === 'down' ? '▼ ' : '▲ ') + plan.key.change}}</text>
+    </view>
+    <view class="plan-row">
+      <view class="plan-label"><view class="label-dot"></view><text>能上区重点</text></view>
+      <view class="plan-value"><text>{{plan.district.value}}</text><text wx:if="{{plan.district.percent !== '--'}}">（{{plan.district.percent}}）</text></view>
+      <text class="plan-change {{plan.district.trend === 'down' ? 'change-down' : ''}}">{{plan.district.change === '--' ? '--' : (plan.district.trend === 'down' ? '▼ ' : '▲ ') + plan.district.change}}</text>
+    </view>
+    <view class="plan-row">
+      <view class="plan-label"><view class="label-dot"></view><text>能上一般高中</text></view>
+      <view class="plan-value"><text>{{plan.general.value}}</text><text wx:if="{{plan.general.percent !== '--'}}">（{{plan.general.percent}}）</text></view>
+      <text class="plan-change {{plan.general.trend === 'down' ? 'change-down' : ''}}">{{plan.general.change === '--' ? '--' : (plan.general.trend === 'down' ? '▼ ' : '▲ ') + plan.general.change}}</text>
+    </view>
+
+    <view class="total-row">
+      <text>能上高中总计</text>
+      <text class="total-value">{{plan.total.value}}</text>
+      <text class="plan-change {{plan.total.trend === 'down' ? 'change-down' : ''}}">{{plan.total.change === '--' ? '--' : (plan.total.trend === 'down' ? '▼ ' : '▲ ') + plan.total.change}}</text>
+    </view>
+  </view>
+
+  <view class="query-section">
+    <text class="query-title">招生查询</text>
+    <view class="query-grid">
+      <view class="query-card" data-mode="region" bindtap="onQueryTap" hover-class="query-card-active"><view class="query-mark"><image class="query-icon" src="/assets/icons/chafengongju/daoqu.svg" mode="aspectFit"></image></view><text>名额到区</text></view>
+      <view class="query-card" data-mode="school" bindtap="onQueryTap" hover-class="query-card-active"><view class="query-mark"><image class="query-icon query-icon-school" src="/assets/icons/chafengongju/daoxiao.svg" mode="aspectFit"></image></view><text>名额到校</text></view>
+      <view class="query-card" data-mode="volunteer" bindtap="onQueryTap" hover-class="query-card-active"><view class="query-mark"><image class="query-icon" src="/assets/icons/chafengongju/zhiyuan.svg" mode="aspectFit"></image></view><text class="query-label-compact">1-15志愿</text></view>
+    </view>
+
+    <view class="independent-section">
+      <view class="independent-heading">
+        <image class="independent-heading-icon" src="/assets/icons/chafengongju/zizhuzhaosheng.svg" mode="aspectFit"></image>
+        <text>自主招生</text>
+      </view>
+      <view class="independent-list">
+        <view class="independent-row independent-row-link" data-index="0" bindtap="onIndependentTap" hover-class="independent-row-active">
+          <text class="independent-text">查询市实验性示范性高中、市特色普通高中、市级优秀体育学生、艺术骨干学生</text>
+          <text class="independent-arrow">›</text>
+        </view>
+        <view class="independent-row independent-row-link" bindtap="openInternationalAdmission" hover-class="independent-row-active"><text class="independent-text">查询国际课程班和中外合作办学高中</text><text class="independent-arrow">›</text></view>
+        <view class="independent-row"><text class="independent-text">查询中本贯通、五年一贯制、中高职贯通</text><text class="independent-arrow">›</text></view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="catalog-section">
+    <text class="catalog-title">学校名录</text>
+    <view class="catalog-tabs">
+      <view class="catalog-tab {{municipalTabClass}}" data-tab="municipal" bindtap="onCatalogTabTap">市重点</view>
+      <view class="catalog-tab {{districtTabClass}}" data-tab="district" bindtap="onCatalogTabTap">区重点</view>
+      <view class="catalog-tab {{generalTabClass}}" data-tab="general" bindtap="onCatalogTabTap">一般高中</view>
+      <view class="catalog-tab {{juniorTabClass}}" data-tab="junior" bindtap="onCatalogTabTap">初中</view>
+    </view>
+    <scroll-view wx:if="{{catalogLetters.length}}" class="letter-scroll" scroll-x enhanced show-scrollbar="{{false}}"><view class="letter-list"><view class="letter-item" wx:for="{{catalogLetters}}" wx:key="*this" data-letter="{{item}}" bindtap="onCatalogLetterTap">{{item}}</view></view></scroll-view>
+    <view wx:if="{{catalogLoading}}" class="catalog-empty"><text>正在加载学校名录...</text></view>
+    <view wx:elif="{{catalogGroups.length}}" class="catalog-list">
+      <view class="catalog-group" wx:for="{{catalogGroups}}" wx:key="initial" wx:for-item="group">
+        <view class="initial-row" id="catalog-letter-{{group.initial}}"><text>{{group.initial}}</text></view>
+        <view class="catalog-school" wx:for="{{group.schools}}" wx:key="id" wx:for-item="school" data-id="{{school.schoolId || school.highSchoolId}}" data-level="{{school.level}}" data-kind="{{school.schoolKind}}" bindtap="onCatalogSchoolTap" hover-class="catalog-school-active">
+          <image wx:if="{{school.logo}}" class="catalog-logo" src="{{school.logo}}" mode="aspectFit"></image>
+          <view class="catalog-info"><text class="catalog-name">{{school.name}}</text><view wx:if="{{activeCatalogTab !== 'junior'}}" class="catalog-meta"><text wx:if="{{school.level}}">{{school.level}}</text><text wx:if="{{school.nature}}">{{school.nature}}</text><text wx:if="{{school.boarding}}">{{school.boarding}}</text><text wx:if="{{school.code}}" class="catalog-code">{{school.code}}</text></view></view>
+          <text class="catalog-arrow">›</text>
+        </view>
+      </view>
+    </view>
+    <view wx:else class="catalog-empty"><text>学校名录数据待接入</text></view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

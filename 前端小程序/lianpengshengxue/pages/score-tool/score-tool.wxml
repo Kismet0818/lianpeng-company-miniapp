@@ -1,0 +1,28 @@
+<view class="score-page">
+  <view class="score-header"><text class="score-title">中考分数查询</text><text class="score-subtitle">查询学校招生名额、最低分及志愿信息</text></view>
+  <view class="query-card">
+    <text class="field-label">学段</text>
+    <view class="level-tabs">
+      <view class="level-tab {{schoolLevel === 'junior' ? 'active' : ''}}" data-level="junior" bindtap="selectSchoolLevel">初中</view>
+      <view class="level-tab {{schoolLevel === 'high' ? 'active' : ''}}" data-level="high" bindtap="selectSchoolLevel">高中</view>
+    </view>
+    <text class="field-label school-label">学校名</text>
+    <input class="school-input" value="{{schoolKeyword}}" placeholder="请输入学校名称" bindinput="onSchoolInput" confirm-type="search" bindconfirm="searchSchools" />
+    <button class="search-button" bindtap="searchSchools" loading="{{schoolSearching}}">查询分数</button>
+  </view>
+  <view class="searching" wx:if="{{schoolSearching}}">正在查询...</view>
+  <view class="empty-result" wx:elif="{{searched && !schoolResults.length}}">未找到相关学校，请检查学段或学校名称</view>
+  <view class="result-list" wx:elif="{{schoolResults.length}}">
+    <view class="result-card" wx:for="{{schoolResults}}" wx:key="id">
+      <view class="result-school"><text class="result-name">{{item.name}}</text><text class="result-district">{{item.district}}</text></view>
+      <block wx:for="{{item.scoreGroups}}" wx:key="key" wx:for-item="group">
+      <view class="score-section" wx:if="{{group.rows.length}}">
+        <view class="score-section-title">{{group.title}}</view>
+        <view class="score-table-head"><text>地区/学校</text><text>计划</text><text>最低分</text></view>
+        <view class="score-row" wx:for="{{group.rows}}" wx:key="key" wx:for-item="row"><text class="score-target">{{row.label}}</text><text class="score-plan">{{row.plan}}</text><text class="score-value">{{row.score}}</text></view>
+      </view>
+      </block>
+      <view class="no-score" wx:if="{{!item.hasScore}}">暂无该校分数信息</view>
+    </view>
+  </view>
+</view>

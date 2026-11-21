@@ -1,0 +1,86 @@
+page { background: #f4f6fa; color: #171b23; }
+
+.page { min-height: 100vh; padding: 24rpx 36rpx 56rpx; box-sizing: border-box; }
+
+.ranking-tabs {
+  width: max-content;
+  margin: 0 auto 22rpx;
+  padding: 7rpx;
+  display: flex;
+  background: #e7eaf0;
+  border-radius: 40rpx;
+}
+
+.ranking-tab {
+  padding: 8rpx 24rpx;
+  border-radius: 32rpx;
+  color: #9b9fa8;
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.ranking-tab.active { background: #fff; color: #20242c; box-shadow: 0 2rpx 8rpx rgba(31, 45, 78, .08); }
+
+.banner {
+  height: 126rpx;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 88rpx;
+  border-radius: 8rpx;
+  color: #fff;
+  background: linear-gradient(105deg, #1255bd 0%, #283bd1 53%, #6a318d 100%);
+}
+
+.banner::after {
+  content: '';
+  position: absolute;
+  right: -80rpx;
+  bottom: -100rpx;
+  width: 430rpx;
+  height: 210rpx;
+  border: 2rpx solid rgba(255,255,255,.16);
+  border-radius: 50%;
+  transform: rotate(-8deg);
+}
+
+.banner-glow { position: absolute; border-radius: 50%; filter: blur(18rpx); opacity: .45; }
+.banner-glow-left { width: 240rpx; height: 80rpx; left: -40rpx; bottom: -30rpx; background: #147cf0; }
+.banner-glow-right { width: 180rpx; height: 90rpx; right: 12rpx; top: -20rpx; background: #9e3eaa; }
+.banner-title { position: relative; z-index: 1; font-size: 29rpx; font-weight: 600; line-height: 42rpx; }
+.banner-subtitle { position: relative; z-index: 1; font-size: 17rpx; font-weight: 600; line-height: 28rpx; }
+
+.table-heading { height: 78rpx; display: flex; align-items: center; font-size: 26rpx; }
+.rank-heading { width: 94rpx; text-align: center; }
+.school-heading { flex: 1; }
+.city-filter { display: flex; align-items: center; padding: 16rpx 8rpx 16rpx 22rpx; color: #555b66; }
+.filter-arrow { width: 0; height: 0; margin-left: 10rpx; border-left: 8rpx solid transparent; border-right: 8rpx solid transparent; border-top: 10rpx solid #7862e9; }
+
+.ranking-card { padding: 0 30rpx; background: #fff; border-radius: 18rpx; }
+.ranking-row { min-height: 88rpx; display: flex; align-items: center; border-bottom: 1rpx solid #eceef2; }
+.ranking-row:last-child { border-bottom: 0; }
+.rank-number { width: 74rpx; flex-shrink: 0; font-size: 29rpx; text-align: center; }
+.school-name { flex: 1; min-width: 0; padding: 20rpx 12rpx 20rpx 0; font-size: 28rpx; line-height: 40rpx; }
+.school-city { width: 86rpx; flex-shrink: 0; color: #999da5; font-size: 23rpx; text-align: right; }
+.empty { padding: 90rpx 0; color: #a1a5ad; text-align: center; font-size: 26rpx; }
+
+.filter-mask { position: fixed; z-index: 20; inset: 0; background: rgba(15, 18, 26, .25); }
+.filter-panel {
+  position: fixed;
+  z-index: 21;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 78%;
+  padding: 20rpx 34rpx;
+  box-sizing: border-box;
+  background: #f5f6fa;
+  transform: translateX(100%);
+  transition: transform .25s ease;
+}
+.filter-panel.show { transform: translateX(0); }
+.filter-option { height: 86rpx; display: flex; align-items: center; justify-content: space-between; border-bottom: 1rpx solid #e2e4e9; font-size: 27rpx; }
+.filter-option.selected { color: #735cf1; }
+.check { width: 22rpx; height: 12rpx; margin-right: 4rpx; border-left: 6rpx solid #735cf1; border-bottom: 6rpx solid #735cf1; transform: rotate(-45deg); }

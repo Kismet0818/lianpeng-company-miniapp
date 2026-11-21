@@ -1,0 +1,184 @@
+<view class="container">
+  <view class="status-bar-fill" style="height:{{statusBarHeight}}px"></view>
+  <view class="top-tools">
+    <image class="top-tools-bg" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/background/admission-hero-bg-v2.png" mode="aspectFill"></image>
+    <view class="custom-nav-space" style="height:{{navBarHeight}}px"></view>
+    <view class="search-bar">
+      <view class="search-icon"></view>
+      <input class="search-input" placeholder="搜索学校名称" placeholder-class="search-placeholder" bindinput="onSearch" confirm-type="search" />
+    </view>
+    <view class="filter-bar">
+      <view class="filter-item {{district ? 'selected' : ''}}" bindtap="onQuickFilterToggle" data-key="district"><text>{{district || '区域'}}</text><text class="filter-arrow {{activeQuickFilter === 'district' ? 'open' : ''}}">⌄</text></view>
+      <view class="filter-item {{grades ? 'selected' : ''}}" bindtap="onQuickFilterToggle" data-key="grades"><text>{{grades || '学段'}}</text><text class="filter-arrow {{activeQuickFilter === 'grades' ? 'open' : ''}}">⌄</text></view>
+      <view class="filter-item {{tuitionLabel ? 'selected' : ''}}" bindtap="onQuickFilterToggle" data-key="tuition"><text>{{tuitionLabel || '学费'}}</text><text class="filter-arrow {{activeQuickFilter === 'tuition' ? 'open' : ''}}">⌄</text></view>
+      <view class="filter-item filter-more {{schoolNature || boardingType ? 'selected' : ''}}" bindtap="onMoreFilter"><text>更多</text><text class="filter-arrow {{showMoreFilter ? 'open' : ''}}">⌄</text></view>
+    </view>
+  </view>
+
+  <!-- 学校库总览：统计卡片与快捷入口（自主页迁移） -->
+  <view class="stats-overview">
+    <view class="stats-card">
+      <view class="total"><text class="total-num">1261</text><text class="total-unit">所</text></view>
+      <view class="stat-grid">
+        <view class="stat-item" bindtap="onGradeStatTap" data-grade="小学" data-system="domestic">
+          <text class="stat-label">小学</text><view><text class="stat-num">272</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item" bindtap="onGradeStatTap" data-grade="初中" data-system="domestic">
+          <text class="stat-label">初中</text><view><text class="stat-num">844</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item" bindtap="onGradeStatTap" data-grade="高中" data-system="domestic">
+          <text class="stat-label">高中</text><view><text class="stat-num">483</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item international-stat" bindtap="onGradeStatTap" data-grade="小学" data-system="international">
+          <text class="stat-label">国际小学</text><view><text class="stat-num">105</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item international-stat" bindtap="onGradeStatTap" data-grade="初中" data-system="international">
+          <text class="stat-label">国际初中</text><view><text class="stat-num">116</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item international-stat" bindtap="onGradeStatTap" data-grade="高中" data-system="international">
+          <text class="stat-label">国际高中</text><view><text class="stat-num">174</text><text class="stat-unit">所</text></view>
+        </view>
+        <view class="stat-item kindergarten-stat" bindtap="onGradeStatTap" data-grade="幼儿园" data-system="domestic">
+          <text class="stat-label">幼儿园</text><view><text class="stat-num">2300</text><text class="stat-unit">所</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="entry-row">
+      <view class="entry" bindtap="onRanking">
+        <image class="ranking-icon-image" src="/assets/icons/school-ranking.png" mode="aspectFit"></image>
+        <text>学校排行榜</text>
+      </view>
+      <view class="entry" bindtap="onScoreQuery">
+        <image class="score-query-icon-image" src="/assets/icons/fenshu.png" mode="aspectFit"></image>
+        <text>中考查分</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="system-tabs" wx:if="{{grades !== '幼儿园'}}">
+    <view wx:for="{{schoolSystemOptions}}" wx:key="key" class="system-tab {{schoolSystem === item.key ? 'active' : ''}}" data-system="{{item.key}}" bindtap="onSystemChange">{{item.label}}</view>
+  </view>
+  <view class="result-count" wx:if="{{total}}">共找到 <text>{{total}}</text> 所学校</view>
+
+  <view class="school-card" wx:for="{{schools}}" wx:key="compareKey" bindtap="onTapSchool" data-id="{{item.id}}" data-key="{{item.compareKey}}">
+    <view class="card-main">
+      <view class="card-left">
+        <view class="logo-box">
+          <image wx:if="{{item.logoUrl}}" class="school-logo" src="{{item.logoUrl}}" mode="aspectFit" data-index="{{index}}" binderror="onLogoError"></image>
+          <view wx:else class="logo-placeholder">{{item.shortName || item.name || '校'}}</view>
+        </view>
+      </view>
+
+      <view class="school-info">
+        <view class="location-line"><image class="pin-icon" src="/assets/icons/xuexiaoku/dingweihui.png" mode="aspectFit"></image><text>上海市 · {{item.district || (item.system === 'domestic' ? '---' : '区域待定')}}</text></view>
+        <text class="name">{{item.name || '---'}}</text>
+        <text wx:if="{{item.system === 'domestic' && item.level}}" class="grade">{{item.level}}{{item.kind !== 'primary' ? item.tierDisplay : ''}}</text>
+        <text wx:elif="{{item.system === 'international'}}" class="grade">{{item.grades || '学段待定'}}</text>
+        <block wx:if="{{item.system === 'domestic'}}">
+          <view class="curriculum"><text class="label">办学性质：</text><text>{{item.natureDisplay}}</text></view>
+          <view wx:if="{{item.kind === 'kindergarten' && item.kindergartenLevel}}" class="curriculum"><text class="label">办园等级：</text><text>{{item.kindergartenLevel}}</text></view>
+          <view wx:if="{{item.kind === 'kindergarten' && item.careType}}" class="curriculum"><text class="label">托育形式：</text><text>{{item.careType}}</text></view>
+          <view wx:if="{{item.kind !== 'kindergarten'}}" class="curriculum"><text class="label">寄宿性质：</text><text>{{item.boardingDisplay}}</text></view>
+          <view class="fee-row"><text class="label">学费：</text><text class="fee {{item.tuitionDisplay === '---' ? 'pending' : ''}}">{{item.tuitionDisplay}}</text></view>
+        </block>
+        <block wx:else>
+        <view class="curriculum"><text class="label">课程体系：</text><text>{{item.curriculum || '待公布'}}</text></view>
+        <view class="fee-row">
+          <text class="label">每年学费：</text>
+          <text class="fee" wx:if="{{item.tuitionMin && item.tuitionMin !== item.tuitionMax}}">{{item.tuitionMin}}-{{item.tuitionMax}}万</text>
+          <text class="fee" wx:elif="{{item.tuitionMax}}">{{item.tuitionMax}}万</text>
+          <text class="fee pending" wx:else>待公布</text>
+        </view>
+        <view class="feature-tags" wx:if="{{item.displayFeatureTags && item.displayFeatureTags.length}}">
+          <text wx:for="{{item.displayFeatureTags}}" wx:key="*this">{{item}}</text>
+        </view>
+        </block>
+        <view class="card-actions" wx:if="{{item.system === 'international'}}">
+          <view class="action-btn" wx:if="{{item.system === 'international' && item.hasAdmissionContent}}" catchtap="onAdmissions" data-id="{{item.id}}"><image class="action-icon" src="/assets/icons/xuexiaoku/zhaosheng.png" mode="aspectFit"></image><text>招生动态</text></view>
+          <view class="action-divider" wx:if="{{item.system === 'international' && item.hasAdmissionContent}}"></view>
+          <view class="action-btn" catchtap="onVisit" data-name="{{item.name}}"><image class="action-icon" src="/assets/icons/xuexiaoku/yuyue.png" mode="aspectFit"></image><text>预约探校</text></view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:if="{{!schools.length}}"><text class="empty-icon">校</text><text>暂无符合条件的学校</text></view>
+  <view class="no-more" wx:if="{{schools.length && schools.length >= total}}">— 没有更多了 —</view>
+
+</view>
+
+<!-- 区域 / 学段 / 学费下拉筛选 -->
+<view class="more-mask" wx:if="{{activeQuickFilter}}" style="top:{{navBarHeight + 84}}px" catchtap="closeQuickFilter" catchtouchmove="preventTouchMove"></view>
+<view class="quick-filter-popup" wx:if="{{activeQuickFilter}}" style="top:{{navBarHeight + 84}}px">
+  <scroll-view class="quick-filter-scroll" scroll-y enhanced show-scrollbar="{{false}}">
+    <text class="quick-filter-title">{{activeQuickFilter === 'district' ? '按区域筛选学校' : activeQuickFilter === 'grades' ? '按学段筛选学校' : '按学费筛选学校'}}</text>
+    <block wx:if="{{activeQuickFilter === 'district'}}">
+      <view class="quick-filter-option {{district === item ? 'active' : ''}}" wx:for="{{displayDistricts}}" wx:key="*this" data-key="district" data-index="{{index}}" bindtap="onQuickFilterOption">{{item}}</view>
+    </block>
+    <block wx:elif="{{activeQuickFilter === 'grades'}}">
+      <view class="quick-filter-option {{!grades && index === 0 || grades === item ? 'active' : ''}}" wx:for="{{gradesList}}" wx:key="*this" data-key="grades" data-index="{{index}}" bindtap="onQuickFilterOption">{{item}}</view>
+    </block>
+    <block wx:else>
+      <view class="quick-filter-option {{!tuitionLabel && index === 0 || tuitionLabel === item.label ? 'active' : ''}}" wx:for="{{tuitionOptions}}" wx:key="label" data-key="tuition" data-index="{{index}}" bindtap="onQuickFilterOption">{{item.label}}</view>
+    </block>
+  </scroll-view>
+</view>
+
+<!-- 更多筛选 -->
+<view class="more-mask" wx:if="{{showMoreFilter}}" style="top:{{navBarHeight + 84}}px" catchtap="closeMoreFilter" catchtouchmove="preventTouchMove"></view>
+<view class="more-popup" wx:if="{{showMoreFilter}}" style="top:{{navBarHeight + 84}}px;max-height:calc(100vh - {{navBarHeight + 84}}px - 108rpx - env(safe-area-inset-bottom))">
+  <scroll-view class="more-content" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="more-group">
+      <text class="more-title">办学性质</text>
+      <view class="more-options">
+        <view class="more-option {{draftSchoolNature === item ? 'active' : ''}}" wx:for="{{schoolNatureOptions}}" wx:key="*this" data-value="{{item}}" data-key="draftSchoolNature" bindtap="onMoreOption">{{item}}</view>
+      </view>
+    </view>
+    <view class="more-group">
+      <text class="more-title">寄宿性质</text>
+      <view class="more-options">
+        <view class="more-option {{draftBoardingType === item ? 'active' : ''}}" wx:for="{{boardingTypeOptions}}" wx:key="*this" data-value="{{item}}" data-key="draftBoardingType" bindtap="onMoreOption">{{item}}</view>
+      </view>
+    </view>
+  </scroll-view>
+  <view class="more-actions"><view class="more-reset" bindtap="onResetMoreFilter">重置</view><view class="more-confirm" bindtap="onConfirmMoreFilter">完成</view></view>
+</view>
+
+<!-- 预约看校弹窗 -->
+<view class="lead-mask" wx:if="{{showLead}}" bindtap="closeLead"></view>
+<view class="lead-popup" wx:if="{{showLead}}">
+  <view class="lead-header">
+    <text class="lead-title">预约看校</text>
+    <view class="lead-close" bindtap="closeLead">×</view>
+  </view>
+  <view class="lead-intro">
+    <view class="lead-intro-bar"></view>
+    <text>请填写联系信息，方便确认择校安排。</text>
+  </view>
+  <view class="lead-form">
+    <view class="lead-field">
+      <text class="lead-required">*</text>
+      <text class="lead-label">学生姓名</text>
+      <input class="lead-input" placeholder="请填写真实姓名" value="{{studentName}}" data-key="studentName" bindinput="onLeadInput" />
+    </view>
+    <view class="lead-field">
+      <text class="lead-required">*</text>
+      <text class="lead-label">手机号码</text>
+      <input class="lead-input" placeholder="请输入联系人手机号" type="number" maxlength="11" value="{{phone}}" data-key="phone" bindinput="onLeadInput" />
+    </view>
+    <picker mode="selector" range="{{gradeOptions}}" bindchange="onGradeChange">
+      <view class="lead-field">
+        <text class="lead-required">*</text>
+        <text class="lead-label">在读年级</text>
+        <text class="lead-picker-value {{childGrade ? 'selected' : ''}}">{{childGrade || '请选择在读年级'}}</text>
+        <text class="lead-picker-arrow">›</text>
+      </view>
+    </picker>
+    <button class="lead-submit {{studentName && phone && childGrade ? 'ready' : ''}}"
+      bindtap="onLeadSubmit">立即预约</button>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

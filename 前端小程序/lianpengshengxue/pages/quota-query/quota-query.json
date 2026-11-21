@@ -1,0 +1,12 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "招生查询",
+    "navigationBarTextStyle":  "black",
+    "navigationBarBackgroundColor":  "#F5F5F5",
+    "backgroundColor":  "#F2F2F2",
+    "backgroundColorTop":  "#FFFFFF",
+    "backgroundColorBottom":  "#F2F2F2",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

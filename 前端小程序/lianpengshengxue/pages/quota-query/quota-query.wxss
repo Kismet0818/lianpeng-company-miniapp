@@ -1,0 +1,283 @@
+page {
+  min-height:100%;
+  background:#F2F2F2;
+  color:#333;
+}
+
+.query-page {
+  min-height:100vh;
+  box-sizing:border-box;
+  background:#F2F2F2;
+}
+
+.volunteer-card { overflow:hidden; margin:28rpx; padding:54rpx 20rpx 0; background:#fff; border-radius:18rpx; }
+.scope-tabs { height:80rpx; padding:8rpx; display:flex; align-items:stretch; background:#505050; border-radius:18rpx; box-sizing:border-box; }
+.scope-tab { flex:1; display:flex; align-items:center; justify-content:center; color:#fff; font-size:27rpx; font-weight:700; border-radius:10rpx; }
+.scope-tab.active { color:#3d4145; background:#fff; }
+.volunteer-table-head { height:120rpx; margin-top:28rpx; display:flex; align-items:center; border-bottom:1rpx solid #ddd; color:#30343a; font-size:27rpx; text-align:center; }
+.volunteer-group-title { margin-top:38rpx; padding:13rpx 18rpx; color:#3e4145; background:#f1f1f1; border-radius:9rpx; font-size:28rpx; font-weight:700; line-height:38rpx; }
+.volunteer-row { min-height:132rpx; }
+.volunteer-row .quota-cell { background:#f7f7f7; }
+.volunteer-row .score-cell .score-change { margin-left:9rpx; font-size:26rpx; line-height:34rpx; }
+.region-change { margin-left:9rpx; font-size:26rpx; line-height:34rpx; font-weight:700; white-space:nowrap; }
+.region-change.up { color:#ff5f57; }
+.region-change.down { color:#00a96b; }
+.school-change { margin-left:9rpx; font-size:26rpx; line-height:34rpx; font-weight:700; white-space:nowrap; }
+.school-change.up { color:#ff5f57; }
+.school-change.down { color:#00a96b; }
+.flat-change { margin-left:12rpx; color:#405d6d; font-size:21rpx; font-weight:500; }
+
+.year-bar {
+  height:104rpx;
+  padding:0 44rpx;
+  display:flex;
+  align-items:flex-end;
+  box-sizing:border-box;
+  background:#F5F5F5;
+  border-bottom:1rpx solid #ddd;
+}
+
+.year-tab {
+  position:relative;
+  height:82rpx;
+  display:flex;
+  align-items:center;
+  color:#3e4145;
+  font-size:28rpx;
+  font-weight:600;
+}
+
+.year-tab.active {
+  color:#f05a32;
+}
+
+.year-tab.active::after {
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  height:7rpx;
+  background:#f05a32;
+}
+
+.school-result-card { overflow:hidden; margin:28rpx 28rpx 0; padding:34rpx 24rpx 0; background:#fff; border-radius:18rpx; }
+.school-search {
+  height:88rpx;
+  padding-left:26rpx;
+  display:flex;
+  align-items:center;
+  box-sizing:border-box;
+  background:#F1F1F1;
+  border-radius:14rpx;
+}
+
+.search-input {
+  min-width:0;
+  height:88rpx;
+  flex:1;
+  color:#333;
+  font-size:25rpx;
+}
+.search-placeholder { color:#777; }
+.search-button { width:105rpx; height:66rpx; margin-right:11rpx; display:flex; align-items:center; justify-content:center; color:#fff; background:#64A8CD; border-radius:10rpx; font-size:24rpx; font-weight:600; }
+.school-group { margin-top:34rpx; }.group-title { display:block; padding:0 8rpx 24rpx; color:#30343a; font-size:29rpx; line-height:42rpx; font-weight:700; }.group-title::before { content:""; display:inline-block; width:16rpx; height:16rpx; margin-right:12rpx; background:#555; }
+.school-table-head { border-top:1rpx solid #ddd; }
+.inner-status { min-height:330rpx; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#999; font-size:23rpx; }
+
+.table-card {
+  overflow:hidden;
+  margin:34rpx 28rpx 0;
+  padding:0 24rpx;
+  background:#fff;
+  border-radius:18rpx;
+  border-bottom-right-radius:28rpx;
+}
+
+.region-data-note {
+  margin:24rpx 28rpx 0;
+  padding:30rpx 28rpx 34rpx;
+  box-sizing:border-box;
+  background:#fff;
+  border-radius:18rpx;
+}
+
+.region-note-title,
+.region-note-text {
+  display:block;
+  color:#333;
+  font-size:24rpx;
+  line-height:34rpx;
+}
+
+.region-note-title {
+  margin-bottom:6rpx;
+  font-weight:700;
+}
+
+.table-head,
+.table-row {
+  display:flex;
+  align-items:stretch;
+}
+
+.table-head {
+  height:112rpx;
+  align-items:center;
+  border-bottom:1rpx solid #ddd;
+  color:#30343a;
+  font-size:27rpx;
+  text-align:center;
+}
+
+.school-column {
+  width:40%;
+}
+
+.quota-column {
+  width:27%;
+}
+
+.score-column {
+  width:33%;
+}
+
+.table-head .school-column {
+  color:transparent;
+  text-align:left;
+}
+
+.table-head .quota-column,
+.table-head .score-column {
+  padding-left:28rpx;
+  box-sizing:border-box;
+  text-align:left;
+}
+
+.table-row {
+  min-height:142rpx;
+  border-bottom:1rpx solid #e1e1e1;
+  transition:background-color 160ms ease;
+}
+
+.table-row:last-child {
+  border-bottom:0;
+}
+
+.table-row-active {
+  background:#fafafa;
+}
+
+.school-cell {
+  padding:25rpx 12rpx 22rpx 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  box-sizing:border-box;
+}
+
+.school-name {
+  display:-webkit-box;
+  overflow:hidden;
+  color:#30343a;
+  font-size:25rpx;
+  line-height:34rpx;
+  -webkit-box-orient:vertical;
+  -webkit-line-clamp:2;
+}
+
+.school-district {
+  display:block;
+  margin-top:4rpx;
+  overflow:hidden;
+  color:#8b8f94;
+  font-size:20rpx;
+  line-height:28rpx;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.quota-cell {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding-left:28rpx;
+  box-sizing:border-box;
+  background:#F7F7F7;
+  color:#30343a;
+  font-size:34rpx;
+  font-weight:700;
+}
+
+.quota-unit {
+  margin-left:9rpx;
+  font-size:20rpx;
+  font-weight:500;
+}
+
+.score-cell {
+  display:flex;
+  align-items:center;
+  justify-content:flex-start;
+  padding-left:28rpx;
+  box-sizing:border-box;
+  white-space:nowrap;
+}
+
+.score-value {
+  color:#33383d;
+  font-size:38rpx;
+  line-height:48rpx;
+  font-weight:800;
+}
+
+.score-change {
+  margin-left:9rpx;
+  font-size:30rpx;
+  line-height:48rpx;
+  font-weight:700;
+}
+
+.score-cell .score-change {
+  font-size:38rpx;
+}
+
+.score-change.up {
+  color:#ff5f57;
+}
+
+.score-change.down {
+  color:#00a96b;
+}
+
+.status {
+  min-height:500rpx;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#8b8f94;
+  font-size:24rpx;
+}
+
+.loading-ring {
+  width:38rpx;
+  height:38rpx;
+  margin-bottom:18rpx;
+  border:5rpx solid #ddd;
+  border-top-color:#64A8CD;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+}
+
+.retry {
+  margin-top:20rpx;
+  padding:12rpx 28rpx;
+  color:#fff;
+  background:#64A8CD;
+  border-radius:24rpx;
+}
+
+@keyframes spin {
+  to { transform:rotate(360deg); }
+}

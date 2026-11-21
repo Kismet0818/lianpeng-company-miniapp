@@ -1,0 +1,9 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "国际学校排行榜",
+    "navigationBarBackgroundColor":  "#f4f6fa",
+    "navigationBarTextStyle":  "black",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

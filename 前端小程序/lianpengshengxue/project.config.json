@@ -1,0 +1,82 @@
+{
+  "appid": "wxc9192b93d888816d",
+  "projectname": "lianpengshengxue",
+  "compileType": "miniprogram",
+  "miniprogramRoot": "./",
+  "setting": {
+    "enhance": true,
+    "es6": true,
+    "postcss": false,
+    "compileWorklet": false,
+    "minified": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "minifyWXML": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "libVersion": "3.16.2",
+  "simulatorPluginLibVersion": {},
+  "packOptions": {
+    "ignore": [
+      {
+        "value": "navicat_active.png",
+        "type": "file"
+      },
+      {
+        "value": "navicat_columns.png",
+        "type": "file"
+      },
+      {
+        "value": "navicat_columns2.png",
+        "type": "file"
+      },
+      {
+        "value": "navicat_columns3.png",
+        "type": "file"
+      },
+      {
+        "value": "navicat_columns4.png",
+        "type": "file"
+      },
+      {
+        "value": "navicat_result.png",
+        "type": "file"
+      },
+      {
+        "value": "_tmp_list.json",
+        "type": "file"
+      },
+      {
+        "value": "_tmp_list2.json",
+        "type": "file"
+      },
+      {
+        "value": "assets/icons/zexiaozhinan/1/xuexiaojieshao-custom.png",
+        "type": "file"
+      },
+      {
+        "value": "对接文档",
+        "type": "folder"
+      },
+      {
+        "value": "MINIPROGRAM_FRONTEND_HANDOVER.md",
+        "type": "file"
+      }
+    ],
+    "include": []
+  },
+  "editorSetting": {}
+}

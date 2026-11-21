@@ -1,0 +1,56 @@
+﻿<view class="page">
+  <view class="hero" style="padding-top:{{safeTop}}px;">
+    <view class="hero-shape shape-one"></view>
+    <view class="hero-shape shape-two"></view>
+    <view class="nav-row">
+      <view class="back-button" bindtap="goBack"><view class="back-arrow"></view></view>
+    </view>
+    <view class="brand-row">
+      <image class="brand-icon-image" src="/assets/icons/zexiaozhinan/xiangqingye/guojizexiaozhinan.png" mode="aspectFit"></image>
+      <text class="brand-title">择校指南</text>
+      <view class="guide-chat" bindtap="openParentChat">
+        <image class="guide-chat-icon" src="/assets/icons/weixin.png" mode="aspectFit"></image>
+        <text>家长群热聊中</text><text class="guide-chat-arrow">›</text>
+      </view>
+    </view>
+  </view>
+
+  <scroll-view class="category-tabs" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="category-tab {{item.value === selectedCategory ? 'active' : ''}}" wx:for="{{categories}}" wx:key="value" data-category="{{item.value}}" bindtap="selectCategory">{{item.label}}</view>
+  </scroll-view>
+
+  <view class="status" wx:if="{{loading}}">
+    <view class="loading-dot"></view><text>正在加载...</text>
+  </view>
+
+  <view class="status error" wx:elif="{{error}}">
+    <text>{{error}}</text><view class="retry" bindtap="loadCategory">重新加载</view>
+  </view>
+
+  <view class="guide-groups" wx:elif="{{groups.length}}">
+    <view class="guide-group" wx:for="{{groups}}" wx:key="pathName">
+      <text class="group-title">{{index + 1}}.{{item.pathName}}</text>
+      <view class="article-card">
+        <view class="article-row" wx:for="{{item.articles}}" wx:key="id" data-id="{{item.id}}" bindtap="openArticle">
+          <view class="article-icon-box">
+            <image class="article-icon-image" src="/assets/icons/zexiaozhinan/xiangqingye/yaodian.png" mode="aspectFit"></image>
+          </view>
+          <text class="article-title">{{item.title}}</text>
+          <text class="article-arrow">›</text>
+        </view>
+        <view class="group-empty" wx:if="{{item.articles.length === 0}}">该栏目内容正在整理中</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="status" wx:else><text>暂无指南内容</text></view>
+</view>
+
+<view class="qr-mask" wx:if="{{showQr}}" bindtap="closeQr"></view>
+<view class="qr-popup" wx:if="{{showQr}}">
+  <view class="qr-close" bindtap="closeQr">×</view>
+  <image class="qr-img" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/lead-materials/jiazhang.png" mode="widthFix" show-menu-by-longpress></image>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

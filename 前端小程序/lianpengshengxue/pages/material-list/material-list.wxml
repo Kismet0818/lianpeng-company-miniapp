@@ -1,0 +1,23 @@
+<view class="page">
+  <view class="header">
+    <view class="heading">升学有方向，资料随手查</view>
+    <view class="caption">填报参考 / 自招备考 / 中考真题</view>
+    <view class="search"><view class="search-icon"></view><input value="{{keyword}}" placeholder="搜索资料名称或编号" placeholder-class="placeholder" bindinput="onSearchInput" bindconfirm="search" confirm-type="search"/><text wx:if="{{keyword}}" class="clear" bindtap="clearSearch">×</text></view>
+  </view>
+  <view class="categories">
+    <view wx:for="{{categories}}" wx:key="value" class="category {{category === item.value ? 'selected' : ''}}" data-index="{{index}}" bindtap="selectCategory">
+      <view class="category-mark"><image src="{{item.icon}}" mode="aspectFit"></image></view><text class="category-name">{{item.name}}</text><text class="category-note">{{item.note}}</text>
+    </view>
+  </view>
+  <view class="list-header"><view><text class="section-title">{{sectionTitle}}</text><text class="count" wx:if="{{!loading}}">{{total}} 份</text></view></view>
+  <view class="file-list" wx:if="{{records.length}}">
+    <view class="file" wx:for="{{records}}" wx:key="id" data-id="{{item.id}}" bindtap="openDetail">
+      <view class="file-icon {{item.badge === '试卷' ? 'paper' : item.badge === '模板' ? 'template' : ''}}"><text>{{item.badge}}</text><view></view><view></view></view>
+      <view class="file-content"><text class="file-title">{{item.title}}</text><text class="file-meta">{{item.meta || item.resourceCategory || '升学资料'}}</text><text wx:if="{{!category && item.resourceCategory}}" class="file-category">{{item.resourceCategory}}</text></view><text class="arrow">›</text>
+    </view>
+  </view>
+  <view wx:if="{{loading}}" class="status"><view class="loading-dot"></view><text>{{records.length ? '正在加载更多资料' : '正在查找资料'}}</text></view>
+  <view wx:elif="{{error}}" class="status"><text>{{error}}</text><text class="retry" bindtap="retry">重试</text></view>
+  <view wx:elif="{{!records.length}}" class="empty"><text class="empty-title">暂时没有找到相关资料</text><text>试试其他关键词或资料分类</text><text class="retry" bindtap="showAll">查看全部资料</text></view>
+  <view wx:elif="{{!hasMore}}" class="end">已经看到最后一份了</view>
+</view>

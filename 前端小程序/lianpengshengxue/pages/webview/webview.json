@@ -1,0 +1,7 @@
+{
+    "navigationBarTitleText":  "联朋升学官网",
+    "navigationStyle":  "default",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

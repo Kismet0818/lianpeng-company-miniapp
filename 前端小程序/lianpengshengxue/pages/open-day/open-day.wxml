@@ -1,0 +1,44 @@
+﻿<view class="page">
+  <view class="filter-bar">
+    <picker class="filter-picker" mode="selector" range="{{cityOptions}}" value="{{cityIndex}}" bindchange="onCityChange">
+      <view class="filter-item"><text>{{cityOptions[cityIndex]}}</text><text class="arrow">▾</text></view>
+    </picker>
+    <view class="filter-line"></view>
+    <picker class="filter-picker" mode="selector" range="{{monthOptions}}" value="{{monthIndex}}" bindchange="onMonthChange">
+      <view class="filter-item"><text>探校{{monthOptions[monthIndex]}}</text><text class="arrow">▾</text></view>
+    </picker>
+    <view class="filter-line"></view>
+    <picker class="filter-picker" mode="selector" range="{{stageOptions}}" value="{{stageIndex}}" bindchange="onStageChange">
+      <view class="filter-item"><text>{{stageOptions[stageIndex]}}</text><text class="arrow">▾</text></view>
+    </picker>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">正在加载开放日学校...</view>
+
+  <view class="open-list" wx:elif="{{schools.length}}">
+    <view class="open-card" wx:for="{{schools}}" wx:key="id" data-id="{{item.id}}" bindtap="onSchoolTap">
+      <view class="logo-wrap">
+        <image wx:if="{{item.logoUrl}}" class="school-logo" src="{{item.logoUrl}}" mode="aspectFit"></image>
+        <view wx:else class="logo-placeholder">{{item.schoolName ? item.schoolName[0] : '校'}}</view>
+      </view>
+      <view class="card-info">
+        <text class="school-name">{{item.schoolName}}</text>
+        <view class="address-row" wx:if="{{item.address}}">
+          <image src="/assets/icons/xuexiaoku/dingweihui.png" mode="aspectFit"></image>
+          <text>{{item.address}}</text>
+        </view>
+        <view class="info-row" wx:if="{{item.educationalStages}}"><text class="info-label">招生对象：</text><text>{{item.educationalStages}}</text></view>
+        <view class="info-row" wx:if="{{item.curriculum}}"><text class="info-label">课程体系：</text><text>{{item.curriculum}}</text></view>
+        <view class="reserve-link">8-10月可预约探校 <text>查看详情 ›</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="empty" wx:else>
+    <text class="empty-icon">校</text>
+    <text>暂无符合条件的开放日学校</text>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

@@ -1,0 +1,55 @@
+﻿<view class="about-page {{pageReady ? 'is-ready' : ''}}">
+  <view class="custom-nav" style="padding-top:{{navTop}}px;height:{{navHeight}}px;">
+    <view class="back-button" bindtap="goBack" aria-label="返回">
+      <view class="back-arrow"></view>
+    </view>
+    <text class="nav-title">关于我们</text>
+  </view>
+
+  <view class="page-content" style="padding-top:{{navTop + navHeight}}px;">
+    <view class="brand-cover">
+      <image class="brand-watermark" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/logo/%E8%81%94%E6%9C%8Blog%E6%A8%AA%E6%9D%BF.png" mode="widthFix"></image>
+      <view class="brand-content">
+        <image class="brand-logo" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/logo/%E8%81%94%E6%9C%8Blog%E6%A8%AA%E6%9D%BF.png" mode="widthFix"></image>
+        <text class="brand-proposition">为每个家庭，找到更适合的成长路径</text>
+      </view>
+    </view>
+
+    <view class="main-content">
+      <view class="intro-section reveal-intro">
+        <view class="section-heading">
+          <view class="heading-line"></view>
+          <text class="section-title">关于联朋</text>
+        </view>
+        <text class="intro-text">联朋升学专注升学规划与教育服务，围绕择校、学业规划、留学与成长路径，为每个家庭提供清晰、专业的个性化方案。</text>
+      </view>
+
+      <view class="business-tags reveal-tags">
+        <view class="business-card">
+          <text class="business-title">升学规划</text>
+          <text class="business-description">路径与择校</text>
+          <view class="business-accent"></view>
+        </view>
+        <view class="business-card">
+          <text class="business-title">学业规划</text>
+          <text class="business-description">成长与提升</text>
+          <view class="business-accent"></view>
+        </view>
+      </view>
+
+      <view class="website-section reveal-website">
+        <view class="website-action" bindtap="openWebsite" hover-class="website-action-active" hover-stay-time="100" aria-label="访问联朋官网">
+          <view class="website-copy">
+            <text class="website-title">访问联朋官网</text>
+            <text class="website-description">了解更多服务与资讯</text>
+          </view>
+          <view class="website-arrow"></view>
+        </view>
+        <text class="website-url">lianpeng.vip</text>
+      </view>
+    </view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

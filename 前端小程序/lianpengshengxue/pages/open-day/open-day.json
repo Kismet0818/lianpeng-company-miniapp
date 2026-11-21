@@ -1,0 +1,8 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "学校开放日",
+    "backgroundColor":  "#f5f6f8",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

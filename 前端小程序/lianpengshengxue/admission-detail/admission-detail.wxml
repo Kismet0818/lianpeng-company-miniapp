@@ -1,0 +1,102 @@
+<view class="page">
+  <!-- 顶部学校信息区 -->
+  <view class="hero">
+    <view class="hero-row">
+      <image wx:if="{{school.logoUrl}}" class="hero-logo" src="{{school.logoUrl}}" mode="aspectFit"></image>
+      <view wx:else class="hero-logo-placeholder">{{school ? school.name[0] : '校'}}</view>
+      <view class="hero-info">
+        <text class="hero-name">{{school ? school.name : '学校名称'}}</text>
+        <view class="hero-tags">
+          <text class="hero-tag">2026招生中</text>
+          <text class="hero-tag">提供住校</text>
+        </view>
+        <text class="hero-sub">2026学年秋招开启</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 招生进度（融入背景，非卡片） -->
+  <view class="progress-section">
+    <view class="progress-title">
+      <view class="progress-dot"></view>
+      <text>📅 招生进度</text>
+    </view>
+    <view class="progress-content">
+      <text class="progress-text">{{school ? school.name : '该校'}}2026学年秋招开启。</text>
+      <text class="progress-text" wx:if="{{admission.admissionTime}}">秋招时间：{{admission.admissionTime}}</text>
+      <text class="progress-text" wx:else>秋招时间：敬请期待</text>
+      <text class="progress-text" wx:if="{{admission.admissionRequirements}}">考试科目：{{requirementShort}}</text>
+      <text class="progress-text" wx:else>考试科目：敬请期待</text>
+    </view>
+    <scroll-view class="tag-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <text class="tag-item">招生项目</text>
+      <text class="tag-item">入学测试</text>
+      <text class="tag-item">报名与申请</text>
+      <text class="tag-item">升学情况</text>
+      <text class="tag-item">招生时间</text>
+    </scroll-view>
+  </view>
+
+  <!-- 招生项目卡片 -->
+  <view class="card">
+    <view class="card-title">
+      <view class="card-dot"></view>
+      <text>📌 招生项目</text>
+    </view>
+    <view class="card-row">
+      <text class="card-label">开设学段</text>
+      <text class="card-value">{{admission.targetGrades || '敬请期待'}}</text>
+    </view>
+    <view class="card-row">
+      <text class="card-label">每年学费</text>
+      <text class="card-value card-highlight">{{admission.tuitionRange || '请咨询招生办'}}</text>
+    </view>
+    <view class="card-row">
+      <text class="card-label">招生人数</text>
+      <text class="card-value">{{admission.enrollmentCount || '每年招生人数不固定'}}</text>
+    </view>
+    <view class="card-row">
+      <text class="card-label">课程体系</text>
+      <text class="card-value">{{admission.curriculum || '敬请期待'}}</text>
+    </view>
+  </view>
+
+  <!-- 考生要求卡片 -->
+  <view class="card">
+    <view class="card-title">
+      <view class="card-dot"></view>
+      <text>👤 考生要求</text>
+    </view>
+    <view class="card-row">
+      <text class="card-label">招生对象</text>
+      <text class="card-value">{{admission.targetStudents || '敬请期待'}}</text>
+    </view>
+  </view>
+
+  <!-- 底部占位 -->
+  <view style="height:140rpx"></view>
+
+  <!-- 底部悬浮操作栏 -->
+  <view class="bottom-bar">
+    <view class="bar-icons">
+      <view class="bar-icon-item">
+        <button class="bar-icon-btn" open-type="share">
+          <text class="bar-icon-text">📤</text>
+          <text class="bar-icon-label">分享</text>
+        </button>
+      </view>
+      <view class="bar-icon-item" bindtap="onSchoolIntro">
+        <text class="bar-icon-text">🏫</text>
+        <text class="bar-icon-label">学校介绍</text>
+      </view>
+      <view class="bar-icon-item" bindtap="onMaterials">
+        <text class="bar-icon-text">📁</text>
+        <text class="bar-icon-label">历年资料</text>
+      </view>
+    </view>
+    <view class="bar-btns">
+      <view class="bar-btn bar-btn-primary" bindtap="onVisit">预约探校</view>
+      <view class="bar-btn bar-btn-yellow" bindtap="onConsult">在线咨询</view>
+    </view>
+  </view>
+</view>

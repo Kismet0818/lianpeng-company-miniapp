@@ -1,0 +1,36 @@
+page { background:#f5f6fa; color:#222329; }
+.page { position:relative; min-height:100vh; padding-right:20rpx; padding-bottom:40rpx; padding-left:20rpx; box-sizing:border-box; }
+.custom-nav { position:absolute; top:0; left:0; right:0; z-index:20; }
+.page-back { position:absolute; left:12rpx; z-index:21; display:flex; align-items:center; min-width:144rpx; padding:0 20rpx 0 12rpx; box-sizing:border-box; color:#222329; border-radius:999rpx; }
+.page-back-arrow { width:42rpx; margin-top:-4rpx; font-size:58rpx; line-height:1; font-weight:300; }
+.page-back-text { margin-left:4rpx; font-size:28rpx; line-height:1; font-weight:500; }
+.page-back-active { background:rgba(0,0,0,.06); }
+.article { padding:34rpx 30rpx 50rpx; border-radius:20rpx; background:#fff; box-shadow:0 4rpx 18rpx rgba(46,42,76,.04); }
+.article-header { position:relative; min-height:172rpx; display:flex; align-items:flex-start; }
+.article-heading { min-width:0; flex:1; padding-right:174rpx; }
+.header-guide-image { position:absolute; top:-4rpx; right:-8rpx; width:184rpx; height:184rpx; }
+.path-name { display:block; color:#7761ef; font-size:22rpx; line-height:32rpx; }
+.title { display:block; margin-top:12rpx; color:#1f2025; font-size:38rpx; line-height:56rpx; font-weight:700; }
+.summary { display:block; margin-top:18rpx; padding:20rpx; color:#777982; font-size:24rpx; line-height:38rpx; border-radius:12rpx; background:#f8f7fd; }
+.meta { margin-top:28rpx; padding:0 0 26rpx; border-bottom:1rpx solid #eeeef2; color:#555762; font-size:27rpx; line-height:44rpx; }
+.meta-label { color:#1f2025; font-weight:700; }
+.body { display:block; padding:24rpx 0; color:#3d3e44; font-size:28rpx; line-height:1.9; white-space:pre-wrap; }
+.policy-attachments { margin-top:28rpx; padding-top:26rpx; border-top:1rpx solid #eeeef2; }
+.attachment-title { display:block; color:#1f2025; font-size:28rpx; font-weight:700; line-height:40rpx; }
+.attachment-item { min-width:0; margin-top:18rpx; padding:22rpx; border:1rpx solid #ececf1; border-radius:14rpx; background:#fafafa; }
+.attachment-name { display:block; width:100%; color:#45464d; font-size:25rpx; line-height:38rpx; word-break:break-all; white-space:normal; }
+.attachment-actions { display:flex; align-items:center; gap:16rpx; margin-top:20rpx; }
+.attachment-button { margin:0; padding:0 22rpx; height:70rpx; line-height:68rpx; border-radius:10rpx; font-size:25rpx; font-weight:500; text-align:center; }
+.preview-button { flex:0 0 190rpx; color:#6654d9; border:1rpx solid #dcd7fa; background:#fff; }
+.download-button { flex:1; color:#fff; border:1rpx solid #6f5ce7; background:#6f5ce7; }
+.attachment-button:active { opacity:.82; }
+.attachment-button::after { border:none; }
+.empty,.status { padding:100rpx 0; color:#9aa4aa; text-align:center; font-size:25rpx; }
+.error { color:#a16b6b; }
+.file-preview-mask { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:40rpx; box-sizing:border-box; background:rgba(0,0,0,.72); }
+.file-preview-dialog { width:100%; max-height:90vh; overflow:hidden; border-radius:16rpx; background:#fff; }
+.file-preview-image { display:block; width:100%; max-height:78vh; }
+.file-preview-close { height:78rpx; line-height:78rpx; color:#7761ef; background:#fff; text-align:center; font-size:28rpx; }
+.qr-dialog { width:620rpx; padding:30rpx; box-sizing:border-box; border-radius:20rpx; background:#fff; text-align:center; }
+.qr-dialog-image { width:100%; display:block; border-radius:16rpx; }
+.qr-dialog-title { display:block; padding:20rpx 0 4rpx; color:#555; font-size:28rpx; font-weight:700; }

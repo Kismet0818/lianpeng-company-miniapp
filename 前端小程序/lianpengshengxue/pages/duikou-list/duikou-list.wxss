@@ -1,0 +1,39 @@
+page { background:#f4f6fa; color:#17181c; }
+.page { min-height:100vh; padding-bottom:60rpx; box-sizing:border-box; }
+
+/* ===== 顶部专题区 ===== */
+.hero { position:relative; overflow:hidden; height:340rpx; padding:0 28rpx; box-sizing:border-box; background:linear-gradient(125deg,#e2f2f9 0%,#eff8fc 55%,#e8f4fa 100%); }
+.hero-shape { position:absolute; border-radius:20rpx; background:rgba(255,255,255,.23); transform:rotate(-18deg); }
+.shape-one { width:300rpx; height:160rpx; left:-70rpx; top:20rpx; }
+.shape-two { width:280rpx; height:330rpx; right:-20rpx; bottom:-190rpx; }
+.nav-row { position:relative; z-index:1; height:72rpx; display:flex; align-items:center; }
+.back-button { width:66rpx; height:66rpx; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,.72); }
+.back-arrow { width:20rpx; height:20rpx; border-left:4rpx solid #18181c; border-bottom:4rpx solid #18181c; transform:rotate(45deg) translate(4rpx,-4rpx); }
+.nav-title { margin-left:20rpx; color:#1c1d21; font-size:32rpx; font-weight:600; }
+.hero-body { position:absolute; z-index:1; left:30rpx; right:24rpx; bottom:36rpx; }
+.hero-title { display:block; margin-top:14rpx; color:#141519; font-size:46rpx; line-height:60rpx; font-weight:700; letter-spacing:1rpx; }
+.hero-sub { display:block; margin-top:8rpx; color:#8d8f98; font-size:25rpx; line-height:36rpx; }
+
+/* ===== 区分类标签 ===== */
+.district-panel { background:#fff; border-bottom:1rpx solid #ececf1; }
+.district-tabs { padding:18rpx 24rpx; white-space:nowrap; }
+.district-tab { display:inline-flex; height:58rpx; margin-right:16rpx; padding:0 28rpx; align-items:center; justify-content:center; box-sizing:border-box; border:1rpx solid #d3d4da; border-radius:32rpx; color:#686970; font-size:25rpx; background:#fafbfc; transition:all .18s ease; }
+.district-tab.active { color:#fff; border-color:#64a8cd; background:linear-gradient(135deg,#4d92bb,#64a8cd); font-weight:600; box-shadow:0 6rpx 16rpx rgba(100,168,205,.35); }
+
+/* ===== 资料列表 ===== */
+.material-list { padding:24rpx 28rpx 0; }
+.material-card { display:flex; align-items:flex-start; margin-bottom:20rpx; padding:28rpx; border-radius:20rpx; background:#fff; box-shadow:0 4rpx 18rpx rgba(23,48,66,.05); }
+.card-main { flex:1; min-width:0; }
+.card-title { display:-webkit-box; overflow:hidden; color:#141519; font-size:31rpx; line-height:44rpx; font-weight:700; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+.card-summary { display:-webkit-box; overflow:hidden; margin-top:10rpx; color:#8d8f98; font-size:25rpx; line-height:38rpx; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+.card-summary.placeholder { color:#b6b8c0; }
+.card-side { display:flex; align-items:center; margin-left:20rpx; flex-shrink:0; align-self:stretch; }
+.district-chip { align-self:flex-start; height:40rpx; padding:0 14rpx; display:flex; align-items:center; border-radius:8rpx; color:#4d92bb; font-size:22rpx; font-weight:600; background:#eef6fb; }
+.card-arrow { margin-left:8rpx; align-self:center; color:#c1c1ca; font-size:34rpx; }
+.list-end { padding:26rpx 0 10rpx; color:#b6b8c0; font-size:23rpx; text-align:center; }
+
+/* ===== 状态区 ===== */
+.status { min-height:420rpx; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#9798a1; font-size:25rpx; }
+.loading-dot { width:34rpx; height:34rpx; margin-bottom:18rpx; border:5rpx solid #d9edf6; border-top-color:#64a8cd; border-radius:50%; animation:spin .8s linear infinite; }
+.retry { margin-top:24rpx; padding:14rpx 34rpx; color:#fff; border-radius:30rpx; background:linear-gradient(135deg,#4d92bb,#64a8cd); }
+@keyframes spin { to { transform:rotate(360deg); } }

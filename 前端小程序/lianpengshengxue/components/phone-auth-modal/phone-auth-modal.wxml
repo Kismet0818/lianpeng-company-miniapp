@@ -1,0 +1,8 @@
+<view wx:if="{{required}}" class="auth-mask" catchtap="onMaskTap">
+  <view wx:if="{{opened}}" class="auth-dialog" catchtap="noop">
+    <view class="auth-title">绑定手机号</view>
+    <view class="auth-desc">授权手机号后即可继续使用咨询、预约等服务</view>
+    <button class="auth-button" open-type="getPhoneNumber" bindgetphonenumber="onGetPhoneNumber" loading="{{binding}}" disabled="{{binding}}">{{binding ? '绑定中...' : '授权并绑定手机号'}}</button>
+    <view class="auth-cancel" bindtap="onCancel">暂不授权</view>
+  </view>
+</view>

@@ -1,0 +1,16 @@
+﻿<view class="blessing-page">
+  <view class="page-head"><text class="page-title">中考祝福</text><text class="page-subtitle">每一句祝福，都是奔赴理想的力量</text><text class="page-total">共 {{total}} 条</text></view>
+  <view wx:if="{{records.length}}" class="blessing-list">
+    <view class="blessing-item" wx:for="{{records}}" wx:key="id">
+      <image wx:if="{{item.avatar}}" class="avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+      <view wx:else class="avatar avatar-empty">{{item.initial}}</view>
+      <view class="item-main"><view class="item-meta"><text class="nickname">{{item.nickname}}</text><text class="time">{{item.createTime}}</text></view><text class="content">{{item.content}}</text></view>
+    </view>
+  </view>
+  <view wx:elif="{{initialized && !loading}}" class="empty">还没有祝福</view>
+  <view wx:if="{{loading}}" class="loading">正在加载...</view>
+  <view wx:if="{{initialized && records.length && page >= pages}}" class="end">— 已展示全部祝福 —</view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

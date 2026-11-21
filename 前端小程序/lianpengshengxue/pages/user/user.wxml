@@ -1,0 +1,80 @@
+﻿<view class="container">
+  <view class="status-bar-fill" style="height:{{statusBarHeight}}px"></view>
+  <!-- 未登录 -->
+  <view class="login-box" wx:if="{{!loggedIn}}">
+    <view class="login-title">登录后使用个人服务</view>
+    <button class="login-btn" bindtap="handleLogin">登录并同步收藏</button>
+  </view>
+  <!-- 已登录 -->
+  <block wx:else>
+  <!-- 用户信息卡片 -->
+  <view class="profile-card" style="padding-top:{{profileTop}}px;">
+    <button class="avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+      <image class="avatar" wx:if="{{userInfo.avatar}}" src="{{userInfo.avatar}}" mode="aspectFill"></image>
+      <view class="avatar-placeholder" wx:else>👤</view>
+    </button>
+    <view class="profile-info">
+      <input class="nickname-input" type="nickname" value="{{userInfo.nickname}}" placeholder="点击设置昵称" bindchange="onNicknameChange" />
+      <text class="profile-hint">头像和昵称可选，按需设置</text>
+      <view class="phone-row" wx:if="{{userInfo.phone}}">
+        <text class="phone-bound">{{userInfo.phone}}</text>
+      </view>
+      <button wx:else class="phone-btn" open-type="getPhoneNumber" bindgetphonenumber="onBindPhone">按需绑定手机号</button>
+    </view>
+    <view class="logout-btn" bindtap="handleLogout">退出登录</view>
+  </view>
+  <view class="user-menu">
+    <view class="menu-item" data-action="records" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/xuexiaoku/yuyue.png" mode="aspectFit"></image>
+      <text class="menu-label">咨询记录</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="favorites" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/xuexiaoku/shoucang.png" mode="aspectFit"></image>
+      <text class="menu-label">我的收藏</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="schools" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/xuexiaoku/zixun2.png" mode="aspectFit"></image>
+      <text class="menu-label">咨询学校</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="settle" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/xuexiaoku/zhaosheng.png" mode="aspectFit"></image>
+      <text class="menu-label">咨询入驻</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="about" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/guanyuwomen.png" mode="aspectFit"></image>
+      <text class="menu-label">关于我们</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="agreement-user" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/guanyuwomen.png" mode="aspectFit"></image>
+      <text class="menu-label">用户协议</text>
+      <text class="menu-arrow">›</text>
+    </view>
+    <view class="menu-item" data-action="agreement-privacy" bindtap="onMenuTap">
+      <image class="menu-icon" src="/assets/icons/guanyuwomen.png" mode="aspectFit"></image>
+      <text class="menu-label">隐私政策</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
+  </block>
+
+  <view class="brand-footer">
+    <image class="brand-footer-logo" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/logo/%E8%81%94%E6%9C%8Blog%E6%A8%AA%E6%9D%BF.png" mode="widthFix"></image>
+    <view class="brand-footer-book"><view></view><view></view></view>
+    <text class="brand-footer-slogan">Every Step Builds a Brighter Future.</text>
+    <view class="brand-footer-tags"><text>择校</text><i>·</i><text>升学规划</text><i>·</i><text>国际课程</text><i>·</i><text>留学辅导</text></view>
+    <view class="beian-footer"><view class="beian-link" bindtap="openBeianMps"><image src="/assets/beian.png" mode="aspectFit"></image><text>沪公网安备31010402337112号</text></view><view class="beian-link" bindtap="openBeianMiit"><text>沪ICP备2026040088号-1</text></view></view>
+  </view>
+</view>
+
+<view class="consult-image-mask" wx:if="{{showConsultImage}}" bindtap="closeConsultImage"></view>
+<view class="consult-image-popup" wx:if="{{showConsultImage}}">
+  <view class="consult-image-close" bindtap="closeConsultImage">×</view>
+  <image class="consult-image" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/lead-materials/dingzhi2.png" mode="widthFix" show-menu-by-longpress></image>
+</view>
+

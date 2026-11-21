@@ -1,0 +1,76 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/hot-schools/hot-schools",
+    "pages/appointment/appointment",
+    "pages/appointment-school-detail/appointment-school-detail",
+    "pages/school/school",
+    "pages/assessment/assessment",
+    "pages/lead/lead",
+    "pages/school-detail/school-detail",
+    "pages/school-ranking/index",
+    "pages/guide-list/guide-list",
+    "pages/guide-detail/guide-detail",
+    "pages/material-list/material-list",
+    "pages/material-detail/material-detail",
+    "pages/admission-content/admission-content",
+    "pages/admission-content-detail/admission-content-detail",
+    "pages/lottery-guide/lottery-guide",
+    "pages/open-day/open-day",
+    "pages/open-day-detail/open-day-detail",
+    "pages/admission-detail/admission-detail",
+    "pages/study-abroad/study-abroad",
+    "pages/advisor/advisor",
+    "pages/preschool-language/preschool-language",
+    "pages/grade-ten-planning/grade-ten-planning",
+    "pages/monthly-live/monthly-live",
+    "pages/user/user",
+    "pages/consultation-records/consultation-records",
+    "pages/my-favorites/my-favorites",
+    "pages/about/about",
+    "pages/agreement/agreement",
+    "pages/webview/webview",
+    "pages/score-tool/score-tool",
+    "pages/district-admission/district-admission",
+    "pages/quota-query/quota-query",
+    "pages/autonomous-admission/autonomous-admission",
+    "pages/international-admission/international-admission",
+    "pages/score-school-detail/score-school-detail",
+    "pages/blessing-list/blessing-list",
+    "pages/blessing-compose/blessing-compose",
+    "pages/duikou-list/duikou-list",
+    "pages/duikou-detail/duikou-detail"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#64a8cd",
+    "backgroundColorTop": "#64a8cd",
+    "backgroundColorBottom": "#f5f6f8"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#999999",
+    "selectedColor": "#64a8cd",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/school/school",
+        "text": "学校库"
+      },
+      {
+        "pagePath": "pages/study-abroad/study-abroad",
+        "text": "升学工具"
+      },
+      {
+        "pagePath": "pages/user/user",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,32 @@
+﻿<view class="compose-page">
+  <view class="compose-card target-card">
+    <text class="card-title">祝福送给谁</text>
+    <view class="target-tabs">
+      <view class="target-tab {{target === 'child' ? 'active' : ''}}" data-value="child" bindtap="selectTarget">给孩子</view>
+      <view class="target-tab {{target === 'self' ? 'active' : ''}}" data-value="self" bindtap="selectTarget">给自己</view>
+      <view class="target-tab {{target === 'classmate' ? 'active' : ''}}" data-value="classmate" bindtap="selectTarget">给同学</view>
+    </view>
+  </view>
+
+  <view wx:if="{{schoolName}}" class="compose-card">
+    <text class="card-title">祝福所属学校</text>
+    <text class="field-help">{{schoolName}}</text>
+  </view>
+
+  <view class="compose-card field-card">
+    <text class="card-title">名字（选填）</text>
+    <input class="name-input" maxlength="30" value="{{name}}" placeholder="可填写被祝福者的名字，如：小宇" placeholder-class="field-placeholder" bindinput="onNameInput" />
+    <text class="field-help">祝福同学时，也可以填写学校、班级或学生名字</text>
+  </view>
+
+  <view class="compose-card blessing-field-card">
+    <view class="field-heading"><text class="card-title">祝福语（选填）</text><button class="random-button" hover-class="button-active" bindtap="randomBlessing">↻ 随机祝福语</button></view>
+    <textarea class="blessing-input" maxlength="160" value="{{blessing}}" placeholder="可填写更具体的祝福内容" placeholder-class="field-placeholder" bindinput="onBlessingInput"></textarea>
+    <text class="word-count">{{blessing.length}} / 160</text>
+  </view>
+
+  <button class="submit-button" loading="{{submitting}}" disabled="{{submitting}}" hover-class="submit-active" bindtap="submit">发布祝福</button>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

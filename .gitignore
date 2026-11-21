@@ -1,0 +1,66 @@
+# Maven 编译产物
+target/
+
+# IDE
+.idea/
+*.iml
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# 日志
+*.log
+
+# 临时文件
+*.tmp
+*.bak
+
+# Node / 前端依赖缓存
+node_modules/
+**/node_modules/
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Codex、脚本和本地验证产生的临时目录
+.codex-tmp/
+.codex_work/
+tmp/
+render_check/
+__pycache__/
+*.pyc
+
+# Java / 打包输出
+*.class
+*.jar
+*.war
+*.zip
+*.tar
+*.gz
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 本地运行输出
+hs_err_pid*
+replay_pid*
+
+# 根目录导入数据和历史交付包（不属于源码）
+/assets/
+/outputs/
+_tier_analysis/
+render_check/
+*.xlsx
+*.xls
+*.pdf
+*.docx
+*.zip
+*.7z
+*.rar
+*.b64

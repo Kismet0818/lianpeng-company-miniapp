@@ -1,0 +1,12 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "中考祝福",
+    "navigationBarTextStyle":  "black",
+    "navigationBarBackgroundColor":  "#F4F8FA",
+    "backgroundColor":  "#F4F8FA",
+    "enablePullDownRefresh":  true,
+    "onReachBottomDistance":  120,
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

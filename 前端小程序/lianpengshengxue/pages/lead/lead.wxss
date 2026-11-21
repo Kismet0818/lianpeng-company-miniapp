@@ -1,0 +1,106 @@
+page { background: #f4f6fa; }
+
+.page { min-height: 100vh; }
+
+/* ===== 横幅图（置顶） ===== */
+.banner-wrap { position: relative; }
+
+.banner { width: 100%; display: block; }
+
+.back-btn {
+  position: absolute;
+  left: 20rpx;
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: rgba(0,0,0,.25);
+  backdrop-filter: blur(10rpx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.back-arrow {
+  width: 18rpx;
+  height: 18rpx;
+  border-left: 4rpx solid #fff;
+  border-bottom: 4rpx solid #fff;
+  transform: rotate(45deg);
+  margin-left: 6rpx;
+}
+
+/* ===== 白色表单卡片 ===== */
+.form-card {
+  background: #fff;
+  margin: 0;
+  border-radius: 0 0 16rpx 16rpx;
+  padding: 0;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  padding: 28rpx 32rpx;
+}
+
+.form-label {
+  font-size: 28rpx;
+  color: #222;
+  width: 150rpx;
+  flex-shrink: 0;
+}
+
+.form-input {
+  flex: 1;
+  font-size: 28rpx;
+  color: #222;
+}
+
+/* 极细浅灰分隔线 */
+.form-sep {
+  height: 1rpx;
+  background: #eeeeee;
+  margin: 0 32rpx;
+}
+
+/* ===== 疑问区 ===== */
+.concern-section {
+  padding: 28rpx 32rpx 36rpx;
+}
+
+.concern-area {
+  width: 100%;
+  min-height: 160rpx;
+  margin-top: 16rpx;
+  padding: 20rpx 24rpx;
+  background: #f7f8fa;
+  border-radius: 12rpx;
+  font-size: 28rpx;
+  color: #222;
+  box-sizing: border-box;
+}
+
+.concern-placeholder {
+  color: #bbb;
+}
+
+/* ===== 提交按钮 ===== */
+.submit-section {
+  padding: 40rpx 36rpx;
+}
+
+.submit-btn {
+  width: 100%;
+  height: 88rpx;
+  background: #0f3460;
+  color: #fff;
+  font-size: 32rpx;
+  font-weight: 600;
+  border-radius: 8rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+}
+
+.submit-btn::after { border: 0; }

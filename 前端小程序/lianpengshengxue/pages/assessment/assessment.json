@@ -1,0 +1,7 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "智能测评",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

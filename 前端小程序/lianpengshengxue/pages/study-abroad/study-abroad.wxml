@@ -1,0 +1,85 @@
+﻿<view class="container">
+  <view class="status-bar-fill" style="height:{{statusBarHeight}}px"></view>
+  <view class="top-bar {{activeTab === 0 ? 'top-bar-score' : ''}}">
+    <view class="header">
+      <text class="header-icon">◆</text>
+      <text class="header-title">升学工具</text>
+    </view>
+  </view>
+
+  <scroll-view class="tabs {{activeTab === 0 ? 'tabs-score' : ''}}" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="tab {{activeTab === index ? 'active' : ''}}" wx:for="{{categories}}" wx:key="*this" data-index="{{index}}" bindtap="onTabTap">{{item}}</view>
+  </scroll-view>
+
+  <view class="language-content" wx:if="{{activeTab === 1}}">
+    <view class="language-entry-card" bindtap="onCardTap" data-id="preschool-language">
+      <view class="language-cover">
+        <image class="language-cover-image" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/liuxuefudao/xuelingqian.png" mode="aspectFill"></image>
+      </view>
+      <view class="language-entry-info">
+        <text class="entry-title">学龄前语言成长规划</text>
+        <text class="entry-sub">面向小班、中班、大班，科学规划语言启蒙与阅读成长路径</text>
+        <view class="entry-points">
+          <text>原版阅读</text><text>自然拼读</text>
+        </view>
+        <view class="entry-action" catchtap="onConsult" data-name="学龄前语言成长规划">咨询专属规划</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="competition-content" wx:elif="{{activeTab === 2}}">
+    <view class="competition-card" wx:for="{{competitions}}" wx:key="id" bindtap="onCardTap" data-id="{{item.id}}">
+      <view class="competition-cover competition-cover-{{index % 3}}">
+        <image class="competition-cover-image" src="{{item.image}}" mode="aspectFill"></image>
+      </view>
+      <view class="competition-info">
+        <text class="entry-title">{{item.title}}</text>
+        <text class="entry-sub">{{item.sub}}</text>
+        <view class="entry-points">
+          <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="entry-action" catchtap="onConsult" data-id="{{item.id}}" data-name="{{item.title}}">{{item.action}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="study-content" wx:elif="{{activeTab === 3}}">
+    <view class="study-card" wx:for="{{studyPlans}}" wx:key="id" bindtap="onCardTap" data-id="{{item.id}}">
+      <view class="study-cover study-cover-{{item.theme}}">
+        <image class="study-cover-image" src="{{item.image}}" mode="scaleToFill"></image>
+      </view>
+      <view class="study-info">
+        <text class="study-title">{{item.title}}</text>
+        <text class="study-sub">{{item.sub}}</text>
+        <view class="study-tags">
+          <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="study-action" catchtap="onConsult" data-id="{{item.id}}" data-name="{{item.title}}">咨询专属规划</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="course-content" wx:elif="{{activeTab === 4}}">
+    <view class="course-card" wx:for="{{planningCourses}}" wx:key="id" bindtap="onCourseCardTap" data-url="{{item.detailUrl}}">
+      <view class="course-cover course-cover-{{index}}">
+        <image class="course-cover-image" src="{{item.image}}" mode="aspectFill"></image>
+      </view>
+      <view class="course-info">
+        <text class="course-title">{{item.title}}</text>
+        <text class="course-sub">{{item.sub}}</text>
+        <view class="course-tags">
+          <text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text>
+        </view>
+        <view class="course-action" catchtap="onConsult" data-id="{{item.id}}" data-name="{{item.title}}">{{item.action}}</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="card-list score-card-list" wx:else>
+    <score-tool-content wx:if="{{activeTab === 0}}" />
+    <view class="empty" wx:if="{{filteredCourses.length === 0}}">暂无相关课程</view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

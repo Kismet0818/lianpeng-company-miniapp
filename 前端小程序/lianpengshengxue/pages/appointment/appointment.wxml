@@ -1,0 +1,21 @@
+<view class="page">
+  <picker mode="selector" range="{{districts}}" value="{{districts.indexOf(selectedDistrict)}}" bindchange="onDistrictChange"><view class="district-picker">地区：{{selectedDistrict === 'all' ? '全部地区' : selectedDistrict}} <text>⌄</text></view></picker>
+  <view class="topbar" style="padding-top:{{statusTop}}px;height:{{navHeight}}px;"><view class="topbar-inner"><view class="back" bindtap="goBack">‹</view><text class="top-title">上海小初高中预约</text><view class="topmark"></view></view></view>
+  <view class="filterbar">
+    <view wx:for="{{filters}}" wx:key="key" class="filter {{activeFilter === item.key ? 'active' : ''}}" data-key="{{item.key}}" bindtap="filterSchools">{{item.label}}</view>
+  </view>
+  <view class="intro"><text class="eyebrow">择校预约</text><text class="intro-title">先看学校，再约探校</text><text class="intro-sub">优先展示重点学校，预约前可先了解学校所在区域与地址</text></view>
+  <view wx:if="{{loading}}" class="state">正在加载学校信息…</view>
+  <view wx:elif="{{!visibleSchools.length}}" class="state">暂时没有符合条件的学校</view>
+  <view wx:else class="list">
+    <view class="school-card" wx:for="{{visibleSchools}}" wx:key="schoolSource-id" data-item="{{item}}" bindtap="openDetail">
+      <image class="school-image" src="{{item.image || placeholder}}" mode="aspectFill"></image>
+      <view class="school-body">
+        <view class="school-head"><view><text class="badge">可预约</text><text class="level-badge">{{item.level}}</text></view><text class="school-name">{{item.name}}</text></view>
+        <view class="meta"><text class="type">{{item.tier}}</text><text>{{item.district}}</text></view>
+        <text class="address">{{item.address || '地址信息以学校实际安排为准'}}</text>
+        <button class="reserve" data-school="{{item.name}}" catchtap="reserve">立即预约</button>
+      </view>
+    </view>
+  </view>
+</view>

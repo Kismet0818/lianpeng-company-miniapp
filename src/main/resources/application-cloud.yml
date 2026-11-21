@@ -1,0 +1,35 @@
+# 云托管环境配置 — 仅覆盖数据库连接
+server:
+  port: ${PORT:80}
+
+spring:
+  datasource:
+    url: jdbc:mysql://sh-cynosdbmysql-grp-7le4bnf4.sql.tencentcdb.com:29693/cloud1-d6g28bq6c04919547?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+    username: lianpeng
+    password: ${DB_PASSWORD:Datou870263}
+
+# 生产环境关闭 SQL 日志
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+
+# 资料详情返回给 wx.downloadFile 的公网 HTTPS 基址；部署时必须设置。
+app:
+  material-public-base-url: ${MATERIAL_PUBLIC_BASE_URL:}
+
+# 当前联调/上线初期优先保证可用，云端暂时也使用宽松阈值。
+# 限流框架保留，稳定后只需在这里恢复正式阈值。
+rate-limit:
+  lead: 200
+  auth: 1000
+  public-list: 5000
+  public-search: 5000
+  public-detail: 5000
+  write: 2000
+  temp-upload: 10
+  distinct-details: 1000
+  window-seconds: 60
+  sustained-window-seconds: 600
+  sustained-multiplier: 10
+  max-page: 200
+  max-page-size: 500

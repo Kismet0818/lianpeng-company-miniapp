@@ -1,0 +1,24 @@
+/* 进度条 */
+.progress { padding:32rpx 40rpx 16rpx; }
+.progress-bar { height:8rpx; background:#E0E0E0; border-radius:4rpx; overflow:hidden; }
+.progress-fill { height:100%; background:linear-gradient(90deg,#1B3A5C,#2C5F8A); border-radius:4rpx; transition:width 0.3s; }
+.progress-text { font-size:24rpx; color:#999; display:block; margin-top:12rpx; text-align:right; }
+/* 题目 */
+.question { font-size:36rpx; font-weight:700; color:#1B3A5C; display:block; padding:48rpx 40rpx 32rpx; text-align:center; }
+.options { padding:0 40rpx; }
+.option { padding:32rpx; margin:16rpx 0; background:#fff; border-radius:16rpx; text-align:center; font-size:30rpx; color:#333; box-shadow:0 2rpx 12rpx rgba(0,0,0,0.06); }
+.option:active { background:#F0F4F8; }
+/* 结果页 */
+.result-header { text-align:center; padding:60rpx 40rpx 32rpx; }
+.result-title { font-size:36rpx; font-weight:700; color:#1B3A5C; display:block; }
+.result-sub { font-size:26rpx; color:#999; display:block; margin-top:10rpx; }
+.result-list { padding:0 24rpx; }
+.school-card { display:flex; align-items:center; background:#fff; border-radius:16rpx; padding:24rpx; margin-bottom:20rpx; box-shadow:0 2rpx 12rpx rgba(0,0,0,0.04); position:relative; overflow:hidden; }
+.card-accent { position:absolute; left:0; top:0; bottom:0; width:6rpx; background:linear-gradient(180deg,#8B1A2B,#C0392B); border-radius:0 4rpx 4rpx 0; }
+.card-logo { width:88rpx; height:88rpx; border-radius:12rpx; background:#F0F2F5; margin-left:6rpx; }
+.card-info { margin-left:20rpx; flex:1; }
+.card-name { font-size:30rpx; font-weight:600; color:#1B3A5C; display:block; }
+.card-meta { font-size:24rpx; color:#999; display:block; margin-top:6rpx; }
+.card-fee { font-size:24rpx; color:#8B1A2B; display:block; margin-top:4rpx; }
+.empty-result { text-align:center; padding:80rpx; color:#999; font-size:28rpx; }
+.restart-btn { width:360rpx; height:80rpx; line-height:80rpx; margin:40rpx auto 0; text-align:center; background:#1B3A5C; color:#fff; border-radius:40rpx; font-size:30rpx; }

@@ -1,0 +1,12 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "查分工具",
+    "navigationBarTextStyle":  "white",
+    "navigationBarBackgroundColor":  "#4D92BB",
+    "backgroundColor":  "#F4F8FA",
+    "backgroundColorTop":  "#4D92BB",
+    "backgroundColorBottom":  "#F4F8FA",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

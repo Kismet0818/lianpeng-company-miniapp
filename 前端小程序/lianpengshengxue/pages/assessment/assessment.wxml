@@ -1,0 +1,40 @@
+﻿<view class="container">
+  <!-- 答题区 -->
+  <view wx:if="{{step < 4}}">
+    <view class="progress">
+      <view class="progress-bar">
+        <view class="progress-fill" style="width:{{(step+1)*25}}%"></view>
+      </view>
+      <text class="progress-text">第{{step + 1}}/4 题</text>
+    </view>
+    <text class="question">{{questions[step]}}</text>
+    <view class="options">
+      <view class="option" wx:for="{{options[step]}}" wx:key="index" bindtap="onSelect" data-val="{{item}}">{{item}}</view>
+    </view>
+  </view>
+  <!-- 结果区 -->
+  <view wx:else>
+    <view class="result-header">
+      <text class="result-title">🎯 为您匹配 {{result.length}} 所学校</text>
+      <text class="result-sub">根据您的偏好智能推荐</text>
+    </view>
+    <view class="result-list" wx:if="{{result.length}}">
+      <view class="school-card" wx:for="{{result}}" wx:key="id" bindtap="onTapSchool" data-id="{{item.id}}">
+        <view class="card-accent"></view>
+        <image class="card-logo" src="{{item.logoUrl}}" mode="aspectFill"></image>
+        <view class="card-info">
+          <text class="card-name">{{item.name}}</text>
+          <text class="card-meta">{{item.district}} · {{item.curriculum}} · {{item.grades}}</text>
+          <text class="card-fee" wx:if="{{item.tuitionMin && item.tuitionMin !== item.tuitionMax}}">¥{{item.tuitionMin}}-{{item.tuitionMax}}万/年</text>
+          <text class="card-fee" wx:else>¥{{item.tuitionMax}}万/年</text>
+        </view>
+      </view>
+    </view>
+    <view class="empty-result" wx:else>
+      <text>暂无匹配学校，请调整条件重试</text>
+    </view>
+    <view class="restart-btn" bindtap="restart">重新测评</view>
+  </view>
+</view>
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

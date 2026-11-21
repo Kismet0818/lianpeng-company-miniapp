@@ -1,0 +1,10 @@
+import { FileBlob, SpreadsheetFile } from '@oai/artifact-tool';
+const p = 'C:/Users/Admin/Desktop/lpsx/outputs/school_enriched/二三梯队小学_已完善.xlsx';
+const wb = await SpreadsheetFile.importXlsx(await FileBlob.load(p));
+const sh = wb.worksheets.getItem('Sheet1');
+const vals = sh.getRange('D2:P87').values;
+const total = vals.length * vals[0].length;
+const filled = vals.flat().filter(v => v !== null && v !== '').length;
+console.log(JSON.stringify({sheet:sh.name, used:sh.getUsedRange().address, rows:vals.length, columns:vals[0].length, filled, total}));
+const tail = await wb.inspect({kind:'table', sheetId:'Sheet1', range:'A83:P87', include:'values,formulas', tableMaxRows:5, tableMaxCols:16, maxChars:7000});
+console.log(tail.ndjson);

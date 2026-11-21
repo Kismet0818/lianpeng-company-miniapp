@@ -1,0 +1,22 @@
+page { min-height:100%; background:#F2F2F2; color:#3D454A; }
+.compose-page { min-height:100vh; padding:24rpx 18rpx calc(42rpx + env(safe-area-inset-bottom)); box-sizing:border-box; }
+.compose-card { padding:46rpx 40rpx; background:#fff; border-radius:20rpx; box-sizing:border-box; }
+.compose-card + .compose-card { margin-top:28rpx; }
+.card-title { display:block; color:#3D454A; font-size:32rpx; line-height:46rpx; font-weight:800; }
+.target-tabs { display:flex; gap:10rpx; margin-top:26rpx; }
+.target-tab { min-width:112rpx; height:50rpx; padding:0 18rpx; display:flex; align-items:center; justify-content:center; color:#46515A; background:#F1F1F1; border-radius:9rpx; box-sizing:border-box; font-size:25rpx; font-weight:700; }
+.target-tab.active { color:#F4512A; background:#FFECE6; }
+.field-card { min-height:284rpx; }
+.name-input { height:70rpx; margin-top:22rpx; padding:0; color:#3D454A; border-bottom:1rpx solid #D8D8D8; font-size:28rpx; }
+.field-help { display:block; margin-top:24rpx; color:#9A9EA2; font-size:25rpx; line-height:38rpx; }
+.field-heading { display:flex; align-items:center; justify-content:space-between; }
+.random-button { width:204rpx; height:56rpx; margin:0; padding:0; display:flex; align-items:center; justify-content:center; color:#F4512A; background:#FFF4F0; border:1rpx solid #F4512A; border-radius:10rpx; font-size:24rpx; line-height:1; }
+.random-button::after,.submit-button::after { border:none; }
+.button-active { background:#FFE8E0; transform:scale(.985); }
+.blessing-field-card { position:relative; min-height:410rpx; }
+.blessing-input { width:100%; height:220rpx; margin-top:18rpx; padding:22rpx 0; box-sizing:border-box; color:#3D454A; border-top:1rpx solid #D8D8D8; font-size:28rpx; line-height:42rpx; }
+.field-placeholder { color:#A5A7AA; }
+.word-count { position:absolute; right:38rpx; bottom:28rpx; color:#AAA; font-size:21rpx; }
+.submit-button { width:100%; height:86rpx; margin:30rpx 0 0; display:flex; align-items:center; justify-content:center; color:#F4512A; background:#FFF0EB; border:1rpx solid #F4512A; border-radius:18rpx; box-sizing:border-box; font-size:31rpx; font-weight:800; line-height:1; }
+.submit-button[disabled] { color:#F49B84; background:#FFF5F2; border-color:#F4B5A5; }
+.submit-active { background:#FFE5DD; transform:scale(.992); }

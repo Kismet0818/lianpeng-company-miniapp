@@ -1,0 +1,21 @@
+CREATE TABLE IF NOT EXISTS `user_feedback` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL COMMENT '提交用户ID',
+  `_openid` varchar(256) NOT NULL COMMENT '云数据库权限字段，保存提交用户openid',
+  `category` varchar(20) NOT NULL COMMENT 'correction/content/product',
+  `message` varchar(2000) NOT NULL COMMENT '反馈留言',
+  `screenshot_urls` text COMMENT '最多4张截图URL的JSON数组',
+  `contact` varchar(100) DEFAULT NULL COMMENT '用户联系方式',
+  `page_path` varchar(500) DEFAULT NULL COMMENT '提交反馈时所在页面路径',
+  `school_source` varchar(20) DEFAULT NULL COMMENT '关联学校来源',
+  `school_id` int DEFAULT NULL COMMENT '关联学校ID',
+  `status` tinyint NOT NULL DEFAULT 0 COMMENT '0待处理 1处理中 2已办结 3已关闭',
+  `handling_result` varchar(2000) DEFAULT NULL COMMENT '给用户展示的处理结果',
+  `handled_at` datetime DEFAULT NULL COMMENT '办结或关闭时间',
+  `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `update_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `idx_feedback_user_time` (`user_id`,`create_time`),
+  KEY `idx_feedback_status_time` (`status`,`create_time`),
+  KEY `idx_feedback_category_time` (`category`,`create_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户纠错与建议反馈';

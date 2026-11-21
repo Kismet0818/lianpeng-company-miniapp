@@ -1,0 +1,88 @@
+﻿<view class="query-page">
+  <view class="year-bar">
+    <view class="year-tab active">2026年</view>
+  </view>
+
+  <!-- 名额到区：直接显示当前目标区的高中列表 -->
+  <block wx:if="{{mode === 'region'}}">
+    <view class="table-card" wx:if="{{results.length}}">
+      <view class="table-head">
+        <text class="school-column">学校</text>
+        <text class="quota-column">计划</text>
+        <text class="score-column">最低分</text>
+      </view>
+      <view class="table-row" wx:for="{{results}}" wx:key="id" data-id="{{item.highSchoolId}}" bindtap="openSchool" hover-class="table-row-active">
+        <view class="school-column school-cell"><text class="school-name">{{item.highSchoolName}}</text><text class="school-district">{{item.displayDistrict}}</text></view>
+        <view class="quota-column quota-cell"><text>{{item.quotaCount === null || item.quotaCount === undefined ? '—' : item.quotaCount}}</text><text class="quota-unit" wx:if="{{item.quotaCount !== null && item.quotaCount !== undefined}}">名</text></view>
+        <view class="score-column score-cell"><text class="score-value">{{item.minScoreText}}</text><text class="region-change {{item.changeClass}}" wx:if="{{item.changeValueText !== '—'}}">{{item.changeClass === 'up' ? '▲' : '▼'}} {{item.changeValueText}}</text></view>
+      </view>
+    </view>
+    <view class="region-data-note" wx:if="{{results.length}}">
+      <text class="region-note-title">数据表中的特殊情况的说明：</text>
+      <text class="region-note-text">未知，表示官网未公布或没能采集到。</text>
+      <text class="region-note-text">没有最低分（含分科分数），表示该学校在最低投档控制线上无考生录取，故没有分数。</text>
+    </view>
+  </block>
+
+  <!-- 1-15志愿：按学校级别分组，本区与外区互补筛选 -->
+  <block wx:elif="{{mode === 'volunteer'}}">
+    <view class="volunteer-card">
+      <view class="scope-tabs">
+        <view class="scope-tab {{selectedVolunteerScope === item ? 'active' : ''}}" wx:for="{{volunteerScopes}}" wx:key="*this" data-scope="{{item}}" bindtap="onVolunteerScopeTap">{{item}}</view>
+      </view>
+
+      <view class="volunteer-table-head" wx:if="{{volunteerGroups.length}}">
+        <text class="school-column"></text><text class="quota-column">计划</text><text class="score-column">最低分</text>
+      </view>
+
+      <block wx:for="{{volunteerGroups}}" wx:key="name" wx:for-item="group">
+        <view class="volunteer-group-title">{{group.name}}</view>
+        <view class="table-row volunteer-row" wx:for="{{group.items}}" wx:key="id" wx:for-item="school">
+          <view class="school-column school-cell"><text class="school-name">{{school.highSchoolName}}</text><text class="school-district">{{school.displayDistrict}}</text></view>
+          <view class="quota-column quota-cell"><text>{{school.quotaCount === null || school.quotaCount === undefined ? '—' : school.quotaCount}}</text></view>
+          <view class="score-column score-cell"><text class="score-value">{{school.minScoreText}}</text><text class="score-change {{school.changeClass}}" wx:if="{{school.changeValueText !== '—'}}">{{school.changeClass === 'up' ? '▲' : '▼'}} {{school.changeValueText}}</text><text class="flat-change" wx:else>平</text></view>
+        </view>
+      </block>
+
+      <view class="inner-status" wx:if="{{loading}}"><view class="loading-ring"></view><text>正在加载2026年志愿信息...</text></view>
+      <view class="inner-status" wx:elif="{{error}}"><text>{{error}}</text><view class="retry" bindtap="retry">重新加载</view></view>
+      <view class="inner-status" wx:elif="{{!volunteerGroups.length}}"><text>暂无符合条件的志愿信息</text></view>
+    </view>
+  </block>
+
+  <!-- 名额到校：按目标初中分组 -->
+  <block wx:else>
+    <view class="school-result-card">
+      <view class="school-search">
+        <input class="search-input" value="{{schoolKeyword}}" placeholder="筛选初中" placeholder-class="search-placeholder" bindinput="onSchoolInput" bindconfirm="onSchoolSearch" confirm-type="search" />
+        <view class="search-button" bindtap="onSchoolSearch">查询</view>
+      </view>
+
+      <block wx:if="{{schoolGroups.length}}">
+        <view class="table-head school-table-head"><text class="school-column"></text><text class="quota-column">计划</text><text class="score-column">最低分</text></view>
+        <view class="school-group" wx:for="{{schoolGroups}}" wx:key="name" wx:for-item="group">
+          <text class="group-title">{{group.name}}</text>
+          <view class="table-row" wx:for="{{group.items}}" wx:key="id" wx:for-item="school" data-id="{{school.highSchoolId}}" bindtap="openSchool" hover-class="table-row-active">
+            <view class="school-column school-cell"><text class="school-name">{{school.highSchoolName}}</text></view>
+            <view class="quota-column quota-cell"><text>{{school.quotaCount === null || school.quotaCount === undefined ? '—' : school.quotaCount}}</text><text class="quota-unit" wx:if="{{school.quotaCount !== null && school.quotaCount !== undefined}}">名</text></view>
+            <view class="score-column score-cell"><text class="score-value">{{school.minScoreText}}</text><text class="school-change {{school.changeClass}}" wx:if="{{school.changeValueText !== '—'}}">{{school.changeClass === 'up' ? '▲' : '▼'}} {{school.changeValueText}}</text></view>
+          </view>
+        </view>
+      </block>
+
+      <view class="inner-status" wx:elif="{{loading}}"><view class="loading-ring"></view><text>正在查询...</text></view>
+      <view class="inner-status" wx:elif="{{error}}"><text>{{error}}</text><view class="retry" bindtap="retry">重新加载</view></view>
+      <view class="inner-status" wx:else><text>{{searched ? '暂无符合条件的数据' : '请输入初中名称开始查询'}}</text></view>
+    </view>
+  </block>
+
+  <block wx:if="{{mode === 'region'}}">
+    <view class="status" wx:if="{{loading}}"><view class="loading-ring"></view><text>正在加载2026年招生信息...</text></view>
+    <view class="status error" wx:elif="{{error}}"><text>{{error}}</text><view class="retry" bindtap="retry">重新加载</view></view>
+    <view class="status empty" wx:elif="{{!results.length}}"><text>暂无2026年招生信息</text></view>
+  </block>
+
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

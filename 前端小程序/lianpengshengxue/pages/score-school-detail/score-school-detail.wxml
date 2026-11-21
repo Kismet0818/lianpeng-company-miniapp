@@ -1,0 +1,277 @@
+<view class="school-page">
+  <view class="status" wx:if="{{loading}}"><view class="loading-ring"></view><text>正在加载学校信息...</text></view>
+  <view class="status" wx:elif="{{error}}">{{error}}</view>
+  <block wx:elif="{{school}}">
+    <view class="profile-card {{hideEmptySchoolFields && !heroImages.length ? 'profile-card-no-cover' : ''}}">
+      <view wx:if="{{heroImages.length || !hideEmptySchoolFields}}" class="school-cover">
+        <swiper wx:if="{{heroImages.length}}" class="cover-swiper" circular="{{heroImages.length > 1}}" autoplay="{{heroImages.length > 1}}" interval="4500" duration="450" bindchange="onHeroChange">
+          <swiper-item wx:for="{{heroImages}}" wx:key="*this">
+            <image class="cover-image" src="{{item}}" mode="aspectFill" data-src="{{item}}" data-index="{{index}}" bindtap="previewImage" binderror="onGalleryError"></image>
+          </swiper-item>
+        </swiper>
+        <view wx:else class="cover-placeholder"><view class="placeholder-line"></view><text>校园图片待更新</text></view>
+        <view wx:if="{{heroImages.length > 1}}" class="swiper-count">{{currentHero + 1}} / {{heroImages.length}}</view>
+      </view>
+      <image wx:if="{{school.logo}}" class="school-logo {{hideEmptySchoolFields && !heroImages.length ? 'school-logo-no-cover' : ''}}" src="{{school.logo}}" mode="aspectFit" binderror="onLogoError"></image>
+      <view class="profile-content">
+        <view class="school-title-row">
+          <text class="school-name">{{school.name}}</text>
+          <view class="school-favorite" bindtap="onToggleFav">
+            <image class="school-favorite-icon" mode="aspectFit" src="{{isFav ? '/assets/icons/yizhoucang.png' : '/assets/icons/shoucang.png'}}"></image>
+          </view>
+        </view>
+        <view class="school-meta"><text>{{school.district || '区域待补充'}}</text><view class="meta-divider"></view><text>{{school.natureText}}</text></view>
+        <text wx:if="{{school.levelText}}" class="school-level">{{school.levelText}}</text>
+        <view class="summary-grid">
+          <view class="summary-item"><text class="summary-label">学校简称</text><text class="summary-value">{{school.shortName || school.short_name || school.name}}</text></view>
+          <view wx:if="{{isKindergarten && school.kindergartenLevel}}" class="summary-item"><text class="summary-label">办园等级</text><text class="summary-value">{{school.kindergartenLevel}}</text></view>
+          <view wx:elif="{{!hideEmptySchoolFields || hasBoardingInfo}}" class="summary-item"><text class="summary-label">寄宿条件</text><text class="summary-value">{{school.boardingInfo || '暂未公布'}}</text></view>
+          <view wx:if="{{isKindergarten && school.careType}}" class="summary-item"><text class="summary-label">托育形式</text><text class="summary-value">{{school.careType}}</text></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="reaction-card">
+      <view class="reaction-header"><text class="reaction-title">你觉得这所学校怎么样？</text><text class="reaction-hint" wx:if="{{!reactionNeedsLogin}}">选择一个表情评价</text></view>
+      <view class="reaction-login" wx:if="{{reactionNeedsLogin}}" bindtap="onReactionLogin">登录后查看并参与评价 ›</view>
+      <view class="reaction-list {{reactionLoading || reactionSubmitting ? 'disabled' : ''}}" wx:else>
+        <view class="reaction-item {{selectedReaction === item.type ? 'selected' : ''}}" wx:for="{{reactionItems}}" wx:key="type" data-type="{{item.type}}" bindtap="onSelectReaction">
+          <view class="reaction-image-wrap"><image class="reaction-image" src="{{item.image}}" mode="aspectFit"></image><view class="reaction-check" wx:if="{{selectedReaction === item.type}}">✓</view></view>
+          <text class="reaction-label">{{item.label}}</text><text class="reaction-count">{{reactionLoading ? '-' : item.count}}人</text>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{!isKindergarten}}" class="content-card blessing-card">
+      <view class="blessing-head">
+        <text class="section-title">中考祝福</text>
+        <view class="blessing-action" hover-class="blessing-action-active" bindtap="openBlessingCompose">我要祝福</view>
+      </view>
+      <view wx:if="{{blessings.length}}" class="blessing-preview">
+        <view class="blessing-row" wx:for="{{blessings}}" wx:key="id">
+          <image wx:if="{{item.avatar}}" class="blessing-avatar" src="{{item.avatar}}" mode="aspectFill"></image>
+          <view wx:else class="blessing-avatar blessing-avatar-empty"><image src="/assets/icons/tab-bar/user.svg" mode="aspectFit"></image></view>
+          <view class="blessing-line"><text class="blessing-name">{{item.nickname}}</text><text class="blessing-content">{{item.content}}</text></view>
+        </view>
+      </view>
+      <view wx:else class="blessing-empty">还没有祝福，来写下第一条吧</view>
+      <view class="blessing-more" hover-class="blessing-more-active" bindtap="openAllBlessings"><text>全部祝福 {{blessingTotal}}</text><text class="more-arrow">›</text></view>
+    </view>
+
+    <!-- 民办招生摇号数据（体制内学校库同样展示，仅小学/初中民办） -->
+    <view class="content-card enroll-card" wx:if="{{enrollSections.length}}">
+      <view class="enroll-title">
+        <view class="enroll-title-bar"></view>
+        <text>民办招生 · 摇号数据</text>
+      </view>
+      <view class="enroll-stage" wx:for="{{enrollSections}}" wx:key="stage" wx:for-item="sec">
+        <view class="enroll-stage-head">
+          <text class="enroll-stage-name">{{sec.stage}}</text>
+          <text class="enroll-stage-tag">民办</text>
+        </view>
+        <view class="enroll-metrics" wx:if="{{sec.metrics}}">
+          <view class="enroll-metric" wx:if="{{sec.metrics.maxScoreText}}">
+            <text class="enroll-metric-val">{{sec.metrics.maxScoreText}}</text>
+            <text class="enroll-metric-label">中考最高分</text>
+          </view>
+          <view class="enroll-metric" wx:if="{{sec.metrics.count700Text}}">
+            <text class="enroll-metric-val">{{sec.metrics.count700Text}}</text>
+            <text class="enroll-metric-label">700分以上</text>
+          </view>
+          <view class="enroll-metric" wx:if="{{sec.metrics.keyRateText}}">
+            <text class="enroll-metric-val">{{sec.metrics.keyRateText}}</text>
+            <text class="enroll-metric-label">市重点率</text>
+          </view>
+        </view>
+        <view class="enroll-year" wx:for="{{sec.years}}" wx:key="year" wx:for-item="yr">
+          <view class="enroll-year-tag">{{yr.year}}</view>
+          <view class="enroll-rows">
+            <view class="enroll-row" wx:for="{{yr.items}}" wx:key="index" wx:for-item="it">
+              <text class="enroll-campus">{{it.campusText}}</text>
+              <text class="enroll-count" wx:if="{{it.countText}}">计划 {{it.countText}}</text>
+              <text class="enroll-rate" wx:if="{{it.rateText}}">摇中率 {{it.rateText}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+      <text class="enroll-note">数据为民办校招生计划与电脑摇号摇中率，仅供参考</text>
+    </view>
+
+    <view wx:if="{{!isPrimarySchool && !isKindergarten && (isJuniorHighSchool || !isGeneralHighSchool || planLoading || planRows.length)}}" class="content-card plan-card">
+      <view wx:if="{{isJuniorHighSchool}}" class="district-plan-head">
+        <text class="district-plan-eyebrow">统一招生</text>
+        <text class="district-plan-title">名额到校</text>
+      </view>
+      <view wx:elif="{{isUnifiedAdmissionSchool}}" class="district-plan-head">
+        <text class="district-plan-eyebrow">统一招生</text>
+        <text class="district-plan-title">1至15志愿（平行志愿）</text>
+      </view>
+      <view wx:else class="plan-tabs">
+        <view class="plan-tab {{planTab === 'region' ? 'active' : ''}}" data-tab="region" bindtap="switchPlanTab">名额到区</view>
+        <view class="plan-tab {{planTab === 'school' ? 'active' : ''}}" data-tab="school" bindtap="switchPlanTab">名额到校</view>
+        <view class="plan-tab {{planTab === 'volunteer' ? 'active' : ''}}" data-tab="volunteer" bindtap="switchPlanTab">1-15志愿</view>
+      </view>
+      <view wx:if="{{isUnifiedAdmissionSchool || isJuniorHighSchool}}" class="plan-year-bar">
+        <view class="plan-year active">2026</view>
+      </view>
+      <view class="plan-table-head"><text>{{isJuniorHighSchool ? '高中' : ''}}</text><text>{{isJuniorHighSchool ? '名额' : '计划'}}</text><text>最低分</text></view>
+      <view wx:if="{{planLoading}}" class="plan-status">正在加载招生计划...</view>
+      <view wx:elif="{{planRows.length}}" class="plan-table">
+        <block wx:if="{{planTab === 'school'}}">
+          <view class="plan-group" wx:for="{{planGroups}}" wx:key="district" wx:for-item="group">
+            <view class="plan-group-title">{{group.district}}</view>
+            <view class="plan-row" wx:for="{{group.items}}" wx:key="key" wx:for-item="schoolRow">
+              <text class="plan-label">{{schoolRow.label}}</text>
+              <text class="plan-number">{{schoolRow.plan}}</text>
+              <view class="plan-score"><text>{{schoolRow.score}}</text><text wx:if="{{schoolRow.changeSymbol}}" class="plan-change {{schoolRow.changeClass}}">{{schoolRow.changeSymbol}}{{schoolRow.changeText}}</text></view>
+            </view>
+          </view>
+        </block>
+        <block wx:else>
+          <view class="plan-row" wx:for="{{planRows}}" wx:key="key">
+            <text class="plan-label">{{item.label}}</text>
+            <text class="plan-number">{{item.plan}}</text>
+            <view class="plan-score"><text>{{item.score}}</text><text wx:if="{{item.changeSymbol}}" class="plan-change {{item.changeClass}}">{{item.changeSymbol}}{{item.changeText}}</text></view>
+          </view>
+        </block>
+      </view>
+      <view wx:else class="plan-status">暂无相关招生计划</view>
+      <view wx:if="{{isUnifiedAdmissionSchool || isJuniorHighSchool}}" class="plan-notes">
+        <text class="plan-notes-title">数据表中特殊情况的说明：</text>
+        <text>“—”或“未知”表示官网未公布或暂未采集到。</text>
+        <text>没有最低分（含分科分数），表示该学校在最低投档控制线上无考生录取，因此没有分数。</text>
+      </view>
+    </view>
+
+    <view class="content-card gallery-card" wx:if="{{galleryImages.length}}">
+      <text class="section-title">校园风光</text>
+      <view class="gallery-grid">
+        <image wx:for="{{galleryImages}}" wx:key="*this" class="gallery-image" src="{{item}}" mode="aspectFill" lazy-load data-src="{{item}}" data-index="{{index}}" bindtap="previewImage" binderror="onGalleryError"></image>
+      </view>
+    </view>
+
+    <view wx:if="{{hasWebsite}}" class="content-card detail-card single-detail-card">
+      <text class="section-title">学校官网</text>
+      <text class="detail-text website-text">{{school.website}}</text>
+    </view>
+
+    <view wx:if="{{!hideEmptySchoolFields || hasAddress}}" class="content-card address-card">
+      <text class="section-title">校址</text>
+      <view class="address-row"><image class="location-icon" src="/assets/icons/xuexiaoku/dingweihui.png" mode="aspectFit"></image><text>{{school.address || '学校地址暂未公布'}}</text></view>
+    </view>
+
+    <view wx:if="{{hasCampusArea}}" class="content-card detail-card single-detail-card">
+      <text class="detail-title">占地面积</text><text class="detail-text">{{school.campusArea}}</text>
+    </view>
+
+    <view wx:if="{{hasBoardingInfo || hasSchedule || hasTuitionInfo}}" class="content-card detail-card">
+      <view wx:if="{{!hideEmptySchoolFields || hasBoardingInfo}}" class="detail-block"><text class="detail-title">住宿情况</text><text class="detail-text">{{school.boardingInfo || '暂未公布'}}</text></view>
+      <view wx:if="{{hasSchedule}}" class="detail-block"><text class="detail-title">作息时间</text><text class="detail-text">{{school.schedule}}</text></view>
+      <view wx:if="{{!hideEmptySchoolFields || hasTuitionInfo}}" class="detail-block"><text class="detail-title">收费标准</text><text class="detail-text">{{school.tuitionText}}</text></view>
+    </view>
+
+    <view wx:if="{{hasTeachingFeatures}}" class="content-card description-card">
+      <text class="section-title">教学特色</text>
+      <text class="description">{{school.teachingFeatures}}</text>
+    </view>
+
+    <view wx:if="{{isKindergarten && (school.ageRange || school.phone)}}" class="content-card detail-card">
+      <view wx:if="{{school.ageRange}}" class="detail-block"><text class="detail-title">适龄范围</text><text class="detail-text">{{school.ageRange}}</text></view>
+      <view wx:if="{{school.phone}}" class="detail-block"><text class="detail-title">联系电话</text><text class="detail-text">{{school.phone}}</text></view>
+    </view>
+
+    <view wx:if="{{!hideEmptySchoolFields || hasDescription}}" class="content-card description-card">
+      <text class="section-title">学校介绍</text>
+      <text class="description">{{school.description || '学校介绍正在整理中。'}}</text>
+    </view>
+
+    <view wx:if="{{isPublicJuniorSchool && duikouPrimarySchools.length}}" class="content-card duikou-card">
+      <view class="duikou-head">
+        <view>
+          <text class="duikou-title">对口小学</text>
+          <text class="duikou-subtitle">{{duikouAdmissionYear}}年招生信息</text>
+        </view>
+        <view class="duikou-rule"></view>
+      </view>
+      <view class="duikou-list">
+        <view class="duikou-item {{item.canOpenPrimarySchool ? 'duikou-item-link' : ''}}" wx:for="{{duikouPrimarySchools}}" wx:key="id" data-id="{{item.primarySchoolId}}" bindtap="onDuikouPrimaryTap">
+          <view class="duikou-item-main">
+            <text class="duikou-school-name">{{item.primarySchoolName}}</text>
+            <text class="duikou-address" wx:if="{{item.primarySchoolAddress}}">{{item.primarySchoolAddress}}</text>
+          </view>
+          <view class="duikou-item-side">
+            <text class="duikou-tag">{{item.relationTypeText}}</text>
+            <text class="duikou-arrow" wx:if="{{item.primarySchoolId}}">›</text>
+          </view>
+          <text class="duikou-scope" wx:if="{{item.scopeText}}">{{item.scopeText}}</text>
+        </view>
+      </view>
+      <text class="duikou-note">招生范围和入学方式以当年度教育部门公布信息为准</text>
+    </view>
+
+    <view class="content-card feature-class-card" wx:if="{{featureClasses.length}}">
+      <view class="feature-class-heading">
+        <view class="feature-class-heading-copy">
+          <text class="section-title">特色班</text>
+          <text class="feature-class-subtitle">班型与培养信息仅供参考，以学校当年公布为准</text>
+        </view>
+        <view class="feature-class-mark">特</view>
+      </view>
+      <view class="feature-class-list">
+        <view class="feature-class-item" wx:for="{{featureClasses}}" wx:key="id">
+          <text class="feature-class-name">{{item.featureClass}}</text>
+          <text class="feature-class-text" wx:if="{{item.features}}">{{item.features}}</text>
+          <view class="feature-class-meta" wx:if="{{item.classCount || item.classAssignment}}">
+            <text wx:if="{{item.classCount}}">班级数：{{item.classCount}}</text>
+            <text wx:if="{{item.classAssignment}}">分班情况：{{item.classAssignment}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{isJuniorHighSchool}}" class="content-card district-query-card">
+      <view class="district-query-row" data-mode="volunteer" bindtap="openDistrictQuery" hover-class="district-query-row-active">
+        <image class="district-query-icon" src="/assets/icons/chafengongju/zhiyuan.svg" mode="aspectFit"></image>
+        <text class="district-query-text">查询所在区1-15志愿</text>
+        <text class="district-query-arrow">›</text>
+      </view>
+      <view class="district-query-row" data-mode="region" bindtap="openDistrictQuery" hover-class="district-query-row-active">
+        <image class="district-query-icon" src="/assets/icons/chafengongju/daoqu.svg" mode="aspectFit"></image>
+        <text class="district-query-text">查询所在区名额分配到区</text>
+        <text class="district-query-arrow">›</text>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view class="bottom-bar">
+  <view class="fav-btn {{isFav?'active':''}}" bindtap="onToggleFav">
+    <text class="fav-star">{{isFav ? '★' : '☆'}}</text>
+    <text>收藏</text>
+  </view>
+  <button class="bottom-action btn-visit" bindtap="onLead">预约探校</button>
+  <button class="bottom-action btn-plan" bindtap="onCustomPlan">
+    <text>办理入学</text>
+  </button>
+</view>
+
+<view class="qr-mask" wx:if="{{showQr}}" bindtap="closeQr"></view>
+<view class="qr-popup {{qrImageType === 'custom-plan' ? 'custom-plan-popup' : ''}}" wx:if="{{showQr}}">
+  <view class="qr-close" bindtap="closeQr">×</view>
+  <image class="qr-img" src="{{qrImageUrl}}" mode="widthFix" show-menu-by-longpress></image>
+</view>
+
+<view class="lead-mask" wx:if="{{showLead}}" bindtap="closeLead"></view>
+<view class="lead-popup" wx:if="{{showLead}}">
+  <view class="lead-header"><text class="lead-title">预约看校</text><view class="lead-close" bindtap="closeLead">×</view></view>
+  <view class="lead-intro"><view class="lead-intro-bar"></view><text>请填写联系信息，方便确认择校安排。</text></view>
+  <view class="lead-form">
+    <view class="lead-field"><text class="lead-required">*</text><text class="lead-label">学生姓名</text><input class="lead-input" placeholder="请填写真实姓名" value="{{parentName}}" data-key="parentName" bindinput="onLeadInput" /></view>
+    <view class="lead-field"><text class="lead-required">*</text><text class="lead-label">手机号码</text><input class="lead-input" placeholder="请输入联系人手机号" type="number" maxlength="11" value="{{phone}}" data-key="phone" bindinput="onLeadInput" /></view>
+    <picker mode="selector" range="{{gradeOptions}}" bindchange="onGradeChange"><view class="lead-field"><text class="lead-required">*</text><text class="lead-label">在读年级</text><text class="lead-picker-value {{childGrade ? 'selected' : ''}}">{{childGrade || '请选择在读年级'}}</text><text class="lead-picker-arrow">›</text></view></picker>
+    <button class="lead-submit {{parentName && phone && childGrade ? 'ready' : ''}}" bindtap="onLeadSubmit">立即预约</button>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

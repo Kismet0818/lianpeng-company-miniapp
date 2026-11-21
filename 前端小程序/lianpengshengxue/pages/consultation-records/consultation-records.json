@@ -1,0 +1,9 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "咨询记录",
+    "navigationBarBackgroundColor":  "#ffffff",
+    "navigationBarTextStyle":  "black",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

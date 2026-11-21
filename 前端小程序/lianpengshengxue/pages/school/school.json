@@ -1,0 +1,7 @@
+{
+    "navigationStyle":  "custom",
+    "navigationBarTitleText":  "",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

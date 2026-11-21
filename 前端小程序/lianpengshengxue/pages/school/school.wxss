@@ -1,0 +1,80 @@
+page{background:#eaf6fb;color:#202124}
+.container{position:relative;min-height:100vh;padding-bottom:calc(140rpx + env(safe-area-inset-bottom));background:#f5f6f8}
+.status-bar-fill{position:fixed;top:0;left:0;right:0;z-index:0;background:#eaf6fb;pointer-events:none}
+.top-tools{position:relative;z-index:1;overflow:hidden;background:#eaf6fb;box-shadow:0 3rpx 14rpx rgba(37,42,55,.05)}
+.top-tools-bg{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+.custom-nav-space,.search-bar,.filter-bar{position:relative;z-index:1}
+.custom-nav-space{width:100%;min-height:88rpx;box-sizing:border-box}
+.search-bar{height:74rpx;margin:0 24rpx;padding:0 28rpx;display:flex;align-items:center;background:rgba(255,255,255,.88);border:1rpx solid rgba(100,168,205,.14);border-radius:38rpx;box-sizing:border-box;box-shadow:0 4rpx 16rpx rgba(77,146,187,.08);backdrop-filter:blur(12rpx)}
+.search-icon{position:relative;width:24rpx;height:24rpx;margin-right:18rpx;border:3rpx solid #8c9099;border-radius:50%;box-sizing:border-box}.search-icon::after{content:"";position:absolute;width:11rpx;height:3rpx;right:-8rpx;bottom:-4rpx;background:#8c9099;transform:rotate(45deg);border-radius:2rpx}
+.search-input{height:74rpx;flex:1;font-size:27rpx}.search-placeholder{color:#a5a8af}
+.filter-bar{display:flex;padding:16rpx 24rpx 20rpx;gap:12rpx}.filter-item{min-width:0;height:58rpx;flex:1;display:flex;align-items:center;justify-content:center;gap:6rpx;background:rgba(255,255,255,.82);border-radius:10rpx;color:#555;font-size:24rpx}.filter-item.selected{color:#4d92bb;background:#eef8fc}.filter-item>text:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.filter-arrow{font-size:20rpx;color:#999;flex-shrink:0;transition:transform .2s}.filter-arrow.open{transform:rotate(180deg)}
+.result-count{padding:22rpx 28rpx 8rpx;color:#999;font-size:23rpx}.result-count text{color:#4d92bb}
+
+/* 学校库总览：统计卡片与快捷入口（自主页迁移，适配浅蓝底） */
+.stats-overview{margin:18rpx 20rpx 0}
+.stats-card{height:180rpx;border:1rpx solid rgba(100,168,205,.22);border-radius:16rpx;background:linear-gradient(100deg,rgba(214,235,250,.96),rgba(248,251,255,.95) 38%,#fff 70%);box-shadow:0 6rpx 20rpx rgba(77,146,187,.10),inset 0 1rpx 0 rgba(255,255,255,.85);display:flex;align-items:stretch;overflow:hidden}
+.total{width:190rpx;height:100%;padding-left:28rpx;display:flex;align-items:center;box-sizing:border-box;background:linear-gradient(115deg,rgba(155,204,235,.98),rgba(203,229,247,.85))}
+.total-num{font-size:52rpx;font-weight:700;color:#173a52}
+.total-unit{font-size:23rpx;margin:18rpx 0 0 5rpx;color:#3d6a8a}
+.stat-grid{flex:1;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(2,1fr)}
+.stat-item{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;border-left:1rpx solid rgba(180,205,225,.5)}
+.stat-item:nth-child(n+4){border-top:1rpx solid rgba(180,205,225,.5)}
+.kindergarten-stat{grid-column:4;grid-row:1 / span 2;border-top:0 !important}
+.stat-label{display:block;font-size:24rpx;color:#42536a;white-space:nowrap}
+.stat-num{font-size:32rpx;font-family:serif;color:#080808}
+.stat-unit{font-size:20rpx;margin-left:3rpx;color:#6b7686}
+.entry-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16rpx;margin-top:16rpx}
+.entry{height:68rpx;display:flex;align-items:center;justify-content:center;gap:15rpx;background:rgba(255,255,255,.92);border:1rpx solid rgba(100,168,205,.18);border-radius:34rpx;font-size:28rpx;font-weight:600;color:#202124;box-shadow:0 4rpx 14rpx rgba(77,146,187,.08)}
+.entry:active{opacity:.82;transform:scale(.985)}
+.ranking-icon-image,.score-query-icon-image{width:48rpx;height:48rpx;display:block;flex-shrink:0}
+.school-card{margin:16rpx 20rpx;padding:26rpx 22rpx;background:#fff;border-radius:16rpx;box-shadow:0 4rpx 18rpx rgba(39,45,64,.05)}
+.card-main{display:flex;align-items:flex-start}.card-left{width:184rpx;flex-shrink:0;margin-right:22rpx}
+.logo-box{position:relative;width:184rpx;height:184rpx;border:1rpx solid #e1e2e7;border-radius:10rpx;overflow:hidden;background:#fff;box-sizing:border-box}.school-logo{width:100%;height:184rpx}.logo-placeholder{height:184rpx;display:flex;align-items:center;justify-content:center;color:#4d92bb;font-size:32rpx;font-weight:700;padding:8rpx;text-align:center;line-height:1.3;overflow:hidden;word-break:keep-all;background:linear-gradient(145deg,#f5fbfe,#eaf5fa)}
+.school-info{flex:1;min-width:0}.location-line{display:flex;align-items:center;color:#888;font-size:24rpx;line-height:32rpx}.pin-icon{width:25rpx;height:25rpx;margin-right:8rpx;flex-shrink:0}
+.name{display:block;margin-top:8rpx;color:#111;font-size:32rpx;line-height:43rpx;font-weight:700}.grade{display:block;margin-top:5rpx;color:#111;font-size:26rpx}.curriculum,.fee-row{display:flex;flex-wrap:wrap;margin-top:10rpx;color:#222;font-size:24rpx;line-height:34rpx}.label{color:#999}.fee{color:#ff4b42;font-size:29rpx}.fee.pending{font-size:24rpx}
+.feature-tags{display:flex;flex-wrap:wrap;gap:8rpx;margin-top:12rpx}.feature-tags text{max-width:100%;padding:4rpx 12rpx;overflow:hidden;color:#ff633e;background:#fff0e9;border:1rpx solid #ffd9ca;border-radius:999rpx;font-size:20rpx;line-height:28rpx;white-space:nowrap;text-overflow:ellipsis;box-sizing:border-box}
+.card-actions{height:92rpx;margin-top:20rpx;display:flex;align-items:center;background:#fafafa;border-radius:10rpx}.action-btn{flex:1;height:100%;display:flex;align-items:center;justify-content:center;gap:10rpx;color:#666;font-size:25rpx}.action-divider{width:1rpx;height:48rpx;background:#e6e6e6}
+.action-icon{width:40rpx;height:40rpx;display:block;flex-shrink:0}
+.empty{padding:120rpx 0;display:flex;flex-direction:column;align-items:center;gap:20rpx;color:#aaa;font-size:25rpx}.empty-icon{width:90rpx;height:90rpx;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;background:#d7d3e8;font-size:36rpx}.no-more{text-align:center;padding:26rpx;color:#c1c2c6;font-size:22rpx}
+
+/* 更多筛选 */
+.more-mask{position:fixed;left:0;right:0;bottom:calc(108rpx + env(safe-area-inset-bottom));z-index:1800;background:rgba(0,0,0,.32)}
+.quick-filter-popup{position:fixed;left:0;right:0;z-index:1801;max-height:62vh;background:#fff;border-top:1rpx solid #edf0f2;box-shadow:0 12rpx 28rpx rgba(31,45,55,.14)}
+.quick-filter-scroll{max-height:62vh;box-sizing:border-box}
+.quick-filter-title{display:block;padding:25rpx 30rpx 17rpx;color:#222;font-size:29rpx;font-weight:600}
+.quick-filter-option{height:78rpx;display:flex;align-items:center;padding:0 34rpx;color:#222;background:#fff;border-bottom:1rpx solid #edf0f2;font-size:27rpx;box-sizing:border-box}
+.quick-filter-option.active{color:#4d92bb;background:#f2f9fc;font-weight:600}
+.more-popup{position:fixed;left:0;right:0;z-index:1801;height:580rpx;display:flex;flex-direction:column;background:#fff;border-top:1rpx solid #edf0f2;box-shadow:0 12rpx 28rpx rgba(31,45,55,.14);box-sizing:border-box}
+.more-content{min-height:0;flex:1;padding:36rpx 28rpx;box-sizing:border-box}
+.more-group{margin-bottom:52rpx}.more-title{display:block;margin-bottom:24rpx;color:#222;font-size:30rpx;line-height:42rpx;font-weight:500}.more-options{display:flex;flex-wrap:wrap;gap:14rpx}.more-option{width:calc(33.333% - 10rpx);height:76rpx;padding:0 8rpx;display:flex;align-items:center;justify-content:center;color:#666;background:#fff;border:1rpx solid #dedede;border-radius:8rpx;font-size:26rpx;white-space:nowrap;box-sizing:border-box}.more-option.active{color:#7658e8;background:#f1edff;border-color:#7658e8}
+.more-actions{height:104rpx;padding:10rpx 24rpx;display:flex;gap:14rpx;flex-shrink:0;background:#fff;border-top:1rpx solid #e5e5e5;box-sizing:border-box}.more-reset,.more-confirm{height:84rpx;flex:1;display:flex;align-items:center;justify-content:center;border-radius:8rpx;font-size:29rpx}.more-reset{color:#555;background:#e9ecef}.more-confirm{color:#fff;background:#7857e8}
+
+.system-tabs{display:flex;margin:20rpx 24rpx 10rpx;padding:6rpx;background:#f2f4f7;border-radius:14rpx}.system-tab{flex:1;text-align:center;padding:18rpx 0;color:#667085;border-radius:10rpx;font-weight:600}.system-tab.active{color:#fff;background:#2578e8;box-shadow:0 4rpx 12rpx rgba(37,120,232,.2)}
+
+/* 预约看校弹窗 */
+.lead-mask{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:2000}
+.lead-popup{position:fixed;left:0;right:0;bottom:0;height:78vh;padding:28rpx 30rpx calc(30rpx + env(safe-area-inset-bottom));box-sizing:border-box;display:flex;flex-direction:column;background:#fff;border-radius:36rpx 36rpx 0 0;z-index:2001}
+.lead-header{position:relative;height:62rpx;display:flex;align-items:flex-start;justify-content:center;flex-shrink:0}
+.lead-title{color:#171717;font-size:36rpx;line-height:50rpx;font-weight:500}
+.lead-close{position:absolute;top:-2rpx;right:0;width:50rpx;height:50rpx;display:flex;align-items:center;justify-content:center;border-radius:50%;color:#fff;background:#b7b9bc;font-size:48rpx;line-height:46rpx;font-weight:300}
+.lead-intro{height:72rpx;display:flex;align-items:center;flex-shrink:0;color:#3f3f43;font-size:29rpx}
+.lead-intro-bar{width:8rpx;height:34rpx;margin-right:10rpx;border-radius:3rpx;background:linear-gradient(180deg,#91c9e3,#64a8cd)}
+.lead-form{min-height:0;flex:1;display:flex;flex-direction:column}
+.lead-field{position:relative;height:108rpx;display:flex;align-items:center;border-bottom:1rpx solid #e4e5e8;box-sizing:border-box}
+.lead-required{position:absolute;left:0;top:20rpx;color:#ff4242;font-size:27rpx}
+.lead-label{width:184rpx;padding-left:20rpx;box-sizing:border-box;color:#333;font-size:29rpx;flex-shrink:0}
+.lead-input{min-width:0;height:100%;flex:1;padding:0;color:#333;font-size:28rpx;border:0;background:transparent}
+.lead-picker-value{min-width:0;flex:1;color:#aaa;font-size:28rpx}
+.lead-picker-value.selected{color:#333}
+.lead-picker-arrow{color:#999da3;font-size:48rpx;line-height:1;font-weight:200}
+.lead-submit{width:calc(100% - 72rpx);height:84rpx;margin:auto auto 124rpx;padding:0;flex-shrink:0;color:#fff;background:#b4b7ba;border:0;border-radius:46rpx;font-size:31rpx;line-height:84rpx}
+.lead-submit::after{border:0}
+.lead-submit.ready{background:linear-gradient(135deg,#4d92bb,#64a8cd)}
+
+@media (max-width:340px){.card-left{width:156rpx;margin-right:16rpx}.logo-box{width:156rpx;height:210rpx}.school-logo,.logo-placeholder{height:162rpx}.logo-placeholder{font-size:26rpx}.name{font-size:29rpx}.feature-tags text:nth-child(n+3){display:none}}
+
+/* 筛选弹层统一品牌色 */
+.more-option.active{color:#4d92bb;background:#eef8fc;border-color:#64a8cd}
+.more-reset{color:#607580;background:#edf3f6}
+.more-confirm{color:#fff;background:linear-gradient(135deg,#4d92bb,#64a8cd);box-shadow:0 5rpx 14rpx rgba(77,146,187,.22)}

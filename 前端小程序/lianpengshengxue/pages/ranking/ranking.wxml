@@ -1,0 +1,43 @@
+﻿<view class="page">
+  <view class="ranking-tabs">
+    <view class="ranking-tab {{activeRanking === 'hurun' ? 'active' : ''}}" data-ranking="hurun" bindtap="changeRanking">胡润排行榜</view>
+    <view class="ranking-tab {{activeRanking === 'forbes' ? 'active' : ''}}" data-ranking="forbes" bindtap="changeRanking">福布斯排行榜</view>
+  </view>
+
+  <view class="banner">
+    <view class="banner-glow banner-glow-left"></view>
+    <view class="banner-glow banner-glow-right"></view>
+    <text class="banner-title">{{bannerTitle}}</text>
+    <text class="banner-subtitle">{{bannerSubtitle}}</text>
+  </view>
+
+  <view class="table-heading">
+    <text class="rank-heading">排名</text>
+    <text class="school-heading">学校</text>
+    <view class="city-filter" bindtap="openCityFilter">
+      <text>{{selectedCity}}</text>
+      <view class="filter-arrow"></view>
+    </view>
+  </view>
+
+  <view class="ranking-card">
+    <view class="ranking-row" wx:for="{{filteredRanking}}" wx:key="key">
+      <text class="rank-number">{{item.rank}}</text>
+      <text class="school-name">{{item.name}}</text>
+      <text class="school-city">{{item.city}}</text>
+    </view>
+    <view class="empty" wx:if="{{filteredRanking.length === 0}}">该城市暂无上榜学校</view>
+  </view>
+
+  <view class="filter-mask" wx:if="{{showCityFilter}}" bindtap="closeCityFilter"></view>
+  <view class="filter-panel {{showCityFilter ? 'show' : ''}}">
+    <view class="filter-option {{selectedCity === item ? 'selected' : ''}}"
+      wx:for="{{cities}}" wx:key="*this" data-city="{{item}}" bindtap="selectCity">
+      <text>{{item}}</text>
+      <view class="check" wx:if="{{selectedCity === item}}"></view>
+    </view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

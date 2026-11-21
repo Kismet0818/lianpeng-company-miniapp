@@ -1,0 +1,515 @@
+[
+ {
+  "district": "徐汇",
+  "tier": 3,
+  "tok": "零陵",
+  "id": 411,
+  "name": "上海市零陵中学",
+  "score": 85,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 3,
+  "tok": "西南模范",
+  "id": 414,
+  "name": "上海市西南模范中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 3,
+  "tok": "紫竹园",
+  "id": 416,
+  "name": "上海市紫竹园中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 3,
+  "tok": "董恒甫",
+  "id": 415,
+  "name": "上海市徐汇区董恒甫高级中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 3,
+  "tok": "西南高级",
+  "id": 412,
+  "name": "上海市民办西南高级中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 1,
+  "tok": "上海",
+  "id": 410,
+  "name": "上海民办位育中学",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "徐汇",
+  "tier": 1,
+  "tok": "中学",
+  "id": 411,
+  "name": "上海市零陵中学",
+  "score": 85,
+  "alt": true
+ },
+ {
+  "district": "徐汇",
+  "tier": 1,
+  "tok": "位育中学",
+  "id": 410,
+  "name": "上海民办位育中学",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "七宝鑫都",
+  "id": 341,
+  "name": "上海市七宝中学附属鑫都实验中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "七宝浦江",
+  "id": 342,
+  "name": "上海市七宝中学浦江分校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "闵中东校",
+  "id": 340,
+  "name": "上海市闵行中学东校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "闵行实高",
+  "id": 339,
+  "name": "上海市闵行区实验高级中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "华师永德",
+  "id": 324,
+  "name": "华东师范大学附属闵行永德学校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 3,
+  "tok": "闵行实验",
+  "id": 325,
+  "name": "上海交通大学附属闵行实验学校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "闵行",
+  "tier": 1,
+  "tok": "七宝中学",
+  "id": 341,
+  "name": "上海市七宝中学附属鑫都实验中学",
+  "score": 80,
+  "alt": true
+ },
+ {
+  "district": "闵行",
+  "tier": 1,
+  "tok": "闵行中学",
+  "id": 340,
+  "name": "上海市闵行中学东校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "建平筠溪",
+  "id": 364,
+  "name": "上海市建平中学筠溪分校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "进才根林",
+  "id": 366,
+  "name": "上海市进才中学根林分校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "张江实验",
+  "id": 346,
+  "name": "华东师范大学张江实验中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "育民中学",
+  "id": 381,
+  "name": "上海市育民中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "龚路中学",
+  "id": 348,
+  "name": "上海第二工业大学附属龚路中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "长岛中学",
+  "id": 382,
+  "name": "上海市长岛中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "江镇中学",
+  "id": 365,
+  "name": "上海市江镇中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "泾南中学",
+  "id": 367,
+  "name": "上海市泾南中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "三林东校",
+  "id": 378,
+  "name": "上海市三林中学东校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "高东中学",
+  "id": 362,
+  "name": "上海市高东中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "沪新中学",
+  "id": 363,
+  "name": "上海市沪新中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "吴迅中学",
+  "id": 379,
+  "name": "上海市吴迅中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "老港中学",
+  "id": 368,
+  "name": "上海市老港中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "泥城中学",
+  "id": 374,
+  "name": "上海市泥城中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "科大附校",
+  "id": 349,
+  "name": "上海科技大学附属学校",
+  "score": 85,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 3,
+  "tok": "川沙北校",
+  "id": 360,
+  "name": "上海市川沙中学北校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 2,
+  "tok": "三林中学",
+  "id": 378,
+  "name": "上海市三林中学东校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 1,
+  "tok": "建平中学",
+  "id": 364,
+  "name": "上海市建平中学筠溪分校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 1,
+  "tok": "进才中学",
+  "id": 366,
+  "name": "上海市进才中学根林分校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 1,
+  "tok": "洋泾中学",
+  "id": 380,
+  "name": "上海市洋泾中学南校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "浦东新",
+  "tier": 1,
+  "tok": "川沙中学",
+  "id": 360,
+  "name": "上海市川沙中学北校",
+  "score": 80,
+  "alt": true
+ },
+ {
+  "district": "黄浦",
+  "tier": 3,
+  "tok": "市南中学",
+  "id": 306,
+  "name": "上海市市南中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "黄浦",
+  "tier": 3,
+  "tok": "同济黄浦",
+  "id": 307,
+  "name": "上海市同济黄浦设计创意中学",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "黄浦",
+  "tier": 3,
+  "tok": "金陵中学",
+  "id": 305,
+  "name": "上海市金陵中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "杨浦",
+  "tier": 3,
+  "tok": "复旦二附",
+  "id": 417,
+  "name": "复旦大学第二附属中学",
+  "score": 85,
+  "alt": false
+ },
+ {
+  "district": "普陀",
+  "tier": 3,
+  "tok": "桃浦中学",
+  "id": 389,
+  "name": "上海市桃浦中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "普陀",
+  "tier": 1,
+  "tok": "曹二东校",
+  "id": 387,
+  "name": "上海市曹杨第二中学东校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "普陀",
+  "tier": 1,
+  "tok": "晋元高级中学",
+  "id": 388,
+  "name": "上海市晋元高级中学南校",
+  "score": 80,
+  "alt": false
+ },
+ {
+  "district": "静安",
+  "tier": 3,
+  "tok": "向东中学",
+  "id": 323,
+  "name": "上海市向东中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "长宁",
+  "tier": 3,
+  "tok": "西郊",
+  "id": 420,
+  "name": "上海市西郊学校",
+  "score": 85,
+  "alt": false
+ },
+ {
+  "district": "长宁",
+  "tier": 3,
+  "tok": "民办新虹桥",
+  "id": 419,
+  "name": "上海市民办新虹桥中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "虹口",
+  "tier": 3,
+  "tok": "五十二中",
+  "id": 302,
+  "name": "上海市第五十二中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "虹口",
+  "tier": 3,
+  "tok": "友谊中学",
+  "id": 303,
+  "name": "上海市友谊中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "虹口",
+  "tier": 1,
+  "tok": "上外东校",
+  "id": 304,
+  "name": "上海外国语大学附属外国语学校东校",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "松江",
+  "tier": 3,
+  "tok": "松江立达中学",
+  "id": 404,
+  "name": "上海市松江区立达中学",
+  "score": 75,
+  "alt": false
+ },
+ {
+  "district": "宝山",
+  "tier": 3,
+  "tok": "高境一中",
+  "id": 290,
+  "name": "上海市高境第一中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "宝山",
+  "tier": 3,
+  "tok": "海滨中学",
+  "id": 289,
+  "name": "上海市宝山区海滨中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "宝山",
+  "tier": 3,
+  "tok": "淞浦中学",
+  "id": 291,
+  "name": "上海市淞浦中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "青浦",
+  "tier": 3,
+  "tok": "东湖中学",
+  "id": 394,
+  "name": "上海市青浦区东湖中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "青浦",
+  "tier": 3,
+  "tok": "青浦二中",
+  "id": 393,
+  "name": "上海市青浦区第二中学",
+  "score": 100,
+  "alt": false
+ },
+ {
+  "district": "奉贤",
+  "tier": 1,
+  "tok": "奉贤中学",
+  "id": 300,
+  "name": "上海市奉贤中学附属南桥中学",
+  "score": 80,
+  "alt": false
+ }
+]

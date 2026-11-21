@@ -1,0 +1,45 @@
+﻿<view class="page">
+  <image class="hero-image" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/benyuezhibo/zhibo.png" mode="widthFix"></image>
+
+  <view class="loading-state" wx:if="{{loading}}">直播信息加载中...</view>
+
+  <block wx:else>
+    <view class="preview-section">
+      <view class="main-head"><text><text class="head-dot">●</text> 本周直播预告</text><text bindtap="onConsult">咨询课程</text></view>
+      <view class="main-body" wx:for="{{livePreviews}}" wx:key="id">
+          <view class="main-cover">
+            <image wx:if="{{item.cover}}" src="{{item.cover}}" mode="aspectFill"></image>
+            <block wx:else><text>{{item.channelsName}}</text><text>直播预告</text></block>
+          </view>
+          <view class="main-copy">
+            <text class="main-title">{{item.title}}</text>
+            <view class="channel-line"><image wx:if="{{item.channelsAvatar}}" src="{{item.channelsAvatar}}" mode="aspectFill"></image><text>视频号：{{item.channelsName}}</text></view>
+            <text class="main-time">{{item.timeText}}</text>
+            <view class="reserve-small {{item.isEnded || reservingId !== null ? 'disabled' : ''}}" catchtap="onReserve" data-id="{{item.id}}" data-finder="{{item.finderUserName}}" data-time="{{item.liveTimeRaw}}">{{item.isEnded ? '已结束' : (reservingId === item.id ? '预约中...' : '预约直播')}}</view>
+          </view>
+      </view>
+      <view class="section-status" wx:if="{{livePreviews.length === 0}}">本周暂无直播预告</view>
+    </view>
+
+    <view class="schedule-section">
+      <view class="list-title"><text>●</text><text>本月直播安排</text></view>
+      <view class="live-card" wx:for="{{displayLives}}" wx:key="id">
+          <view class="date-box cover-box" wx:if="{{item.cover}}">
+            <image src="{{item.cover}}" mode="aspectFill"></image>
+          </view>
+          <view class="date-box" wx:else><text>{{item.date}}</text><text>{{item.time}}</text><text>直播</text></view>
+          <view class="live-copy">
+            <view class="speaker channel-line"><image wx:if="{{item.channelsAvatar}}" src="{{item.channelsAvatar}}" mode="aspectFill"></image><text>视频号：{{item.channelsName}}</text></view>
+            <text class="live-title">{{item.title}}</text>
+          <view class="live-meta"><text>{{item.date}} {{item.time}}</text><view class="{{item.isEnded || reservingId !== null ? 'disabled' : ''}}" catchtap="onReserve" data-id="{{item.id}}" data-finder="{{item.finderUserName}}" data-time="{{item.liveTimeRaw}}">{{item.isEnded ? '已结束' : (reservingId === item.id ? '预约中...' : '预约直播')}}</view></view>
+          </view>
+      </view>
+      <view class="section-status retry-status" wx:if="{{loadFailed}}" bindtap="onRetry">直播信息加载失败，点击重试</view>
+      <view class="section-status" wx:elif="{{displayLives.length === 0}}">本月暂无直播安排</view>
+    </view>
+  </block>
+  <view class="bottom-space"></view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

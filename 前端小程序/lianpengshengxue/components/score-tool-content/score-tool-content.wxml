@@ -1,0 +1,27 @@
+<view class="score-page {{pageReady ? 'is-ready' : ''}}">
+  <view class="hero">
+    <view class="hero-content">
+      <text class="hero-label">中考查分工具 · 2026</text>
+      <text class="hero-title">上海中考招生信息查询</text>
+      <text class="hero-subtitle">查询各区高中、招生计划与历年录取信息</text>
+      <view class="hero-meta"><text>覆盖 16 区</text><text>按区查询</text><text>持续更新</text></view>
+    </view>
+  </view>
+  <view class="district-panel">
+    <view class="search-box reveal-search"><view class="search-icon"></view><input class="search-input" value="{{keyword}}" placeholder="搜索区县" placeholder-class="search-placeholder" bindinput="onSearchInput" /></view>
+    <view class="section-heading reveal-list"><text class="section-title">选择区县</text><text class="section-count">共 {{districts.length}} 个区</text></view>
+    <view class="district-grid reveal-list" wx:if="{{filteredDistricts.length}}"><view class="district-item" wx:for="{{filteredDistricts}}" wx:key="name" data-name="{{item.name}}" bindtap="onDistrictTap" hover-class="district-item-active" hover-stay-time="80"><view class="district-copy"><text class="district-name">{{item.name}}</text><text class="district-count">{{item.count}}所高中</text></view><view class="district-arrow"></view></view></view>
+    <view class="empty-state reveal-list" wx:else><text class="empty-title">未找到相关区县</text><text class="empty-tip">请尝试输入其他区县名称</text></view>
+    <view class="blessing-wall reveal-list">
+      <view class="blessing-heading"><text class="blessing-title">中考祝福</text><text class="blessing-mark">最新 6 条</text></view>
+      <scroll-view class="blessing-scroll" scroll-y enhanced scroll-with-animation scroll-top="{{blessingScrollTop}}" show-scrollbar="{{false}}" enable-passive bindtouchstart="pauseBlessingAutoScroll" bindtouchend="resumeBlessingAutoScroll">
+        <view class="blessing-line" wx:for="{{blessings}}" wx:key="index" wx:for-item="item"><text class="blessing-avatar">{{item.initial}}</text><text class="blessing-nickname">{{item.nickname}}</text><text class="blessing-target">{{item.target}}</text><text class="blessing-school">{{item.schoolName}}</text></view>
+        <view class="blessing-empty" wx:if="{{!blessings.length}}">暂无祝福，期待你的第一句加油！</view>
+      </scroll-view>
+    </view>
+    <view class="content-module reveal-list"><view class="content-heading"><text class="content-title">中考政策</text><view class="year-tabs"><view wx:for="{{articleYears}}" wx:key="*this" class="year-tab {{item === articleYear ? 'active' : ''}}" data-year="{{item}}" bindtap="selectArticleYear">{{item}}年</view></view></view><view class="content-row" wx:for="{{admissionArticles}}" wx:key="id" data-id="{{item.id}}" bindtap="openAdmissionArticle"><image class="content-icon-image" src="/assets/icons/zhengce.png" mode="aspectFit" /><text class="content-row-title">{{item.title}}</text></view></view>
+    <view class="content-module reveal-list"><view class="content-heading"><text class="content-title">志愿填报小知识</text></view><view class="tip-row" wx:for="{{volunteerTips}}" wx:key="id" data-id="{{item.id}}" bindtap="openAdmissionArticle"><image class="content-icon-image" src="/assets/icons/zhengce.png" mode="aspectFit" /><text class="content-row-title">{{item.title}}</text></view><view class="more-entry" wx:if="{{allVolunteerTips.length > 3}}" bindtap="openAdmissionList">{{showAllVolunteerTips ? '收起' : '查看更多'}} <text>{{showAllVolunteerTips ? '⌃' : '⌄'}}</text></view></view>
+    <view class="query-note reveal-list"><view class="info-icon">i</view><view class="note-copy"><text class="note-title">查询说明</text><text class="note-text">选择所在区，可查看该区高中学校及招生信息。相关内容将根据公开信息持续更新，具体招生政策请以教育部门及学校官方发布为准。</text></view></view>
+    <view class="consult-entry reveal-list"><text>没有找到需要的信息？</text><text class="consult-link" bindtap="onConsult">联系升学顾问</text></view>
+  </view>
+</view>

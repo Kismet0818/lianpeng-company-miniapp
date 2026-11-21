@@ -1,0 +1,122 @@
+﻿<view class="page">
+  <view class="loading" wx:if="{{loading}}">正在加载开放日详情...</view>
+
+  <block wx:else>
+    <view class="school-hero" wx:if="{{school.id}}">
+      <view class="hero-main">
+        <view class="hero-logo-wrap">
+          <image wx:if="{{school.logoUrl}}" class="hero-logo" src="{{school.logoUrl}}" mode="aspectFit"></image>
+          <view wx:else class="hero-placeholder">{{school.schoolName ? school.schoolName[0] : '校'}}</view>
+        </view>
+        <view class="hero-info">
+          <text class="hero-name">{{school.schoolName}}</text>
+          <text class="hero-stage" wx:if="{{school.educationalStages}}">{{school.educationalStages}}</text>
+          <text class="hero-curriculum" wx:if="{{school.curriculum}}">{{school.curriculum}}</text>
+        </view>
+      </view>
+      <rich-text wx:if="{{school.description}}" class="hero-desc" nodes="{{school.description}}"></rich-text>
+      <view class="hero-address" wx:if="{{school.address}}">
+        <image src="/assets/icons/xuexiaoku/dingweihei.png" mode="aspectFit"></image>
+        <text>{{school.address}}</text>
+        <view class="copy-btn" bindtap="copyAddress">复制</view>
+      </view>
+    </view>
+
+    <view class="month-section" wx:if="{{school.id}}">
+      <view class="section-title"><view class="title-bar"></view><text>请选择探校月份</text></view>
+      <scroll-view class="month-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="month-list">
+          <view class="month-card {{item.disabled ? 'disabled' : ''}}" wx:for="{{monthOptions}}" wx:key="month" data-month="{{item.month}}" bindtap="onMonthTap">
+            <text class="month-number">{{item.month}}</text><text class="month-unit">月</text>
+            <text class="month-status">{{item.status}}</text>
+          </view>
+        </view>
+      </scroll-view>
+      <text class="month-tip">选择月份后，可在预约表单中选择具体探校日期</text>
+    </view>
+
+    <view class="recommend-section" wx:if="{{school.id}}">
+      <view class="recommend-tabs">
+        <view class="recommend-tab {{activeRecommendTab === index ? 'active' : ''}}" wx:for="{{recommendTabs}}" wx:key="*this" data-index="{{index}}" bindtap="onRecommendTab">{{item}}</view>
+      </view>
+      <view class="recommend-list">
+        <view class="recommend-item" wx:for="{{currentRecommendations}}" wx:key="id" data-id="{{item.id}}" bindtap="onRecommendationTap">
+          <text>{{item.title}}</text><text class="recommend-arrow">›</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="guide-section" wx:if="{{school.id}}">
+      <view class="guide-title-row"><view class="guide-bar"></view><text class="guide-title">择校指南</text></view>
+      <view class="guide-timeline">
+        <view class="guide-step" wx:for="{{guideSteps}}" wx:key="stepTitle">
+          <view class="step-node-row">
+            <view class="step-dot">
+              <image wx:if="{{item.stepIcon}}" class="step-icon-image" src="{{item.stepIcon}}" mode="aspectFit" style="width:{{item.stepIconSize}}rpx;height:{{item.stepIconSize}}rpx;transform:translate({{item.stepIconX}}rpx,{{item.stepIconY}}rpx);"></image>
+              <view wx:else class="step-icon-placeholder"></view>
+            </view>
+            <view class="step-header"><text class="step-title">{{item.stepTitle}}</text><text class="step-sub">{{item.subTitle}}</text></view>
+          </view>
+          <view class="step-menu-card">
+            <view class="step-menu-item" wx:for="{{item.menus}}" wx:key="label" data-category="{{item.category}}" data-menu="{{item.label}}" bindtap="onGuideMenu">
+              <image wx:if="{{item.icon}}" class="menu-icon-image" src="{{item.icon}}" mode="aspectFit"></image>
+              <view wx:else class="menu-icon-placeholder"></view>
+              <text class="menu-text">{{item.label}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="footer-brand" wx:if="{{school.id}}">
+      <text class="footer-logo">联朋升学</text>
+      <text class="footer-slogan">Guiding Every Step Toward Excellence.</text>
+      <view class="footer-tags">
+        <text>留学</text><text>·</text><text>雅思</text><text>·</text><text>PTE</text><text>·</text>
+        <text>A-Level</text><text>·</text><text>IB</text><text>·</text><text>AP</text><text>·</text>
+        <text>托福</text><text>·</text><text>SAT</text><text>·</text><text>GRE</text><text>·</text><text>GMAT</text>
+      </view>
+    </view>
+
+    <view class="empty" wx:if="{{!school.id}}">未找到开放日学校信息</view>
+  </block>
+
+  <view class="back-top" bindtap="backToTop"><text>↑</text><text>回顶部</text></view>
+</view>
+
+<view class="reserve-mask" wx:if="{{showReserve}}" bindtap="closeReserve" catchtouchmove="noop"></view>
+<view class="reserve-popup" wx:if="{{showReserve}}">
+  <view class="popup-header">
+    <text class="popup-title">预约探校</text>
+    <view class="popup-close" bindtap="closeReserve">×</view>
+  </view>
+  <scroll-view class="popup-scroll" scroll-y enhanced>
+    <view class="selected-school">{{school.schoolName}}</view>
+    <view class="form-intro"><view></view><text>请填写联系信息，方便确认探校安排。</text></view>
+
+    <view class="form-field">
+      <text class="required">*</text><text class="field-label">学生姓名</text>
+      <input class="field-input" placeholder="请填写真实姓名" value="{{parentName}}" data-key="parentName" bindinput="onFormInput" />
+    </view>
+    <view class="form-field">
+      <text class="required">*</text><text class="field-label">手机号码</text>
+      <input class="field-input" type="number" maxlength="11" placeholder="请输入联系人手机号" value="{{parentPhone}}" data-key="parentPhone" bindinput="onFormInput" />
+    </view>
+    <picker mode="selector" range="{{gradeOptions}}" bindchange="onGradeChange">
+      <view class="form-field">
+        <text class="required">*</text><text class="field-label">在读年级</text>
+        <text class="picker-text {{childGrade ? 'selected' : ''}}">{{childGrade || '请选择在读年级'}}</text><text class="field-arrow">›</text>
+      </view>
+    </picker>
+    <picker mode="date" value="{{reserveTime}}" start="{{reserveStart}}" end="{{reserveEnd}}" bindchange="onDateChange">
+      <view class="form-field">
+        <text class="required">*</text><text class="field-label">探校日期</text>
+        <text class="picker-text {{reserveTime ? 'selected' : ''}}">{{reserveTime || ('请选择' + selectedMonth + '月日期')}}</text><text class="field-arrow">›</text>
+      </view>
+    </picker>
+  </scroll-view>
+  <button class="reserve-submit {{parentName && parentPhone && childGrade && reserveTime ? 'ready' : ''}}" loading="{{submitting}}" disabled="{{submitting}}" bindtap="onReserveSubmit">{{submitting ? '提交中...' : '立即预约'}}</button>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

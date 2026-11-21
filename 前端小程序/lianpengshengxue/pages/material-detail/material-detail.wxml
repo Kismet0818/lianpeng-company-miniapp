@@ -1,0 +1,43 @@
+<view class="page" style="padding-top: {{contentTop}}px;">
+  <view class="custom-nav" style="height: {{navBarHeight}}px;">
+    <view class="page-back" style="top: {{navTop}}px; height: {{navHeight}}px;" role="button" aria-label="返回上一页" bindtap="goBack" hover-class="page-back-active">
+      <text class="page-back-arrow">‹</text>
+      <text class="page-back-text">返回</text>
+    </view>
+  </view>
+  <view class="status" wx:if="{{loading}}">正在加载...</view>
+  <view class="status error" wx:elif="{{error}}"><text>{{error}}</text></view>
+  <view class="article" wx:elif="{{material}}">
+    <view class="article-header">
+      <view class="article-heading">
+        <text class="path-name">{{material.category}}{{material.schoolLevel ? ' · ' + material.schoolLevel : ''}}</text>
+        <text class="title">{{material.title}}</text>
+      </view>
+      <image class="header-guide-image" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/background/qbantu.png" mode="aspectFit"></image>
+    </view>
+    <text class="summary" wx:if="{{material.summary}}">{{material.summary}}</text>
+    <view class="meta">
+      <text wx:if="{{material.publishDate}}"><text class="meta-label">发布日期：</text>{{material.publishDate}}</text>
+      <text wx:if="{{material.year}}"><text class="meta-label">资料年份：</text>{{material.year}}</text>
+    </view>
+    <text wx:if="{{material.content}}" class="body">{{material.content}}</text>
+    <view class="policy-attachments">
+      <text class="attachment-title">政策附件</text>
+      <view wx:if="{{!material.attachments.length}}" class="empty">暂无附件</view>
+      <view wx:for="{{material.attachments}}" wx:key="id" class="attachment-item">
+        <text class="attachment-name">{{item.name}}</text>
+        <view class="attachment-actions">
+          <button class="attachment-button preview-button" data-item="{{item}}" bindtap="openAttachment">预览文件</button>
+          <button class="attachment-button download-button" bindtap="openQr">领取完整版</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{previewVisible}}" class="file-preview-mask" catchtap="closePreview">
+  <view class="file-preview-dialog" catchtap="noop"><image class="file-preview-image" src="{{previewUrl}}" mode="widthFix" show-menu-by-longpress="{{false}}"></image><view class="file-preview-close" bindtap="closePreview">关闭</view></view>
+</view>
+<view wx:if="{{showQr}}" class="file-preview-mask" catchtap="closeQr">
+  <view class="qr-dialog" catchtap="noop"><image class="qr-dialog-image" src="{{qrImageUrl}}" mode="widthFix" show-menu-by-longpress></image><text class="qr-dialog-title">长按扫码领取完整资料</text><view class="file-preview-close" bindtap="closeQr">关闭</view></view>
+</view>

@@ -1,0 +1,25 @@
+<view class="page">
+  <view class="brand">联朋升学</view>
+  <view class="card">
+    <view class="icon">📱</view>
+    <view class="title">绑定手机号</view>
+    <view class="description">首次使用需要完成手机号授权，用于账号识别及为您提供咨询、预约等服务。</view>
+
+    <view class="checking" wx:if="{{checking}}">正在登录并检查账号...</view>
+    <block wx:else>
+      <button
+        wx:if="{{!error}}"
+        class="authorize-button"
+        open-type="getPhoneNumber"
+        bindgetphonenumber="onGetPhoneNumber"
+        loading="{{phoneBinding}}"
+        disabled="{{phoneBinding}}"
+      >{{phoneBinding ? '绑定中...' : '授权并绑定手机号'}}</button>
+      <block wx:else>
+        <view class="error">{{error}}</view>
+        <button class="retry-button" bindtap="checkProfile">重新登录</button>
+      </block>
+    </block>
+    <view class="privacy">手机号仅用于本平台服务，我们将妥善保护您的个人信息。</view>
+  </view>
+</view>

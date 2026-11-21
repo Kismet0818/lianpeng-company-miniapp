@@ -1,0 +1,128 @@
+﻿<view class="page">
+  <view class="loading-page" wx:if="{{loading}}">
+    <view class="skeleton skeleton-head"></view>
+    <view class="skeleton skeleton-line"></view>
+    <view class="skeleton skeleton-line short"></view>
+    <view class="skeleton skeleton-card"></view>
+  </view>
+
+  <block wx:else>
+    <view class="hero">
+      <view class="hero-glow hero-glow-left"></view>
+      <view class="hero-glow hero-glow-right"></view>
+      <view class="custom-nav" style="height:{{navBarHeight}}px">
+        <view class="custom-back" style="top:{{menuTop}}px;height:{{menuHeight}}px;width:{{menuHeight}}px" bindtap="onBack">
+          <text class="custom-back-arrow">‹</text>
+        </view>
+      </view>
+      <view class="hero-row">
+        <image wx:if="{{school.logoUrl}}" class="hero-logo" src="{{school.logoUrl}}" mode="aspectFit"></image>
+        <view wx:else class="hero-logo-placeholder">{{schoolInitial}}</view>
+        <view class="hero-info">
+          <text class="hero-name">{{school.name || admission.schoolName || '学校'}}招生动态</text>
+          <view class="hero-tags">
+            <text class="hero-tag hero-tag-primary">{{admissionYear}}招生中</text>
+            <text class="hero-tag">招生信息持续更新</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="progress-section" wx:if="{{progressSection}}">
+        <view class="section-heading progress-heading">
+          <view class="progress-title-dot"></view>
+          <text>{{progressSection.cleanTitle}}</text>
+        </view>
+        <view class="rich-content progress-content">
+          <text class="content-paragraph" wx:for="{{progressSection.blocks}}" wx:key="index" user-select>{{item}}</text>
+        </view>
+      </view>
+
+      <scroll-view class="anchor-nav" scroll-x enhanced show-scrollbar="{{false}}" wx:if="{{navSections.length}}">
+        <view class="anchor-nav-inner">
+          <view class="anchor-item {{activeKey === item.key ? 'active' : ''}}"
+            wx:for="{{navSections}}" wx:key="key" data-key="{{item.key}}" data-anchor="{{item.anchorId}}" bindtap="onTapTag">
+            {{item.label}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="empty-state" wx:if="{{empty}}">
+      <view class="empty-icon">校</view>
+      <text class="empty-title">招生动态暂未发布</text>
+      <text class="empty-desc">学校招生信息正在整理中，请稍后再来看看</text>
+      <button class="retry-btn" bindtap="onRetry">重新加载</button>
+    </view>
+
+    <view class="content-list" wx:else>
+      <view id="{{item.anchorId}}" class="info-card {{item.isGraduation ? 'graduation-card' : ''}}"
+        wx:for="{{contentSections}}" wx:key="anchorId">
+        <view class="fold-corner"></view>
+        <view class="section-heading">
+          <view class="heading-icon {{item.iconPath ? 'custom' : ''}} {{item.isExam && !item.iconPath ? 'exam' : ''}}">
+            <image wx:if="{{item.iconPath}}" class="heading-icon-image" src="{{item.iconPath}}" mode="aspectFit"></image>
+            <text wx:else>{{item.isExam ? '◎' : item.isGraduation ? '◆' : '▣'}}</text>
+          </view>
+          <text>{{item.cleanTitle}}</text>
+        </view>
+
+        <view class="consult-strip" wx:if="{{item.isExam}}" bindtap="onConsult">
+          <view class="consult-left"><text class="consult-fire">●</text><text>如何在入学测试中脱颖而出？</text></view>
+          <text class="consult-action">咨询笔面试辅导 ›</text>
+        </view>
+
+        <view class="detail-badge" wx:if="{{item.rows.length}}">项目详情</view>
+        <view class="detail-rows" wx:if="{{item.rows.length}}">
+          <view class="detail-row" wx:for="{{item.rows}}" wx:for-item="row" wx:key="label">
+            <text class="detail-label">{{row.label}}：</text>
+            <text class="detail-value {{row.highlight ? 'highlight' : ''}}" user-select>{{row.value}}</text>
+          </view>
+        </view>
+
+        <view class="timeline-content" wx:elif="{{item.isApplication && item.blocks.length}}">
+          <view class="timeline-row" wx:for="{{item.blocks}}" wx:for-item="block" wx:key="index">
+            <view class="timeline-axis"><view class="timeline-dot"></view><view class="timeline-line"></view></view>
+            <text class="timeline-text" user-select>{{block}}</text>
+          </view>
+        </view>
+
+        <view class="rich-content" wx:elif="{{item.blocks.length}}">
+          <text class="content-paragraph" wx:for="{{item.blocks}}" wx:for-item="block" wx:key="index" user-select>{{block}}</text>
+        </view>
+      </view>
+
+      <view class="end-note">
+        <view class="end-line"></view>
+        <text>招生信息持续更新中</text>
+        <text class="end-sub">具体安排请以学校最新通知为准</text>
+      </view>
+    </view>
+
+    <view class="back-top" wx:if="{{showBackTop}}" bindtap="onBackTop">
+      <text class="back-arrow">↑</text>
+      <text>回顶部</text>
+    </view>
+
+    <view class="bottom-space"></view>
+  </block>
+
+  <view class="bottom-bar">
+    <view class="bar-icons">
+      <view class="bar-icon-item share-item">
+        <image class="bar-icon-image share-icon-image" src="/assets/icons/zhaoshengdongtai/fenxiang2.png" mode="aspectFit"></image>
+        <text class="bar-label">分享</text>
+        <button class="share-hit-button" open-type="share"></button>
+      </view>
+      <view class="bar-icon-item" bindtap="onSchoolIntro">
+        <image class="bar-icon-image" src="/assets/icons/zhaoshengdongtai/xuexiao2.png" mode="aspectFit"></image><text class="bar-label">学校介绍</text>
+      </view>
+    </view>
+    <view class="bar-actions">
+      <view class="bar-action visit" bindtap="onVisit">预约探校</view>
+      <view class="bar-action consult" bindtap="onConsult">在线咨询</view>
+    </view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

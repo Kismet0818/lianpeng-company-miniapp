@@ -1,0 +1,9 @@
+﻿
+TARGET_NONEMPTY_DUIKOU [{"id":"学校ID","name":"学校名称","region":"区域","cols":["VIP免费下载标记","招生政策","招生列表","毕业生列表","住宿列表","学校招生
+列表","教师列表","学校图片列表","学校图片预览列表","知名校友","字段值"]},{"id":98,"name":"上海音乐学院附属黄浦比乐中学","region":"黄浦区","cols":[null,"<p>初中部（公办对口
+）招生方式：学籍对口，仅招收上师大附属卢湾实验小学毕业生</p><p>高中部（仅限黄浦区应届中考生，不外区招生）</p>",null,null,null,null,null,null,null,null,null]},{"id":43,"
+name":"上海外国语大学附属浦东外国语学校","region":"浦东新区","cols":[null,"<p>小升初全市招生，分浦东与外区名额；高中含校内直升、中考统招、VCE 国际班三条渠道，外区生源住宿优先安排。</p>",nu
+ll,null,null,null,null,null,null,null,null]},{"id":195,"name":"上海市实验学校","region":"浦东新区（本部）","cols":[null,"<p></p>",null
+,null,null,null,null,null,null,null,null]}]
+
+

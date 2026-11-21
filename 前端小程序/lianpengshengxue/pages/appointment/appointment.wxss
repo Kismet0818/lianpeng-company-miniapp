@@ -1,0 +1,36 @@
+page { background:#fff; color:#1d2735; }
+.page { min-height:100vh; background:#fff; display:flex; flex-direction:column; }
+.topbar { order:1; }
+.filterbar { order:2; }
+.page > picker { order:3; }
+.district-picker { order:3; }
+.intro { order:4; }
+.state,.list { order:5; }
+.topbar { box-sizing:border-box; background:#fff; }
+.topbar-inner { height:54px; padding:0 18px 0 10px; display:flex; align-items:center; justify-content:space-between; font-size:17px; font-weight:600; }
+.back { width:44px; height:44px; display:flex; align-items:center; justify-content:center; font-size:38px; font-weight:300; line-height:1; color:#171b20; }
+.top-title { flex:1; text-align:center; white-space:nowrap; overflow:visible; }
+.topmark { width:74px; height:34px; }
+.filterbar { display:flex; align-items:center; gap:18rpx; padding:16rpx 24rpx; background:#405b8f; color:#fff; }
+.filter { padding:10rpx 24rpx; border-radius:28rpx; font-size:28rpx; font-weight:600; }
+.filter.active { background:#88a6d7; box-shadow:inset 0 0 0 3rpx rgba(255,255,255,.5); }
+.intro { padding:24rpx 34rpx 18rpx; background:#fff; }
+.eyebrow { color:#315b95; font-size:22rpx; font-weight:700; }
+.intro-title { display:block; margin-top:8rpx; font-size:38rpx; font-weight:700; }
+.intro-sub { display:block; margin-top:8rpx; color:#637383; font-size:23rpx; }
+.list { padding:0 28rpx 40rpx; background:#fff; }
+.school-card { display:flex; align-items:flex-start; min-height:218rpx; margin:16rpx 0; padding:18rpx; box-sizing:border-box; background:#fff; border:1rpx solid #edf0f3; border-radius:20rpx; overflow:hidden; }
+.school-image { width:242rpx; height:190rpx; flex:none; align-self:center; border-radius:12rpx; background:#e4ebf1; }
+.school-body { padding:0 0 0 18rpx; min-width:0; flex:1; }
+.school-head { display:flex; flex-direction:column; gap:8rpx; }
+.badge,.level-badge { display:inline-block; margin-right:8rpx; padding:4rpx 8rpx; color:#fff; font-size:20rpx; border-radius:4rpx; background:#f34b5c; }
+.level-badge { color:#ef8429; background:#fff0df; }
+.school-name { display:block; font-size:29rpx; line-height:1.35; font-weight:700; }
+.meta { display:flex; gap:12rpx; margin-top:14rpx; color:#ef8429; font-size:23rpx; }
+.type { padding:4rpx 9rpx; background:#fff5e9; border:1rpx solid #ffd0a2; }
+.address { display:block; margin-top:14rpx; color:#7d7d7d; font-size:22rpx; line-height:1.35; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.reserve { display:block; width:100%; height:52rpx; margin:16rpx 0 0; padding:0; line-height:52rpx; border:0; border-radius:28rpx; color:#fff; background:#ff3153; font-size:24rpx; }
+.reserve::after { border:0; }
+.state { padding:100rpx 30rpx; color:#6e7b88; text-align:center; font-size:27rpx; }
+.district-picker { display:flex; align-items:center; justify-content:space-between; margin:14rpx 24rpx 0; padding:16rpx 20rpx; border:1rpx solid #dce5ed; border-radius:12rpx; background:#fff; color:#405b8f; font-size:25rpx; }
+.district-picker text { color:#7890a6; font-size:30rpx; }

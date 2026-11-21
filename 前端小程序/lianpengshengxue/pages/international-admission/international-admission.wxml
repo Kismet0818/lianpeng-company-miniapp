@@ -1,0 +1,28 @@
+﻿<view class="international-page">
+  <view class="year-bar"><view class="year-tab active">2026年</view></view>
+
+  <view class="filter-card">
+    <view class="filter-symbol"><view class="filter-line"></view><view class="filter-line short"></view><view class="filter-line"></view></view>
+    <view class="filter-option {{publicFilterClass}}" data-filter="public" bindtap="onFilterTap"><view class="check-dot">✓</view><text>公办</text></view>
+    <view class="filter-option {{privateFilterClass}}" data-filter="private" bindtap="onFilterTap"><view class="check-dot">✓</view><text>民办</text></view>
+    <view class="filter-option {{cooperationFilterClass}}" data-filter="cooperation" bindtap="onFilterTap"><view class="check-dot">✓</view><text>中外合作</text></view>
+  </view>
+
+  <view class="school-card" wx:if="{{displaySchools.length}}">
+    <view class="school-row" wx:for="{{displaySchools}}" wx:key="id">
+      <text class="school-name">{{item.name}}</text>
+      <view class="school-meta"><text>{{item.district}}{{item.levelLabel}}</text><text>{{item.natureLabel}}</text><text>{{item.boardingLabel}}</text></view>
+      <view class="number-grid">
+        <view class="number-item"><text class="number-label">招生总数</text><text class="number-value {{item.totalRecruitClass}}">{{item.totalRecruit}}</text></view>
+        <view class="number-item"><text class="number-label">本市生源</text><text class="number-value {{item.localStudentsClass}}">{{item.localStudents}}</text></view>
+        <view class="number-item"><text class="number-label">非本市生源</text><text class="number-value {{item.nonLocalStudentsClass}}">{{item.nonLocalStudents}}</text></view>
+      </view>
+    </view>
+  </view>
+  <view class="page-status" wx:elif="{{loading}}"><view class="loading-ring"></view><text>正在加载2026年招生信息...</text></view>
+  <view class="page-status" wx:elif="{{error}}"><text>{{error}}</text><view class="retry" bindtap="loadSchools">重新加载</view></view>
+  <view class="page-status" wx:else><text>暂无符合条件的招生信息</text></view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

@@ -1,0 +1,40 @@
+page { background:#f5f6fa; color:#222329; }
+.page { min-height:100vh; padding:20rpx 20rpx 40rpx; box-sizing:border-box; }
+.article { display:block; padding:34rpx 30rpx 50rpx; border-radius:20rpx; background:#fff; box-shadow:0 4rpx 18rpx rgba(46,42,76,.04); }
+.article-header { position:relative; min-height:172rpx; display:flex; align-items:flex-start; }
+.article-heading { min-width:0; flex:1; padding-right:174rpx; }
+.header-guide-image { position:absolute; top:-4rpx; right:-8rpx; width:184rpx; height:184rpx; display:block; }
+.path-name { display:block; color:#7761ef; font-size:22rpx; line-height:32rpx; }
+.title { display:block; margin-top:12rpx; color:#1f2025; font-size:38rpx; line-height:56rpx; font-weight:700; }
+.summary { display:block; margin-top:18rpx; padding:20rpx; color:#777982; font-size:24rpx; line-height:38rpx; border-radius:12rpx; background:#f8f7fd; }
+.preview-mask-wrap { position:relative; overflow:hidden; border-radius:14rpx; }
+.cover { width:100%; margin-top:26rpx; border-radius:14rpx; }
+.image-save-list { display:flex; flex-direction:column; gap:14rpx; margin-top:16rpx; }
+.image-save-item { display:flex; flex-direction:column; gap:14rpx; }
+.article-image { width:100%; border-radius:14rpx; }
+.save-image-button { width:100%; height:72rpx; margin:0; padding:0 24rpx; line-height:72rpx; color:#7761ef; background:#f8f7fd; border:1rpx solid #e8e3ff; border-radius:12rpx; font-size:25rpx; text-align:center; }
+.save-image-button::after { border:none; }
+.save-image-button[disabled] { color:#aaa6b5; opacity:.72; }
+.divider { height:1rpx; margin:30rpx 0; background:#eeeeF2; }
+.content { color:#3d3e44; font-size:28rpx; line-height:1.9; }
+.plain-content { display:block; white-space:pre-wrap; word-break:break-word; }
+.rich-content { display:block; word-break:break-word; }
+.status { min-height:70vh; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#9798a1; font-size:25rpx; }
+.retry { margin-top:24rpx; padding:14rpx 34rpx; color:#fff; border-radius:30rpx; background:#7761ef; }
+.policy-attachments { margin-top:30rpx; padding-top:26rpx; border-top:1rpx solid #eeeef2; }
+.attachment-title { color:#1f2025; font-size:28rpx; font-weight:700; line-height:40rpx; }
+.attachment-item { min-width:0; margin-top:18rpx; padding:22rpx; border:1rpx solid #ececf1; border-radius:14rpx; background:#fafafa; }
+.attachment-name { display:block; width:100%; color:#45464d; font-size:25rpx; line-height:38rpx; word-break:break-all; white-space:normal; }
+.attachment-actions { display:flex; align-items:center; gap:16rpx; margin-top:20rpx; }
+.attachment-button { margin:0; padding:0 22rpx; height:70rpx; line-height:68rpx; border-radius:10rpx; font-size:25rpx; font-weight:500; text-align:center; }
+.preview-button { flex:0 0 190rpx; color:#6654d9; border:1rpx solid #dcd7fa; background:#fff; }
+.download-button { flex:1; color:#fff; border:1rpx solid #6f5ce7; background:#6f5ce7; }
+.attachment-button:active { opacity:.82; }
+.qr-dialog { width:620rpx; padding:30rpx; box-sizing:border-box; border-radius:20rpx; background:#fff; text-align:center; }
+.qr-dialog-image { width:100%; display:block; border-radius:16rpx; }
+.qr-dialog-title { display:block; padding:20rpx 0 4rpx; color:#555; font-size:28rpx; font-weight:700; }
+.attachment-button::after { border:none; }
+.file-preview-mask { position:fixed; inset:0; z-index:1000; display:flex; align-items:center; justify-content:center; padding:40rpx; box-sizing:border-box; background:rgba(0,0,0,.72); }
+.file-preview-dialog { position:relative; width:100%; max-height:90vh; overflow:hidden; border-radius:16rpx; background:#fff; }
+.file-preview-image { display:block; width:100%; max-height:78vh; }
+.file-preview-close { height:78rpx; line-height:78rpx; color:#7761ef; background:#fff; text-align:center; font-size:28rpx; }

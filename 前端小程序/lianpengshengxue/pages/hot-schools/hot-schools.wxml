@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="top-space" style="height:{{statusBarHeight}}px"></view>
+  <view class="nav-bar">
+    <view class="nav-back" bindtap="onBack">‹</view>
+    <text class="nav-title">热门学校</text>
+    <button class="nav-share" open-type="share">↗</button>
+  </view>
+
+  <view class="hero">
+    <view class="eyebrow">专题</view>
+    <text class="hero-title">热门学校</text>
+    <text class="hero-subtitle">上海一梯队小学大盘点，点击学校可以查看招生信息</text>
+  </view>
+
+  <scroll-view class="district-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+    <view class="districts">
+      <view wx:for="{{districts}}" wx:key="*this" class="district-pill {{activeDistrict === item ? 'active' : ''}}" data-district="{{item}}" bindtap="onDistrictTap">{{item}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="list">
+    <view wx:if="{{loading}}" class="state">正在加载热门学校…</view>
+    <view wx:elif="{{!schools.length}}" class="state">暂无该区域的一梯队学校</view>
+    <view wx:else>
+      <view class="school-card" wx:for="{{schools}}" wx:key="id" data-id="{{item.id}}" bindtap="onSchoolTap">
+        <image wx:if="{{item.logoUrl}}" class="school-image" src="{{item.logoUrl}}" mode="aspectFill"></image>
+        <view wx:else class="school-image image-fallback">校</view>
+        <view class="school-copy">
+          <text class="school-name">{{item.name}}</text>
+          <text class="school-badge">{{item.badge}}</text>
+          <text class="school-address">{{item.address || '上海市 · 详情请查看招生信息'}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

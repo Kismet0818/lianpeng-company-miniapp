@@ -1,0 +1,56 @@
+﻿<view class="page">
+  <view class="hero">
+    <text class="hero-eyebrow">PRESCHOOL LANGUAGE PLAN</text>
+    <text class="hero-title">3-6岁学龄前语言成长规划</text>
+    <text class="hero-sub">规划范围覆盖小班、中班、大班，结合孩子当前基础安排启蒙、阅读与拼读路径。</text>
+    <view class="hero-tags"><text>小班</text><text>中班</text><text>大班</text></view>
+  </view>
+
+  <view class="intro-card">
+    <view class="section-title"><view></view><text>为什么要提前规划？</text></view>
+    <text class="intro-copy">学龄前语言学习的重点不是提前刷题，而是建立兴趣、积累高质量听力输入，并逐步形成阅读习惯。合适的规划能避免盲目囤书和频繁更换体系，让每一阶段都有清晰目标。</text>
+  </view>
+
+  <view class="section-block">
+    <view class="section-title"><view></view><text>小班至大班成长路径</text></view>
+    <view class="stage-list">
+      <view class="stage-card" wx:for="{{stages}}" wx:key="grade">
+        <view class="stage-head"><text>{{item.grade}}</text><text>{{item.age}}</text></view>
+        <text class="stage-goal">{{item.goal}}</text>
+        <text class="stage-desc">{{item.desc}}</text>
+        <view class="stage-tags"><text wx:for="{{item.tags}}" wx:for-item="tag" wx:key="*this">{{tag}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="section-block resources-block">
+    <view class="section-title"><view></view><text>原版阅读与拼读资源</text></view>
+    <text class="section-note">教材不是越多越好，关键是根据年龄、基础和兴趣选择适合的阅读体系。</text>
+    <view class="resource-card" wx:for="{{resources}}" wx:key="name">
+      <view class="resource-heading">
+        <view><text>{{item.en}}</text><text>{{item.name}}</text></view>
+        <text class="resource-index">0{{index + 1}}</text>
+      </view>
+      <view class="resource-images resource-images-{{item.images.length}}">
+        <image wx:for="{{item.images}}" wx:for-item="imageUrl" wx:key="*this" src="{{imageUrl}}" mode="aspectFill"></image>
+      </view>
+      <text class="resource-desc">{{item.desc}}</text>
+      <view class="resource-points"><text wx:for="{{item.points}}" wx:for-item="point" wx:key="*this">{{point}}</text></view>
+    </view>
+  </view>
+
+  <view class="guide-card">
+    <text class="guide-title">每个孩子的起点都不一样</text>
+    <text class="guide-copy">结合年龄、当前词汇、阅读兴趣和家庭陪伴时间，才能制定真正可执行的成长路径。</text>
+    <view class="guide-button" bindtap="onConsult">咨询专属语言规划</view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-bar">
+    <view><text>3-6岁专属规划</text><text>先评估，再匹配阅读路径</text></view>
+    <view class="bottom-button" bindtap="onConsult">立即咨询规划</view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

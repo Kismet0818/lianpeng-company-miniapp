@@ -1,0 +1,14 @@
+<view class="page">
+  <view class="custom-nav" style="height:{{navBarHeight}}px"><view class="nav-back" style="top:{{menuTop}}px;height:{{menuHeight}}px" bindtap="goBack" aria-role="button" aria-label="返回"><view class="back-arrow"></view></view><text class="nav-title">上哪学</text></view>
+  <view wx:if="{{loading}}" class="status">正在加载...</view>
+  <view wx:elif="{{error}}" class="status error">{{error}}<text bindtap="load">重新加载</text></view>
+  <view wx:elif="{{article}}" class="article">
+    <view class="watermark-layer" style="position:absolute;z-index:50;top:210rpx;right:0;bottom:0;left:0;display:flex;flex-wrap:wrap;align-content:space-around;justify-content:space-around;pointer-events:none;" aria-hidden="true"><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text></view>
+    <text class="title">{{article.title}}</text>
+    <view class="author-row"><image class="author-avatar" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/avatars/54072aed0d58411a9e8713c954b1cca1.jpg" mode="aspectFill"></image><view class="author-info"><text class="author-name">联朋升学</text><text class="publish-time">{{article.publishedAt}}</text></view></view>
+    <view class="divider"></view>
+    <view class="topic"><text class="topic-mark">#</text><text>家长问答</text></view>
+    <rich-text class="content" nodes="{{contentNodes}}"></rich-text>
+    <view wx:for="{{article.imageUrls}}" wx:key="*this" wx:for-item="url" wx:for-index="index"><image wx:if="{{!failedImages[index]}}" class="image" src="{{url}}" mode="widthFix" data-url="{{url}}" data-index="{{index}}" bindtap="preview" binderror="imageError"></image><view wx:else class="image-fallback">图片加载失败</view></view>
+  </view>
+</view>

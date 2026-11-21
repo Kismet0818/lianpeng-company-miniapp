@@ -1,0 +1,11 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "本月直播",
+    "navigationBarBackgroundColor":  "#64a8cd",
+    "navigationBarTextStyle":  "white",
+    "backgroundColorTop":  "#64a8cd",
+    "backgroundColorBottom":  "#f4f7f9",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

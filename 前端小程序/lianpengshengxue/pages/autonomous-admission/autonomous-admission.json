@@ -1,0 +1,10 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "自招·市重点和特高",
+    "navigationBarTextStyle":  "black",
+    "navigationBarBackgroundColor":  "#F5F5F5",
+    "backgroundColor":  "#F2F2F2",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

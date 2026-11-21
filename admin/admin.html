@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>联朋升学 · 留资管理</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: #f5f6fa;
+    color: #2d3436;
+    min-height: 100vh;
+  }
+
+  /* ===== 顶栏 ===== */
+  .header {
+    background: linear-gradient(135deg, #2d6cdf, #1a56c9);
+    color: #fff;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .header h1 { font-size: 20px; font-weight: 600; letter-spacing: .5px; }
+  .header .sub { font-size: 12px; opacity: .85; margin-top: 3px; }
+  .header-actions { display: flex; align-items: center; gap: 10px; }
+  .btn {
+    border: none; border-radius: 8px; cursor: pointer;
+    font-size: 14px; padding: 9px 16px; transition: all .2s;
+    font-weight: 500;
+  }
+  .btn-primary { background: #fff; color: #1a56c9; }
+  .btn-primary:hover { background: #eef2ff; }
+  .btn-ghost { background: rgba(255,255,255,.15); color: #fff; }
+  .btn-ghost:hover { background: rgba(255,255,255,.25); }
+
+  /* ===== 主容器 ===== */
+  .container { max-width: 860px; margin: 0 auto; padding: 20px 16px 40px; }
+
+  /* ===== 密钥栏 ===== */
+  .key-bar {
+    background: #fff; border-radius: 12px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06); margin-bottom: 16px;
+    flex-wrap: wrap;
+  }
+  .key-bar label { font-size: 13px; color: #636e72; white-space: nowrap; }
+  .key-bar input {
+    flex: 1; min-width: 200px; border: 1px solid #dfe6e9; border-radius: 8px;
+    padding: 8px 12px; font-size: 14px; outline: none;
+  }
+  .key-bar input:focus { border-color: #2d6cdf; }
+  .key-saved { color: #27ae60; font-size: 12px; display: none; }
+  .key-bar select {
+    border: 1px solid #dfe6e9; border-radius: 8px; padding: 8px 10px;
+    font-size: 13px; outline: none; background: #fff; color: #2d3436;
+  }
+
+  /* ===== 筛选区 ===== */
+  .filter-bar {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .tabs { display: flex; background: #e8ecf2; border-radius: 10px; padding: 4px; gap: 4px; }
+  .tab {
+    border: none; background: transparent; cursor: pointer;
+    padding: 8px 16px; border-radius: 8px; font-size: 14px; color: #636e72;
+    transition: all .2s;
+  }
+  .tab.active { background: #fff; color: #1a56c9; font-weight: 600; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+  .search-box {
+    flex: 1; min-width: 160px; display: flex; align-items: center;
+    background: #fff; border-radius: 10px; padding: 0 12px;
+    border: 1px solid #dfe6e9;
+  }
+  .search-box input { border: none; outline: none; flex: 1; padding: 10px 8px; font-size: 14px; background: transparent; }
+  .search-box .icon { color: #b2bec3; }
+
+  /* ===== 统计 ===== */
+  .stats { display: flex; gap: 12px; margin-bottom: 16px; flex-wrap: wrap; }
+  .stat-card {
+    background: #fff; border-radius: 12px; padding: 12px 18px; flex: 1; min-width: 110px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+  }
+  .stat-card .num { font-size: 24px; font-weight: 700; }
+  .stat-card .label { font-size: 12px; color: #636e72; margin-top: 2px; }
+  .stat-card.blue .num { color: #2d6cdf; }
+  .stat-card.gray .num { color: #636e72; }
+  .stat-card.green .num { color: #27ae60; }
+
+  /* ===== 列表 ===== */
+  .list { display: flex; flex-direction: column; gap: 12px; }
+  .card {
+    background: #fff; border-radius: 12px; padding: 16px 18px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    border-left: 4px solid #b2bec3;
+    transition: box-shadow .2s;
+  }
+  .card:hover { box-shadow: 0 4px 14px rgba(0,0,0,.1); }
+  .card.pending { border-left-color: #f39c12; }
+  .card.done { border-left-color: #27ae60; }
+
+  .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+  .card-title { font-size: 16px; font-weight: 600; }
+  .card-title .phone { color: #2d6cdf; font-weight: 700; }
+  .status-badge {
+    font-size: 12px; padding: 4px 12px; border-radius: 20px; font-weight: 500;
+  }
+  .status-badge.pending { background: #fef3e2; color: #d68910; }
+  .status-badge.done { background: #e6f9ef; color: #1e8449; }
+
+  .card-info { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 13px; color: #636e72; }
+  .card-info .item { display: flex; align-items: center; gap: 5px; }
+  .card-info .item .tag { color: #b2bec3; }
+
+  .card-concern {
+    margin-top: 10px; background: #f8f9fb; border-radius: 8px; padding: 10px 12px;
+    font-size: 13px; color: #4a5568; line-height: 1.5;
+  }
+  .card-concern.empty { color: #b2bec3; }
+  .user-metrics { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .metric-btn { border: 1px solid #dfe6e9; background: #f8f9fb; color: #4a5568; border-radius: 8px; padding: 7px 11px; cursor: pointer; font-size: 13px; }
+  .metric-btn:hover { border-color: #2d6cdf; color: #1a56c9; background: #eef4ff; }
+  .user-detail-panel { margin-top: 8px; background: #f8f9fb; border-radius: 8px; padding: 10px 12px; font-size: 13px; line-height: 1.65; }
+  .detail-row { padding: 8px 0; border-bottom: 1px solid #e9edf2; }
+  .detail-row:last-child { border-bottom: none; }
+  .interest-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+  .interest-toggle { border: none; background: transparent; color: #2d6cdf; cursor: pointer; font-size: 16px; padding: 2px 8px; }
+  .muted { color: #8b95a1; }
+
+  .card-foot { margin-top: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .card-time { font-size: 12px; color: #b2bec3; }
+  .card-actions { display: flex; gap: 8px; }
+  .btn-sm {
+    border: none; border-radius: 8px; cursor: pointer;
+    font-size: 13px; padding: 7px 14px; font-weight: 500; transition: all .2s;
+  }
+  .btn-done { background: #27ae60; color: #fff; }
+  .btn-done:hover { background: #1e9a52; }
+  .btn-reopen { background: #f39c12; color: #fff; }
+  .btn-reopen:hover { background: #d68910; }
+
+  /* ===== 状态 ===== */
+  .empty-state { text-align: center; padding: 60px 20px; color: #b2bec3; }
+  .empty-state .big { font-size: 40px; margin-bottom: 10px; }
+  .loading { text-align: center; padding: 40px; color: #636e72; }
+  .toast {
+    position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+    background: #2d3436; color: #fff; padding: 10px 20px; border-radius: 8px;
+    font-size: 14px; opacity: 0; transition: opacity .3s; pointer-events: none; z-index: 99;
+  }
+  .toast.show { opacity: 1; }
+
+  /* ===== 1-15 志愿管理 ===== */
+  .admission-layout { display:grid; grid-template-columns:minmax(280px, .95fr) minmax(420px, 1.55fr); gap:16px; align-items:start; }
+  .admission-panel { background:#fff; border:1px solid #e1e8f3; border-radius:14px; overflow:hidden; box-shadow:0 1px 4px rgba(28,51,84,.05); }
+  .admission-panel-head { padding:14px 16px; border-bottom:1px solid #edf1f6; display:flex; align-items:center; justify-content:space-between; gap:8px; }
+  .admission-panel-head h3 { font-size:15px; color:#18345e; }
+  .admission-school-grid { max-height:580px; overflow:auto; padding:8px; display:grid; gap:6px; }
+  .admission-school { width:100%; border:1px solid transparent; background:#fff; cursor:pointer; padding:8px; border-radius:10px; text-align:left; display:flex; gap:10px; align-items:center; }
+  .admission-school:hover { background:#f4f8ff; border-color:#d5e3fa; }
+  .admission-school.active { background:#eaf2ff; border-color:#2d6cdf; box-shadow:inset 3px 0 0 #2d6cdf; }
+  .admission-logo { width:42px; height:42px; border-radius:10px; object-fit:cover; background:#e9eef7; flex:0 0 auto; }
+  .admission-logo-fallback { width:42px; height:42px; border-radius:10px; background:#e8f0ff; color:#275cae; display:none; align-items:center; justify-content:center; font-size:16px; font-weight:700; flex:0 0 auto; }
+  .admission-school-main { min-width:0; flex:1; }
+  .admission-school-name { color:#21334b; font-size:14px; font-weight:650; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .admission-school-meta { color:#77859a; font-size:12px; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .ownership { display:inline-block; border-radius:999px; padding:2px 7px; font-size:11px; margin-left:5px; vertical-align:1px; }
+  .ownership.public { color:#176149; background:#e5f5ee; }.ownership.private { color:#9b5c08; background:#fff2dc; }.ownership.unknown { color:#66758a; background:#eef1f5; }
+  .admission-context { padding:14px 16px; border-bottom:1px solid #edf1f6; background:linear-gradient(105deg,#f7faff,#fff); min-height:72px; display:flex; align-items:center; gap:11px; }
+  .admission-context .name { font-size:17px; font-weight:700; color:#18345e; }.admission-context .hint { color:#7b8798; font-size:13px; }
+  .admission-form { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; padding:16px; }
+  .admission-field label { display:block; color:#65758a; font-size:12px; margin-bottom:5px; }.admission-field input,.admission-field select { width:100%; border:1px solid #dce4ee; border-radius:8px; padding:9px 10px; color:#283b53; outline:none; background:#fff; font-size:14px; }.admission-field input:focus,.admission-field select:focus { border-color:#2d6cdf; box-shadow:0 0 0 3px rgba(45,108,223,.1); }.admission-field.full { grid-column:1/-1; }
+  .admission-actions { padding:0 16px 16px; display:flex; justify-content:flex-end; gap:8px; }
+  .btn-blue { background:#2d6cdf; color:#fff; }.btn-blue:hover { background:#2259bb; }.btn-soft { background:#eef4ff; color:#1f5bb5; }
+  .admission-table-wrap { overflow:auto; }.admission-table { width:100%; border-collapse:collapse; min-width:650px; font-size:13px; }.admission-table th { text-align:left; color:#738197; font-weight:600; background:#f8fafc; padding:10px 12px; border-bottom:1px solid #e8edf4; white-space:nowrap; }.admission-table td { padding:11px 12px; color:#31445d; border-bottom:1px solid #eef2f6; vertical-align:middle; }.admission-table tr:last-child td { border-bottom:none; }.record-actions { display:flex; gap:6px; }.record-btn { border:0; padding:5px 8px; border-radius:6px; cursor:pointer; background:#edf4ff; color:#2360ba; }.record-btn.delete { background:#fff0f0; color:#bf4141; }
+  @media (max-width:760px) { .admission-layout{grid-template-columns:1fr}.admission-school-grid{max-height:280px}.admission-form{grid-template-columns:1fr}.admission-field.full{grid-column:auto} }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <h1>📋 联朋升学 · 留资管理</h1>
+      <div class="sub">咨询记录实时同步 · 云托管在线</div>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-ghost" onclick="refreshCurrentView()">🔄 刷新当前页</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- 密钥 -->
+    <div class="key-bar">
+      <label>🔑 管理密钥</label>
+      <input id="adminKey" type="password" placeholder="输入 X-Admin-Key">
+      <button class="btn btn-primary" onclick="saveKey()">保存</button>
+      <span class="key-saved" id="keySaved">✓ 已保存</span>
+      <select id="apiEnv" onchange="saveEnv()">
+        <option value="cloud">☁️ 线上（云托管）</option>
+        <option value="local">🖥️ 本地后端</option>
+      </select>
+    </div>
+
+    <div class="filter-bar" style="margin-bottom:18px">
+      <div class="tabs" style="width:100%">
+        <button class="tab active" data-admin-view="leads" onclick="switchAdminView('leads', this)">📋 留资管理</button>
+        <button class="tab" data-admin-view="users" onclick="switchAdminView('users', this)">👥 用户管理</button>
+        <button class="tab" data-admin-view="downloads" onclick="switchAdminView('downloads', this)">📥 资料下载记录</button>
+        <button class="tab" data-admin-view="contentLinks" onclick="switchAdminView('contentLinks', this)">🔗 视频号/直播</button>
+        <button class="tab" data-admin-view="blessings" onclick="switchAdminView('blessings', this)">💐 祝福墙管理</button>
+        <button class="tab" data-admin-view="volunteerAdmissions" onclick="switchAdminView('volunteerAdmissions', this)">🎯 1-15志愿管理</button>
+      </div>
+    </div>
+
+    <section id="viewLeads">
+    <!-- 筛选 -->
+    <div class="filter-bar">
+      <div class="tabs">
+        <button class="tab active" data-status="" onclick="setTab(this)">全部</button>
+        <button class="tab" data-status="0" onclick="setTab(this)">待跟进</button>
+        <button class="tab" data-status="1" onclick="setTab(this)">已沟通</button>
+      </div>
+      <div class="search-box">
+        <span class="icon">🔍</span>
+        <input id="keyword" placeholder="搜索姓名 / 手机号 / 学校" oninput="debouncedLoad()">
+      </div>
+    </div>
+
+    <!-- 统计 -->
+    <div class="stats">
+      <div class="stat-card blue"><div class="num" id="statTotal">-</div><div class="label">全部记录</div></div>
+      <div class="stat-card gray"><div class="num" id="statPending">-</div><div class="label">待跟进</div></div>
+      <div class="stat-card green"><div class="num" id="statDone">-</div><div class="label">已沟通</div></div>
+    </div>
+
+    <!-- 列表 -->
+    <div class="loading" id="loading">加载中...</div>
+    <div class="list" id="list"></div>
+    <div class="empty-state" id="empty" style="display:none">
+      <div class="big">📭</div>
+      <div>暂无留资记录</div>
+    </div>
+    </section>
+
+    <!-- ===== 1-15 志愿管理 ===== -->
+    <section id="viewVolunteerAdmissions" style="display:none">
+      <div style="margin:30px 0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap">
+        <div><h2 style="font-size:17px;color:#2d3436">🎯 1-15志愿管理</h2><div style="font-size:12px;color:#8190a3;margin-top:4px">先选择与小程序高中库一致的学校，再维护该校的统一招生记录。</div></div>
+        <button class="btn btn-soft" onclick="loadAdmissionSchools()">刷新学校库</button>
+      </div>
+      <div class="filter-bar" style="margin-bottom:12px">
+        <div class="search-box"><span class="icon">🔎</span><input id="admissionSchoolKeyword" placeholder="搜索高中名称" oninput="debouncedLoadAdmissionSchools()"></div>
+        <select id="admissionSchoolDistrict" onchange="loadAdmissionSchools()" style="border:1px solid #dfe6e9;border-radius:10px;padding:10px;background:#fff;color:#34465c"><option value="">全部区域</option><option>浦东新区</option><option>徐汇区</option><option>长宁区</option><option>闵行区</option><option>杨浦区</option><option>黄浦区</option><option>松江区</option><option>宝山区</option><option>嘉定区</option><option>金山区</option><option>静安区</option><option>青浦区</option><option>普陀区</option><option>虹口区</option><option>崇明区</option><option>奉贤区</option></select>
+      </div>
+      <div class="admission-layout">
+        <div class="admission-panel"><div class="admission-panel-head"><h3>高中学校 <span id="admissionSchoolTotal" style="font-size:12px;color:#8795a7;font-weight:400"></span></h3><span style="font-size:12px;color:#8795a7">点击选择</span></div><div id="admissionSchoolGrid" class="admission-school-grid"><div class="loading">加载学校库中…</div></div></div>
+        <div style="display:grid;gap:16px">
+          <div class="admission-panel"><div id="admissionContext" class="admission-context"><div><div class="name">请选择高中学校</div><div class="hint">选择后可新增、编辑或删除该校的 1-15 志愿数据。</div></div></div>
+            <input id="admissionRecordId" type="hidden"><input id="admissionSchoolId" type="hidden"><input id="admissionSource" type="hidden">
+            <div class="admission-form">
+              <div class="admission-field"><label>招生年份</label><input id="admissionYear" type="number" min="2000" max="2100" value="2026"></div>
+              <div class="admission-field"><label>招生范围</label><select id="admissionScope"><option value="全区">全区</option><option value="本区">本区</option></select></div>
+              <div class="admission-field"><label>招生区</label><input id="admissionDistrict" placeholder="如：徐汇区"></div>
+              <div class="admission-field"><label>招生人数</label><input id="admissionPlanCount" type="number" min="0" placeholder="未公布可留空"></div>
+              <div class="admission-field"><label>最低分数</label><input id="admissionMinScore" type="number" step="0.1" placeholder="如：716.5"></div>
+              <div class="admission-field"><label>涨幅</label><input id="admissionChangeRange" type="number" step="0.1" placeholder="如：6.5"></div>
+            </div>
+            <div class="admission-actions"><button class="btn btn-soft" onclick="resetAdmissionForm()">新建 / 取消编辑</button><button class="btn btn-blue" onclick="saveAdmissionRecord()">保存志愿记录</button></div>
+          </div>
+          <div class="admission-panel"><div class="admission-panel-head"><h3>该校志愿记录 <span id="admissionRecordTotal" style="font-size:12px;color:#8795a7;font-weight:400"></span></h3><button class="btn btn-soft" style="padding:7px 11px" onclick="loadAdmissionRecords()">刷新</button></div><div class="admission-table-wrap"><table class="admission-table"><thead><tr><th>年份</th><th>范围</th><th>招生区</th><th>人数</th><th>最低分</th><th>涨幅</th><th>操作</th></tr></thead><tbody id="admissionRecordRows"><tr><td colspan="7" style="text-align:center;color:#8795a7;padding:24px">请选择高中学校</td></tr></tbody></table></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 视频号短视频与直播预约 ===== -->
+    <section id="viewContentLinks" style="display:none">
+      <div style="margin:30px 0 12px"><h2 style="font-size:17px">🔗 视频号短视频与直播预约</h2></div>
+      <div class="card done" style="margin-bottom:14px">
+        <div class="card-title">🎬 视频号短视频</div>
+        <div class="card-info"><div class="item">填写视频号 feed_id、标题和封面，小程序刷新后生效</div></div>
+        <input id="videoId" type="hidden">
+        <div class="search-box" style="margin-top:12px"><input id="videoFeedId" placeholder="feed_id（必填）"></div>
+        <div class="search-box" style="margin-top:10px"><input id="videoTitle" placeholder="视频标题（必填）"></div>
+        <div class="search-box" style="margin-top:10px"><input id="videoCover" placeholder="封面地址（可不填）"></div>
+        <div class="card-foot"><label><input id="videoActive" type="checkbox" checked> 在小程序展示</label><div><button class="btn" onclick="resetVideoForm()">新建/取消编辑</button> <button class="btn btn-primary" style="background:#2d6cdf;color:#fff" onclick="saveVideo()">保存视频</button></div></div>
+        <div id="videoList" style="margin-top:14px"></div>
+      </div>
+      <div class="card done">
+        <div class="card-title">🎥 直播预约场次</div>
+        <div class="card-info"><div class="item">无需直播链接。小程序按“视频号原始 ID + 直播时间”匹配公众号已发布的视频号直播预告。</div></div>
+        <input id="liveId" type="hidden">
+        <div class="search-box" style="margin-top:12px"><input id="liveTitle" placeholder="直播标题（可不填）"></div>
+        <div class="search-box" style="margin-top:10px"><input id="liveTime" type="datetime-local" title="直播时间"></div>
+        <div class="search-box" style="margin-top:10px"><input id="finderUserName" placeholder="视频号原始 ID（finder_user_name，必填）"></div>
+        <div class="search-box" style="margin-top:10px"><input id="channelsName" placeholder="视频号名称（channels_name，必填）"></div>
+        <div class="search-box" style="margin-top:10px"><input id="channelsAvatar" placeholder="视频号头像地址（channels_avatar，可不填）"></div>
+        <div class="card-foot"><label><input id="liveActive" type="checkbox" checked> 在小程序展示</label><div><button class="btn" onclick="resetLiveForm()">新建/取消编辑</button> <button class="btn btn-primary" style="background:#2d6cdf;color:#fff" onclick="saveLiveSession()">保存直播场次</button></div></div>
+        <div id="liveSessionList" style="margin-top:14px"></div>
+      </div>
+    </section>
+
+    <!-- ===== 祝福墙管理 ===== -->
+    <section id="viewBlessings" style="display:none">
+    <div style="margin: 30px 0 12px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px;">
+      <h2 style="font-size:17px; color:#2d3436;">💐 中考祝福墙
+        <span style="font-size:12px; color:#b2bec3; font-weight:400;">（数据在本地库 · 请切换 🖥️本地后端查看）</span>
+      </h2>
+      <button class="btn" style="background:#eef2ff; color:#1a56c9;" onclick="loadBlessings()">🔄 刷新祝福</button>
+    </div>
+    <div class="loading" id="blessLoading" style="display:none">加载中...</div>
+    <div class="list" id="blessList"></div>
+    <div class="empty-state" id="blessEmpty" style="display:none">
+      <div class="big">💐</div>
+      <div>暂无祝福</div>
+    </div>
+    </section>
+
+    <!-- ===== 用户管理 ===== -->
+    <section id="viewUsers" style="display:none">
+    <div style="margin:30px 0 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+      <h2 style="font-size:17px;color:#2d3436">👥 用户管理 <span id="userTotal" style="font-size:12px;color:#b2bec3;font-weight:400"></span></h2>
+      <button class="btn" style="background:#eef2ff;color:#1a56c9" onclick="loadUsers()">🔄 刷新用户</button>
+    </div>
+    <div class="stats" id="userUsageStats">
+      <div class="stat-card blue"><div class="num" id="yesterdayVisitors">-</div><div class="label">昨日新增访问用户</div></div>
+      <div class="stat-card green"><div class="num" id="yesterdayUsers">-</div><div class="label">昨日新增授权用户</div></div>
+      <div class="stat-card blue"><div class="num" id="todayVisitors">-</div><div class="label">今日新增访问用户</div></div>
+      <div class="stat-card green"><div class="num" id="todayUsers">-</div><div class="label">今日新增授权用户</div></div>
+      <div class="stat-card blue"><div class="num" id="weekVisitors">-</div><div class="label">本周新增访问用户</div></div>
+      <div class="stat-card green"><div class="num" id="weekUsers">-</div><div class="label">本周新增授权用户</div></div>
+      <div class="stat-card blue"><div class="num" id="totalVisitors">-</div><div class="label">历史访问用户总数</div></div>
+      <div class="stat-card green"><div class="num" id="totalUsers">-</div><div class="label">历史授权用户总数</div></div>
+    </div>
+    <div class="filter-bar">
+      <div class="tabs">
+        <button class="tab active" data-user-status="" onclick="setUserStatus(this)">全部</button>
+        <button class="tab" data-user-status="1" onclick="setUserStatus(this)">正常</button>
+        <button class="tab" data-user-status="0" onclick="setUserStatus(this)">已停用</button>
+      </div>
+      <div class="search-box"><span class="icon">🔍</span><input id="userKeyword" placeholder="搜索编号 / 昵称 / 手机号" oninput="debouncedLoadUsers()"></div>
+    </div>
+    <div class="loading" id="userLoading" style="display:none">加载中...</div>
+    <div class="list" id="userList"></div>
+    <div class="empty-state" id="userEmpty" style="display:none"><div class="big">👥</div><div>暂无用户</div></div>
+    </section>
+
+    <!-- ===== 资料下载记录 ===== -->
+    <section id="viewDownloads" style="display:none">
+      <div style="margin:30px 0 12px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
+        <h2 style="font-size:17px;color:#2d3436">📥 资料下载记录 <span id="downloadTotal" style="font-size:12px;color:#b2bec3;font-weight:400"></span></h2>
+        <button class="btn" style="background:#eef2ff;color:#1a56c9" onclick="loadDownloads()">🔄 刷新记录</button>
+      </div>
+      <div class="filter-bar">
+        <div class="search-box"><span class="icon">🔍</span><input id="downloadKeyword" placeholder="搜索用户编号 / 昵称 / 手机号 / 资料名称" oninput="debouncedLoadDownloads()"></div>
+      </div>
+      <div class="loading" id="downloadLoading" style="display:none">加载中...</div>
+      <div class="list" id="downloadList"></div>
+      <div class="empty-state" id="downloadEmpty" style="display:none"><div class="big">📥</div><div>暂无资料下载记录</div></div>
+    </section>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+<script>
+  // ===== 配置 =====
+  const API_CLOUD = 'https://lpsx1-295231-8-1463346517.sh.run.tcloudbase.com'
+  // 跟随管理页所在主机，避免电脑局域网 IP 变化后本地接口失联。
+  const API_LOCAL = `http://${location.hostname}:8080`
+  const ENV_STORE = 'lpsx_admin_env_v2'
+  const KEY_STORE = 'lpsx_admin_key'
+  function getApiBase() {
+    return (localStorage.getItem(ENV_STORE) || 'local') === 'local' ? API_LOCAL : API_CLOUD
+  }
+  const STATUS_MAP = { 0: { text: '待跟进', cls: 'pending' }, 1: { text: '已沟通', cls: 'done' }, 2: { text: '已转化', cls: 'done' } }
+
+  let filterStatus = ''
+  let allRecords = []
+
+  // ===== 工具 =====
+  function toast(msg) {
+    const t = document.getElementById('toast')
+    t.textContent = msg
+    t.classList.add('show')
+    setTimeout(() => t.classList.remove('show'), 2000)
+  }
+
+  function getKey() {
+    let k = document.getElementById('adminKey').value.trim()
+    if (!k) {
+      k = localStorage.getItem(KEY_STORE) || ''
+      document.getElementById('adminKey').value = k
+    }
+    return k
+  }
+
+  function saveKey() {
+    const k = document.getElementById('adminKey').value.trim()
+    if (!k) { toast('请输入管理密钥'); return }
+    localStorage.setItem(KEY_STORE, k)
+    const s = document.getElementById('keySaved')
+    s.style.display = 'inline'
+    setTimeout(() => s.style.display = 'none', 1500)
+    toast('密钥已保存')
+    refreshCurrentView()
+  }
+
+  function formatTime(v) {
+    if (!v) return ''
+    const d = new Date(v)
+    if (isNaN(d.getTime())) return ''
+    const p = n => String(n).padStart(2, '0')
+    return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`
+  }
+
+  function esc(s) {
+    if (s === null || s === undefined) return ''
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')
+  }
+
+  // ===== API =====
+  async function api(url, options = {}) {
+    const res = await fetch(getApiBase() + url, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Key': getKey(),
+        ...(options.headers || {})
+      }
+    })
+    const data = await res.json()
+    if (!data || data.code !== 200) {
+      throw new Error((data && data.msg) || ('请求失败 ' + res.status))
+    }
+    return data.data
+  }
+
+  // ===== 列表 =====
+  async function loadList() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    document.getElementById('loading').style.display = 'block'
+    try {
+      const params = new URLSearchParams()
+      if (filterStatus !== '') params.set('status', filterStatus)
+      const kw = document.getElementById('keyword').value.trim()
+      if (kw) params.set('keyword', kw)
+      const qs = params.toString()
+      allRecords = await api('/api/admin/leads' + (qs ? '?' + qs : ''))
+      render()
+    } catch (e) {
+      toast(e.message)
+      document.getElementById('loading').style.display = 'none'
+    }
+  }
+
+  function render() {
+    document.getElementById('loading').style.display = 'none'
+    const list = document.getElementById('list')
+    const empty = document.getElementById('empty')
+    const records = allRecords || []
+
+    // 统计（基于当前筛选下的数据）
+    document.getElementById('statTotal').textContent = records.length
+    document.getElementById('statPending').textContent = records.filter(r => r.status === 0).length
+    document.getElementById('statDone').textContent = records.filter(r => r.status === 1 || r.status === 2).length
+
+    if (!records.length) {
+      list.innerHTML = ''
+      empty.style.display = 'block'
+      return
+    }
+    empty.style.display = 'none'
+
+    list.innerHTML = records.map(r => {
+      const st = STATUS_MAP[r.status] || { text: '未知', cls: 'pending' }
+      const done = r.status === 1 || r.status === 2
+      return `
+      <div class="card ${done ? 'done' : 'pending'}">
+        <div class="card-top">
+          <div class="card-title">👤 ${esc(r.parentName || '未填写')} <span class="phone">${esc(r.parentPhone || '')}</span></div>
+          <span class="status-badge ${st.cls}">${st.text}</span>
+        </div>
+        <div class="card-info">
+          <div class="item"><span class="tag">年级</span>${esc(r.childGrade || '-')}</div>
+          <div class="item"><span class="tag">目标</span>${esc(r.targetSchool || '-')}</div>
+          ${r.reserveTime ? `<div class="item"><span class="tag">预约</span>${esc(r.reserveTime)}</div>` : ''}
+        </div>
+        ${r.concern ? `<div class="card-concern">💬 ${esc(r.concern)}</div>` : `<div class="card-concern empty">（无咨询内容）</div>`}
+        <div class="card-foot">
+          <div class="card-time">🕐 ${formatTime(r.createTime || r.create_time)}</div>
+          <div class="card-actions">
+            ${done
+              ? `<button class="btn-sm btn-reopen" onclick="updateStatus(${r.id}, 0)">↩ 标记待跟进</button>`
+              : `<button class="btn-sm btn-done" onclick="updateStatus(${r.id}, 1)">✓ 标记已沟通</button>`}
+            <button class="btn-sm btn-reopen" onclick="deleteLead(${r.id})">🗑 删除</button>
+          </div>
+        </div>
+      </div>`
+    }).join('')
+  }
+
+  async function updateStatus(id, status) {
+    try {
+      await api(`/api/admin/leads/${id}/status`, {
+        method: 'PUT',
+        body: JSON.stringify({ status })
+      })
+      toast(status === 1 ? '已标记为已沟通' : '已标记为待跟进')
+      loadList()
+    } catch (e) {
+      toast(e.message)
+    }
+  }
+
+  // ===== 交互 =====
+  function setTab(el) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'))
+    el.classList.add('active')
+    filterStatus = el.dataset.status
+    loadList()
+  }
+
+  let debounceTimer
+  function debouncedLoad() {
+    clearTimeout(debounceTimer)
+    debounceTimer = setTimeout(loadList, 400)
+  }
+
+  // 初始化：预填已保存密钥 + 接口环境
+  document.getElementById('adminKey').value = localStorage.getItem(KEY_STORE) || ''
+  document.getElementById('apiEnv').value = localStorage.getItem(ENV_STORE) || 'local'
+  function saveEnv() {
+    localStorage.setItem(ENV_STORE, document.getElementById('apiEnv').value)
+    toast('已切换接口，正在刷新...')
+    refreshCurrentView()
+  }
+
+  async function deleteLead(id) {
+    if (!confirm('确定删除这条留资记录吗？\n\n只删除本条咨询记录，不会删除微信用户账号及其浏览、收藏等数据。')) return
+    try {
+      await api(`/api/admin/leads/${id}`, { method: 'DELETE' })
+      toast('留资记录已删除')
+      loadList()
+    } catch (e) {
+      toast(e.message)
+    }
+  }
+  loadList()
+
+  let currentAdminView = 'leads'
+  function switchAdminView(view, button) {
+    currentAdminView = view
+    document.getElementById('viewLeads').style.display = view === 'leads' ? '' : 'none'
+    document.getElementById('viewUsers').style.display = view === 'users' ? '' : 'none'
+    document.getElementById('viewDownloads').style.display = view === 'downloads' ? '' : 'none'
+    document.getElementById('viewContentLinks').style.display = view === 'contentLinks' ? '' : 'none'
+    document.getElementById('viewBlessings').style.display = view === 'blessings' ? '' : 'none'
+    document.getElementById('viewVolunteerAdmissions').style.display = view === 'volunteerAdmissions' ? '' : 'none'
+    document.querySelectorAll('[data-admin-view]').forEach(tab => tab.classList.remove('active'))
+    if (button) button.classList.add('active')
+    refreshCurrentView()
+  }
+  function refreshCurrentView() {
+    if (currentAdminView === 'users') loadUsers()
+    else if (currentAdminView === 'downloads') loadDownloads()
+    else if (currentAdminView === 'contentLinks') loadContentLinks()
+    else if (currentAdminView === 'blessings') loadBlessings()
+    else if (currentAdminView === 'volunteerAdmissions') { loadAdmissionSchools(); if (selectedAdmissionSchool) loadAdmissionRecords() }
+    else loadList()
+  }
+
+  // ===== 1-15 志愿管理 =====
+  let admissionSchools = []
+  let selectedAdmissionSchool = null
+  let admissionRecords = []
+  let admissionSchoolTimer
+
+  function debouncedLoadAdmissionSchools() {
+    clearTimeout(admissionSchoolTimer)
+    admissionSchoolTimer = setTimeout(loadAdmissionSchools, 280)
+  }
+
+  function ownershipClass(value) {
+    const text = String(value || '')
+    if (text.includes('公办')) return 'public'
+    if (text.includes('民办')) return 'private'
+    return 'unknown'
+  }
+
+  function ownershipText(value) { return String(value || '').trim() || '性质未填写' }
+
+  function logoFallback(name) { return esc(String(name || '高').slice(0, 1)) }
+
+  async function loadAdmissionSchools() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    const grid = document.getElementById('admissionSchoolGrid')
+    grid.innerHTML = '<div class="loading">加载学校库中…</div>'
+    try {
+      const query = new URLSearchParams({ page: '1', size: '100' })
+      const keyword = document.getElementById('admissionSchoolKeyword').value.trim()
+      const district = document.getElementById('admissionSchoolDistrict').value.trim()
+      if (keyword) query.set('keyword', keyword)
+      if (district) query.set('district', district)
+      const data = await api('/api/admin/score-volunteer-admissions/schools?' + query.toString())
+      admissionSchools = data.records || []
+      document.getElementById('admissionSchoolTotal').textContent = `（${data.total || 0} 所）`
+      renderAdmissionSchools()
+    } catch (e) {
+      grid.innerHTML = '<div class="empty-state"><div>学校库加载失败</div></div>'
+      toast(e.message)
+    }
+  }
+
+  function renderAdmissionSchools() {
+    const grid = document.getElementById('admissionSchoolGrid')
+    if (!admissionSchools.length) { grid.innerHTML = '<div class="empty-state"><div>没有符合条件的高中</div></div>'; return }
+    grid.innerHTML = admissionSchools.map(s => {
+      const selected = selectedAdmissionSchool && String(selectedAdmissionSchool.source) === String(s.source) && Number(selectedAdmissionSchool.highSchoolId) === Number(s.highSchoolId)
+      const src = s.imageUrl ? esc(s.imageUrl) : ''
+      const type = ownershipText(s.schoolType)
+      return `<button class="admission-school ${selected ? 'active' : ''}" onclick="selectAdmissionSchool('${esc(s.source)}', ${Number(s.highSchoolId)})">
+        ${src ? `<img class="admission-logo" src="${src}" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">` : '<span class="admission-logo" style="display:none"></span>'}
+        <span class="admission-logo-fallback" style="${src ? '' : 'display:flex'}">${logoFallback(s.schoolName)}</span>
+        <span class="admission-school-main"><span class="admission-school-name">${esc(s.schoolName)}<span class="ownership ${ownershipClass(type)}">${esc(type)}</span></span><span class="admission-school-meta">${esc(s.district || '区域未填写')} · ${s.source === 'general' ? '一般高中' : '重点高中'}</span></span>
+      </button>`
+    }).join('')
+  }
+
+  function selectAdmissionSchool(source, id) {
+    const school = admissionSchools.find(item => String(item.source) === String(source) && Number(item.highSchoolId) === Number(id))
+    if (!school) return
+    selectedAdmissionSchool = school
+    document.getElementById('admissionSchoolId').value = school.highSchoolId
+    document.getElementById('admissionSource').value = school.source
+    document.getElementById('admissionContext').innerHTML = `${school.imageUrl ? `<img class="admission-logo" src="${esc(school.imageUrl)}" alt="" onerror="this.style.display='none'">` : `<span class="admission-logo-fallback" style="display:flex">${logoFallback(school.schoolName)}</span>`}<div><div class="name">${esc(school.schoolName)} <span class="ownership ${ownershipClass(school.schoolType)}">${esc(ownershipText(school.schoolType))}</span></div><div class="hint">${esc(school.district || '区域未填写')} · ${school.source === 'general' ? '一般高中库' : '查分高中库'} · 已选中，可维护录取数据</div></div>`
+    resetAdmissionForm(false)
+    renderAdmissionSchools()
+    loadAdmissionRecords()
+  }
+
+  async function loadAdmissionRecords() {
+    const body = document.getElementById('admissionRecordRows')
+    if (!selectedAdmissionSchool) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#8795a7;padding:24px">请选择高中学校</td></tr>'; return }
+    body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#8795a7;padding:24px">加载记录中…</td></tr>'
+    try {
+      const query = new URLSearchParams({ page:'1', size:'100', source:selectedAdmissionSchool.source, highSchoolId:String(selectedAdmissionSchool.highSchoolId) })
+      const data = await api('/api/admin/score-volunteer-admissions?' + query.toString())
+      admissionRecords = data.records || []
+      document.getElementById('admissionRecordTotal').textContent = `（${data.total || 0} 条）`
+      renderAdmissionRecords()
+    } catch (e) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#bf4141;padding:24px">记录加载失败</td></tr>'; toast(e.message) }
+  }
+
+  function renderAdmissionRecords() {
+    const body = document.getElementById('admissionRecordRows')
+    if (!admissionRecords.length) { body.innerHTML = '<tr><td colspan="7" style="text-align:center;color:#8795a7;padding:24px">暂未录入志愿记录</td></tr>'; return }
+    body.innerHTML = admissionRecords.map(row => `<tr><td>${esc(row.admissionYear)}</td><td>${esc(row.admissionScope)}</td><td>${esc(row.targetDistrict || '—')}</td><td>${row.planCount ?? '—'}</td><td>${row.minScore ?? '—'}</td><td>${row.changeRange ?? '—'}</td><td><div class="record-actions"><button class="record-btn" onclick="editAdmissionRecord(${row.id})">编辑</button><button class="record-btn delete" onclick="deleteAdmissionRecord(${row.id})">删除</button></div></td></tr>`).join('')
+  }
+
+  function resetAdmissionForm(keepSchool = true) {
+    document.getElementById('admissionRecordId').value = ''
+    document.getElementById('admissionYear').value = '2026'
+    document.getElementById('admissionScope').value = '全区'
+    document.getElementById('admissionDistrict').value = ''
+    document.getElementById('admissionPlanCount').value = ''
+    document.getElementById('admissionMinScore').value = ''
+    document.getElementById('admissionChangeRange').value = ''
+    if (!keepSchool) return
+  }
+
+  function editAdmissionRecord(id) {
+    const row = admissionRecords.find(item => Number(item.id) === Number(id))
+    if (!row) return
+    document.getElementById('admissionRecordId').value = row.id
+    document.getElementById('admissionYear').value = row.admissionYear || ''
+    document.getElementById('admissionScope').value = row.admissionScope || '全区'
+    document.getElementById('admissionDistrict').value = row.targetDistrict || ''
+    document.getElementById('admissionPlanCount').value = row.planCount ?? ''
+    document.getElementById('admissionMinScore').value = row.minScore ?? ''
+    document.getElementById('admissionChangeRange').value = row.changeRange ?? ''
+    document.getElementById('admissionYear').focus()
+  }
+
+  const optionalNumber = id => { const value = document.getElementById(id).value.trim(); return value === '' ? null : Number(value) }
+  async function saveAdmissionRecord() {
+    if (!selectedAdmissionSchool) { toast('请先从左侧选择高中学校'); return }
+    const id = document.getElementById('admissionRecordId').value
+    const body = { highSchoolId:Number(selectedAdmissionSchool.highSchoolId), source:selectedAdmissionSchool.source, admissionYear:Number(document.getElementById('admissionYear').value), admissionScope:document.getElementById('admissionScope').value, targetDistrict:document.getElementById('admissionDistrict').value.trim(), planCount:optionalNumber('admissionPlanCount'), minScore:optionalNumber('admissionMinScore'), changeRange:optionalNumber('admissionChangeRange') }
+    if (!body.admissionYear || !body.admissionScope) { toast('请填写招生年份和招生范围'); return }
+    try {
+      await api('/api/admin/score-volunteer-admissions' + (id ? '/' + id : ''), { method:id ? 'PUT' : 'POST', body:JSON.stringify(body) })
+      toast(id ? '志愿记录已更新' : '志愿记录已新增')
+      resetAdmissionForm()
+      loadAdmissionRecords()
+    } catch (e) { toast(e.message) }
+  }
+
+  async function deleteAdmissionRecord(id) {
+    if (!confirm('确定删除这条 1-15 志愿记录吗？此操作不会影响旧志愿表。')) return
+    try { await api('/api/admin/score-volunteer-admissions/' + id, { method:'DELETE' }); toast('志愿记录已删除'); resetAdmissionForm(); loadAdmissionRecords() } catch (e) { toast(e.message) }
+  }
+
+  // ===== 视频号短视频与直播预约 =====
+  async function loadContentLinks() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    try {
+      await loadVideos()
+      await loadLiveSessions()
+    } catch (e) { toast(e.message) }
+  }
+  async function saveContentLink(type) {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    const title = document.getElementById('officialTitle').value.trim()
+    const linkUrl = document.getElementById('officialUrl').value.trim()
+    const status = document.getElementById('officialActive').checked ? 1 : 0
+    if (!linkUrl.startsWith('https://')) { toast('请填写 https:// 开头的链接'); return }
+    try {
+      await api('/api/admin/content-links/' + type, { method: 'PUT', body: JSON.stringify({ title, linkUrl, status }) })
+      toast('已保存，小程序刷新后生效')
+      loadContentLinks()
+    } catch (e) { toast(e.message) }
+  }
+
+  let videos = []
+  async function loadVideos() {
+    videos = await api('/api/admin/channels-videos') || []
+    document.getElementById('videoList').innerHTML = videos.length ? videos.map(row => `<div class="item" style="padding:10px 0;border-top:1px solid #edf0f5"><b>${esc(row.title || '')}</b> <span style="color:#636e72">${esc(row.feedId || '')}</span><span style="color:${row.isActive === 1 ? '#00a870' : '#999'};margin-left:8px">${row.isActive === 1 ? '已展示' : '已隐藏'}</span><div style="margin-top:7px"><button class="btn" onclick="editVideo(${Number(row.id)})">编辑</button> <button class="btn btn-danger" onclick="deleteVideo(${Number(row.id)})">删除</button></div></div>`).join('') : '<div style="color:#999;padding:12px 0">暂无视频</div>'
+  }
+  function resetVideoForm() { ['videoId','videoFeedId','videoTitle','videoCover'].forEach(id => document.getElementById(id).value = ''); document.getElementById('videoActive').checked = true }
+  function editVideo(id) { const row = videos.find(x => Number(x.id) === Number(id)); if (!row) return; document.getElementById('videoId').value=row.id; document.getElementById('videoFeedId').value=row.feedId||''; document.getElementById('videoTitle').value=row.title||''; document.getElementById('videoCover').value=row.cover||''; document.getElementById('videoActive').checked=row.isActive===1 }
+  async function saveVideo() { if (!getKey()) { toast('请先输入并保存管理密钥'); return } const id=document.getElementById('videoId').value; const body={feedId:document.getElementById('videoFeedId').value.trim(),title:document.getElementById('videoTitle').value.trim(),cover:document.getElementById('videoCover').value.trim(),isActive:document.getElementById('videoActive').checked?1:0}; if(!body.feedId||!body.title){toast('请填写 feed_id 和视频标题');return} try { await api('/api/admin/channels-videos'+(id?'/'+id:''),{method:id?'PUT':'POST',body:JSON.stringify(body)}); toast('视频已保存'); resetVideoForm(); loadVideos() } catch(e){toast(e.message)} }
+  async function deleteVideo(id) { if(!confirm('确定删除该视频吗？')) return; try { await api('/api/admin/channels-videos/'+id,{method:'DELETE'}); toast('视频已删除'); loadVideos() } catch(e){toast(e.message)} }
+
+  let liveSessions = []
+  async function loadLiveSessions() {
+    liveSessions = await api('/api/admin/live-sessions') || []
+    const box = document.getElementById('liveSessionList')
+    box.innerHTML = liveSessions.length ? liveSessions.map(row => `
+      <div class="item" style="padding:10px 0;border-top:1px solid #edf0f5">
+        <b>${esc(row.title || row.channelsName || '直播')}</b>
+        <span style="color:#636e72;margin-left:8px">${esc(formatLiveTime(row.liveTime))}</span>
+        <span style="color:${row.isActive === 1 ? '#00a870' : '#999'};margin-left:8px">${row.isActive === 1 ? '已展示' : '已隐藏'}</span>
+        <div style="margin-top:5px;color:#636e72">${esc(row.channelsName || '')} · ${esc(row.finderUserName || '')}</div>
+        <div style="margin-top:7px"><button class="btn" onclick="editLiveSession(${Number(row.id)})">编辑</button> <button class="btn btn-danger" onclick="deleteLiveSession(${Number(row.id)})">删除</button></div>
+      </div>`).join('') : '<div style="color:#999;padding:12px 0">暂无直播场次</div>'
+  }
+  function formatLiveTime(value) { return String(value || '').replace('T', ' ').slice(0, 16) }
+  function resetLiveForm() {
+    ;['liveId','liveTitle','liveTime','finderUserName','channelsName','channelsAvatar'].forEach(id => document.getElementById(id).value = '')
+    document.getElementById('liveActive').checked = true
+  }
+  function editLiveSession(id) {
+    const row = liveSessions.find(item => Number(item.id) === Number(id))
+    if (!row) return
+    document.getElementById('liveId').value = row.id
+    document.getElementById('liveTitle').value = row.title || ''
+    document.getElementById('liveTime').value = String(row.liveTime || '').slice(0, 16)
+    document.getElementById('finderUserName').value = row.finderUserName || ''
+    document.getElementById('channelsName').value = row.channelsName || ''
+    document.getElementById('channelsAvatar').value = row.channelsAvatar || ''
+    document.getElementById('liveActive').checked = row.isActive === 1
+  }
+  async function saveLiveSession() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    const id = document.getElementById('liveId').value
+    const body = {
+      title: document.getElementById('liveTitle').value.trim(),
+      liveTime: document.getElementById('liveTime').value,
+      finderUserName: document.getElementById('finderUserName').value.trim(),
+      channelsName: document.getElementById('channelsName').value.trim(),
+      channelsAvatar: document.getElementById('channelsAvatar').value.trim(),
+      isActive: document.getElementById('liveActive').checked ? 1 : 0
+    }
+    if (!body.liveTime || !body.finderUserName || !body.channelsName) { toast('请填写直播时间、视频号原始 ID 和视频号名称'); return }
+    try {
+      await api('/api/admin/live-sessions' + (id ? '/' + id : ''), { method: id ? 'PUT' : 'POST', body: JSON.stringify(body) })
+      toast('直播场次已保存')
+      resetLiveForm()
+      loadLiveSessions()
+    } catch (e) { toast(e.message) }
+  }
+  async function deleteLiveSession(id) {
+    if (!confirm('确定删除该直播场次吗？')) return
+    try {
+      await api('/api/admin/live-sessions/' + id, { method: 'DELETE' })
+      toast('直播场次已删除')
+      resetLiveForm()
+      loadLiveSessions()
+    } catch (e) { toast(e.message) }
+  }
+
+  // ===== 祝福墙管理 =====
+  async function loadBlessings() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    document.getElementById('blessLoading').style.display = 'block'
+    try {
+      const rows = await api('/api/admin/blessing')
+      renderBlessings(rows)
+    } catch (e) {
+      toast(e.message)
+    } finally {
+      document.getElementById('blessLoading').style.display = 'none'
+    }
+  }
+
+  function renderBlessings(rows) {
+    const list = document.getElementById('blessList')
+    const empty = document.getElementById('blessEmpty')
+    rows = rows || []
+    if (!rows.length) {
+      list.innerHTML = ''
+      empty.style.display = 'block'
+      return
+    }
+    empty.style.display = 'none'
+    const STATUS = { 0: '待审', 1: '已发布', 2: '隐藏' }
+    list.innerHTML = rows.map(b => `
+      <div class="card ${b.status === 1 ? 'done' : 'pending'}">
+        <div class="card-top">
+          <div class="card-title">💐 ${esc(b.nickname || '匿名用户')}</div>
+          <span class="status-badge ${b.status === 1 ? 'done' : 'pending'}">${STATUS[b.status] || '未知'}</span>
+        </div>
+        <div class="card-concern">🏫 ${esc(b.schoolName || '历史全局祝福')}<br>📝 ${esc(b.content)}</div>
+        <div class="card-foot">
+          <div class="card-time">🕐 ${formatTime(b.createTime || b.create_time)}</div>
+          <div class="card-actions">
+            <button class="btn-sm btn-reopen" onclick="deleteBlessing(${b.id})">🗑 删除</button>
+          </div>
+        </div>
+      </div>`).join('')
+  }
+
+  async function deleteBlessing(id) {
+    if (!confirm('确定删除这条祝福吗？')) return
+    try {
+      await api(`/api/admin/blessing/${id}`, { method: 'DELETE' })
+      toast('已删除')
+      loadBlessings()
+    } catch (e) {
+      toast(e.message)
+    }
+  }
+
+  // ===== 资料下载记录 =====
+  let downloadTimer
+  function debouncedLoadDownloads() {
+    clearTimeout(downloadTimer)
+    downloadTimer = setTimeout(loadDownloads, 400)
+  }
+  async function loadDownloads() {
+    if (!getKey()) { toast('请先输入并保存管理密钥'); return }
+    const loading = document.getElementById('downloadLoading')
+    loading.style.display = 'block'
+    try {
+      const params = new URLSearchParams({ page: '1', size: '100' })
+      const keyword = document.getElementById('downloadKeyword').value.trim()
+      if (keyword) params.set('keyword', keyword)
+      const data = await api('/api/admin/material-downloads?' + params.toString())
+      document.getElementById('downloadTotal').textContent = `（共 ${data.total || 0} 次）`
+      renderDownloads(data.records || [])
+    } catch (e) {
+      toast(e.message)
+    } finally {
+      loading.style.display = 'none'
+    }
+  }
+  function renderDownloads(rows) {
+    const list = document.getElementById('downloadList'), empty = document.getElementById('downloadEmpty')
+    if (!rows.length) { list.innerHTML = ''; empty.style.display = 'block'; return }
+    empty.style.display = 'none'
+    list.innerHTML = rows.map(row => `<div class="card done">
+      <div class="card-top">
+        <div class="card-title">📄 ${esc(row.resourceTitle || row.fileName || '未知资料')}</div>
+        <span class="status-badge done">已下载</span>
+      </div>
+      <div class="card-info">
+        <div class="item"><span class="tag">用户</span>#${row.userId} ${esc(row.userNickname || '微信用户')}</div>
+        <div class="item"><span class="tag">手机</span>${esc(row.userPhone || '未绑定')}</div>
+        <div class="item"><span class="tag">资料编号</span>${esc(row.resourceCode || '-')}</div>
+        <div class="item"><span class="tag">来源</span>${row.sourceType === 'GUIDE' ? '升学路径' : '择校资料'}</div>
+      </div>
+      <div class="card-concern">文件：${esc(row.fileName || '-')}</div>
+      <div class="card-foot"><div class="card-time">🕐 ${formatTime(row.downloadTime)}</div><div></div></div>
+    </div>`).join('')
+  }
+
+  // ===== 用户管理 =====
+  let userStatus = ''
+  let userTimer
+  function setUserStatus(el) {
+    document.querySelectorAll('[data-user-status]').forEach(t => t.classList.remove('active'))
+    el.classList.add('active'); userStatus = el.dataset.userStatus; loadUsers()
+  }
+  function debouncedLoadUsers() { clearTimeout(userTimer); userTimer = setTimeout(loadUsers, 400) }
+  async function loadUsers() {
+    if (!getKey()) return
+    const loading = document.getElementById('userLoading'); loading.style.display = 'block'
+    try {
+      const stats = await api('/api/admin/users/stats')
+      ;['todayVisitors','todayUsers','yesterdayVisitors','yesterdayUsers','weekVisitors','weekUsers','totalVisitors','totalUsers']
+        .forEach(key => { document.getElementById(key).textContent = Number(stats[key] || 0) })
+      const p = new URLSearchParams({ page: '1', size: '100' })
+      if (userStatus !== '') p.set('status', userStatus)
+      const kw = document.getElementById('userKeyword').value.trim(); if (kw) p.set('keyword', kw)
+      const data = await api('/api/admin/users?' + p.toString())
+      document.getElementById('userTotal').textContent = `（共 ${data.total || 0} 人）`
+      renderUsers(data.records || [])
+    } catch (e) { toast(e.message) } finally { loading.style.display = 'none' }
+  }
+  let renderedUsers = new Map()
+  function renderUsers(rows) {
+    const list = document.getElementById('userList'), empty = document.getElementById('userEmpty')
+    if (!rows.length) { list.innerHTML = ''; empty.style.display = 'block'; return }
+    empty.style.display = 'none'
+    renderedUsers = new Map(rows.map(u => [Number(u.id), u]))
+    list.innerHTML = rows.map(u => `<div class="card ${u.status === 0 ? 'pending' : 'done'}">
+      <div class="card-top"><div class="card-title">👤 #${u.id} ${esc(u.nickname || '微信用户')} <span class="phone">${esc(u.phone || u.phoneMasked || '未绑定手机')}</span></div><span class="status-badge ${u.status === 0 ? 'pending' : 'done'}">${u.status === 0 ? '已停用' : '正常'}</span></div>
+      <div class="card-info"><div class="item"><span class="tag">首次</span>${formatTime(u.createTime) || '-'}</div><div class="item"><span class="tag">最近</span>${formatTime(u.lastActiveTime || u.lastLoginTime) || '-'}</div><div class="item"><span class="tag">登录</span>${u.loginCount || 0} 次</div></div>
+      <div class="user-metrics">
+        <button class="metric-btn" onclick="showUserDetail(${u.id}, 'favorites')">收藏 ${u.favoriteCount || 0} ›</button>
+        <button class="metric-btn" onclick="showUserDetail(${u.id}, 'leads')">留资 ${u.leadCount || 0} ›</button>
+        <button class="metric-btn" onclick="showUserDetail(${u.id}, 'reactions')">评价 ${u.reactionCount || 0} ›</button>
+        <button class="metric-btn" onclick="showUserDetail(${u.id}, 'blessings')">祝福 ${u.blessingCount || 0} ›</button>
+      </div>
+      <div id="userDetail${u.id}"></div>
+      <div class="card-concern">OpenID：${esc(u.openidMasked || '-')}<br>备注：${esc(u.remark || '无')}</div>
+      <div id="userActivity${u.id}"></div>
+      <div class="card-foot"><div></div><div class="card-actions"><button class="btn-sm btn-done" onclick="showUserActivity(${u.id})">查看行为</button><button class="btn-sm btn-reopen" onclick="editUserRemark(${u.id})">备注</button><button class="btn-sm ${u.status === 0 ? 'btn-done' : 'btn-reopen'}" onclick="updateUserStatus(${u.id}, ${u.status === 0 ? 1 : 0})">${u.status === 0 ? '恢复' : '停用'}</button></div></div>
+    </div>`).join('')
+  }
+  async function updateUserStatus(id, status) {
+    if (!confirm(status ? '确定恢复该用户？' : '确定停用该用户？')) return
+    try { await api(`/api/admin/users/${id}/status`, { method:'PUT', body:JSON.stringify({status}) }); toast('用户状态已更新'); loadUsers() } catch(e) { toast(e.message) }
+  }
+  async function editUserRemark(id) {
+    const user = renderedUsers.get(Number(id)) || {}
+    const remark = prompt('请输入用户备注（最多500字）', user.remark || ''); if (remark === null) return
+    try { await api(`/api/admin/users/${id}/remark`, { method:'PUT', body:JSON.stringify({remark}) }); toast('备注已保存'); loadUsers() } catch(e) { toast(e.message) }
+  }
+  async function showUserActivity(id) {
+    const box = document.getElementById('userActivity' + id)
+    if (box.dataset.open === '1') { box.innerHTML = ''; box.dataset.open = '0'; return }
+    box.innerHTML = '<div class="loading">行为记录加载中...</div>'
+    try {
+      const data = await api(`/api/admin/users/${id}/activities`)
+      const interests = data.interests || [], timeline = data.timeline || []
+      box.dataset.open = '1'
+      const topThree = interests.slice(0, 3)
+      const interestRows = list => list.map((x,i) => `${i+1}. ${esc(x.schoolName)}：${x.viewCount}次，${formatDuration(x.totalDurationSeconds)}`).join('<br>')
+      box.innerHTML = `<div class="card-concern"><div class="interest-head"><b>兴趣学校排行（按累计停留时间）</b>${interests.length > 3 ? `<button class="interest-toggle" id="interestToggle${id}" onclick="toggleAllInterests(${id})" title="展开全部">⌄</button>` : ''}</div><div id="interestList${id}" data-open="0" data-top="${encodeURIComponent(interestRows(topThree))}" data-all="${encodeURIComponent(interestRows(interests))}">${interests.length ? interestRows(topThree) : '暂无有效浏览记录'}</div><br><b>最近浏览时间线</b><br>${timeline.length ? timeline.map(x => `${formatTime(x.createTime)}　${esc(x.schoolName)}　停留${formatDuration(x.durationSeconds)}`).join('<br>') : '暂无记录'}</div>`
+    } catch(e) { box.innerHTML = ''; toast(e.message) }
+  }
+  function formatDuration(seconds) {
+    const value = Math.max(0, Number(seconds) || 0)
+    if (value < 60) return `${value}秒`
+    const minutes = Math.floor(value / 60), rest = value % 60
+    return rest ? `${minutes}分${rest}秒` : `${minutes}分钟`
+  }
+  function toggleAllInterests(id) {
+    const list = document.getElementById('interestList' + id), button = document.getElementById('interestToggle' + id)
+    if (!list) return
+    const opening = list.dataset.open !== '1'
+    list.innerHTML = decodeURIComponent(opening ? list.dataset.all : list.dataset.top)
+    list.dataset.open = opening ? '1' : '0'
+    if (button) { button.textContent = opening ? '⌃' : '⌄'; button.title = opening ? '收起' : '展开全部' }
+  }
+  const userDetailCache = new Map()
+  async function showUserDetail(id, type) {
+    const box = document.getElementById('userDetail' + id)
+    if (box.dataset.type === type && box.dataset.open === '1') { box.innerHTML = ''; box.dataset.open = '0'; box.dataset.type = ''; return }
+    box.innerHTML = '<div class="loading">明细加载中...</div>'
+    try {
+      let data = userDetailCache.get(Number(id))
+      if (!data) { data = await api(`/api/admin/users/${id}/details`); userDetailCache.set(Number(id), data) }
+      box.dataset.open = '1'; box.dataset.type = type
+      box.innerHTML = `<div class="user-detail-panel"><b>${detailTitle(type)}</b>${renderUserDetail(type, data[type] || [])}</div>`
+    } catch(e) { box.innerHTML = ''; box.dataset.open = '0'; toast(e.message) }
+  }
+  function detailTitle(type) { return ({favorites:'收藏明细', leads:'留资明细', reactions:'评价明细', blessings:'祝福明细'})[type] || '明细' }
+  function renderUserDetail(type, rows) {
+    if (!rows.length) return '<div class="detail-row muted">暂无记录</div>'
+    return rows.map(x => {
+      if (type === 'favorites') return `<div class="detail-row"><b>${esc(x.schoolName || ('学校ID ' + x.schoolId))}</b><br><span class="muted">收藏时间：${formatTime(x.createTime) || '-'}</span></div>`
+      if (type === 'leads') return `<div class="detail-row"><b>目标学校：${esc(x.targetSchool || '未填写')}</b><br>家长：${esc(x.parentName || '-')}　年级：${esc(x.childGrade || '-')}　电话：${esc(x.parentPhone || '-')}<br>问题：${esc(x.concern || '未填写')}<br><span class="muted">预约：${esc(x.reserveTime || '-')}　状态：${['待跟进','已沟通','已转化'][x.status] || '未知'}　${formatTime(x.createTime) || '-'}</span></div>`
+      if (type === 'reactions') return `<div class="detail-row"><b>${esc(x.schoolName || ('学校ID ' + x.schoolId))}</b>　评价：<b>${esc(x.reactionLabel || x.reactionType || '未知')}</b><br><span class="muted">${formatTime(x.updatedTime || x.createdTime) || '-'}</span></div>`
+      return `<div class="detail-row">${esc(x.content || '')}<br><span class="muted">状态：${({0:'待审核',1:'已发布',2:'已隐藏'})[x.status] || '未知'}　${formatTime(x.createTime) || '-'}</span></div>`
+    }).join('')
+  }
+</script>
+</body>
+</html>

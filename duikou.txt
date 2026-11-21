@@ -1,0 +1,40 @@
+﻿
+TARGET_DUIKOU [{"id":565,"name":"上海市闵行区莘松中学","addr":"莘沥校区（本部）：闵行区莘沥路480号","cols":[null,null,null,null,null,null,null,nu
+ll,null,null,null]},{"id":294,"name":"华东师范大学第二附属中学附属初级中学","addr":"上海市闵行区紫凤路 350 号","cols":[null,null,null,null,null,nul
+l,null,null,null,null,null]},{"id":410,"name":"上海市莘城学校","addr":"闵行区普洱路158号","cols":[null,null,null,null,null,null,null,
+null,null,null,null]},{"id":477,"name":"上海市文来中学","addr":"上海市闵行区七宝镇农南路66号","cols":[null,null,null,null,null,null,null,nu
+ll,null,null,null]},{"id":571,"name":"上海市闵行区颛桥中学","addr":"闵行区颛盛路455号（新校区）；老沪闵路3112号（原址）","cols":[null,null,null,null,nu
+ll,null,null,null,null,null,null]},{"id":23,"name":"上海市七宝中学附属鑫都实验中学","addr":"闵行区联农路626号","cols":[null,null,null,null,nu
+ll,null,null,null,null,null,null]},{"id":28,"name":"上海市民办文绮中学","addr":"上海市闵行区江川东路980号","cols":[null,null,null,null,null
+,null,null,null,null,null,null]},{"id":572,"name":"上海市闵行区田园外国语中学","addr":"闵行区田园路455号","cols":[null,null,null,null,null,
+null,null,null,null,null,null]},{"id":303,"name":"复旦大学附属闵行实验学校","addr":"上海市闵行区梅陇西路 1566 号","cols":[null,null,null,null,
+null,null,null,null,null,null,null]},{"id":411,"name":"上海市莘光学校","addr":"雅致校区（初中）：闵行区雅致路18号；山花校区（小学）：闵行区山花路555号","cols":
+[null,null,null,null,null,null,null,null,null,null,null]},{"id":566,"name":"上海市闵行区七宝第二中学","addr":"南校区（本部）：闵行区民主路26号","c
+ols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":579,"name":"上海市闵行中学附属实验中学","addr":"闵行区景谷中路102号","c
+ols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":568,"name":"上海市实验学校西校","addr":"主校区：闵行区平吉路300号","co
+ls":[null,null,null,null,null,null,null,null,null,null,null]},{"id":538,"name":"上海交通大学附属第二中学","addr":"闵行区姚安路159号（2021年迁
+入新校区）","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":567,"name":"上海市闵行区七宝文来学校","addr":"闵行区华友路3
+15号（主校区），秀涟北路588号（备用登记地址）","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":569,"name":"上海中医药大学附属
+闵行晶城中学","addr":"闵行区朱行路16号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":573,"name":"上海市闵行区七宝第
+三中学","addr":"闵行区宝南路88号（主校区），增设七莘路教学点","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":578,"name"
+:"上海市闵行区马桥复旦万科实验中学","addr":"闵行区富卓路340号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":577,"nam
+e":"上海市闵行区鹤北初级中学","addr":"闵行区瑞丽路385号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":580,"name"
+:"上海市古美学校（前身上海市古美中学）","addr":"闵行区莲花路486弄25号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":33,
+"name":"上海交通大学附属闵行实验学校","addr":"闵行区马桥镇富学路99号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":47
+6,"name":"上海市民办上宝中学","addr":"上海市闵行区七宝镇农谊路1号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":564
+,"name":"上海市骏博外国语学校","addr":"闵行区华翔路3260号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id":570,"n
+ame":"上海尚师初级中学","addr":"闵行区永寨路135号（新校区，2023年迁入）","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id"
+:584,"name":"上海市闵行区浦江第一中学","addr":"上海市闵行区浦锦路139号","cols":[null,null,null,null,null,null,null,null,null,null,null]},{"id
+":539,"name":"上海民办圣华紫竹双语学校","addr":"闵行区兰香湖畔（新校区，原紫凤路500号）","cols":[null,null,null,null,null,null,null,null,null,null,nu
+ll]},{"id":389,"name":"上海市民办协和双语尚音学校","addr":"主校区闵行区龙茗路185号；低年级新校区闵行区鲁浩路310号","cols":[null,null,null,null,null,null,nul
+l,null,null,null,null]},{"id":393,"name":"上海市民办德英乐实验学校","addr":"上海市闵行区星站路263号","cols":[null,null,null,null,null,null,nu
+ll,null,null,null,null]},{"id":423,"name":"上海闵行区民办德闳学校","addr":"闵行区马桥镇曙光路1935号","cols":[null,null,null,null,null,null,n
+ull,null,null,null,null]},{"id":574,"name":"上海市闵行区龙茗中学","addr":"闵行区虹莘路1888号","cols":[null,null,null,null,null,null,null
+,null,null,null,null]},{"id":575,"name":"上海市民办协和双语学校","addr":"闵行区虹泉路999号","cols":[null,null,null,null,null,null,null,nu
+ll,null,null,null]},{"id":576,"name":"上海市民办万源城协和双语学校","addr":"闵行区平吉路509号","cols":[null,null,null,null,null,null,null,nu
+ll,null,null,null]},{"id":581,"name":"上海市航华中学","addr":"闵行区航北路328号","cols":[null,null,null,null,null,null,null,null,null
+,null,null]},{"id":34,"name":"上海市闵行区万科双语学校","addr":"闵行区七莘路3568号","cols":[null,null,null,null,null,null,null,null,null,n
+ull,null]},{"id":29,"name":"上海闵行区协和双语教科学校（原上海教科实验中学）","addr":"闵行区万源路55号","cols":[null,null,null,null,null,null,null,nul
+l,null,null,null]}]
+
+

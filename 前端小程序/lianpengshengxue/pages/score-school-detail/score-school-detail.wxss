@@ -1,0 +1,167 @@
+page { min-height:100%; background:#F2F2F2; color:#3D454A; }
+.school-page { min-height:100vh; padding:26rpx 20rpx calc(150rpx + env(safe-area-inset-bottom)); box-sizing:border-box; }
+.bottom-bar { position:fixed; bottom:0; left:0; right:0; display:flex; align-items:center; gap:18rpx; padding:16rpx 20rpx; padding-bottom:calc(16rpx + env(safe-area-inset-bottom)); background:#fff; border-top:1rpx solid #e5e5e5; box-shadow:0 -4rpx 12rpx rgba(0,0,0,.08); z-index:100; }
+.fav-btn { width:72rpx; flex-shrink:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3rpx; font-size:20rpx; color:#333; }
+.fav-star { height:42rpx; line-height:40rpx; color:#222; font-size:42rpx; }
+.fav-btn.active .fav-star { color:#64a8cd; }
+.bottom-action { height:72rpx; line-height:72rpx; margin:0; padding:0 20rpx; color:#fff; font-size:27rpx; font-weight:500; border-radius:8rpx; border:0; }
+.bottom-action::after { border:0; }
+.btn-visit { flex:0 0 190rpx; background:linear-gradient(135deg,#4d92bb,#64a8cd); }
+.btn-plan { flex:1; background:#fa3f70; }
+.lead-mask,.qr-mask { position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,.5); z-index:200; }
+.lead-popup { position:fixed; left:0; right:0; bottom:0; height:78vh; padding:28rpx 30rpx calc(30rpx + env(safe-area-inset-bottom)); box-sizing:border-box; display:flex; flex-direction:column; background:#fff; border-radius:36rpx 36rpx 0 0; z-index:201; }
+.lead-header { position:relative; height:62rpx; display:flex; align-items:flex-start; justify-content:center; flex-shrink:0; }.lead-title { color:#171717; font-size:36rpx; line-height:50rpx; font-weight:500; }.lead-close,.qr-close { position:absolute; display:flex; align-items:center; justify-content:center; color:#fff; background:#b7b9bc; border-radius:50%; }.lead-close { top:0; right:0; width:50rpx; height:50rpx; font-size:48rpx; }.lead-intro { display:flex; align-items:center; gap:12rpx; padding:18rpx 0 10rpx; color:#777; font-size:23rpx; }.lead-intro-bar { width:7rpx; height:28rpx; background:#64a8cd; border-radius:4rpx; }.lead-form { flex:1; }.lead-field { position:relative; height:108rpx; display:flex; align-items:center; border-bottom:1rpx solid #e4e5e8; box-sizing:border-box; }.lead-required { width:24rpx; color:#ff4b5f; }.lead-label { width:150rpx; color:#333; font-size:28rpx; }.lead-input { flex:1; color:#333; font-size:27rpx; }.lead-picker-value { flex:1; color:#aaa; font-size:27rpx; }.lead-picker-value.selected { color:#333; }.lead-picker-arrow { color:#aaa; font-size:40rpx; }.lead-submit { width:100%; height:86rpx; margin-top:42rpx; color:#fff; background:#cbd1d5; border:0; border-radius:10rpx; font-size:30rpx; }.lead-submit.ready { background:#64a8cd; }.lead-submit::after { border:0; }
+.qr-popup { position:fixed; left:50%; top:50%; width:620rpx; padding:35rpx; transform:translate(-50%,-50%); box-sizing:border-box; background:#fff; border-radius:20rpx; z-index:201; }.qr-img { display:block; width:100%; }.qr-close { top:-22rpx; right:-22rpx; width:52rpx; height:52rpx; font-size:42rpx; }
+.reaction-card { margin:20rpx 0; padding:26rpx 20rpx 24rpx; background:#fff; border-radius:16rpx; box-shadow:0 4rpx 18rpx rgba(35,35,45,.06); }
+.feature-class-card { padding:0 32rpx 26rpx; overflow:hidden; background:#fff; }
+.feature-class-heading { margin:0 -32rpx; padding:28rpx 32rpx 26rpx; display:flex; align-items:center; justify-content:space-between; gap:20rpx; background:#edf7fb; border-bottom:1rpx solid #d9ebf2; }
+.feature-class-heading-copy { min-width:0; padding-left:18rpx; border-left:8rpx solid #4385aa; }
+.feature-class-heading .section-title { color:#24536b; font-size:34rpx; line-height:44rpx; font-weight:800; }
+.feature-class-subtitle { display:block; margin-top:7rpx; color:#6f8b99; font-size:21rpx; line-height:31rpx; }
+.feature-class-mark { width:50rpx; height:50rpx; display:flex; align-items:center; justify-content:center; flex-shrink:0; color:#fff; background:#4385aa; border-radius:50%; box-shadow:0 4rpx 10rpx rgba(67,133,170,.2); font-size:24rpx; font-weight:800; }
+.feature-class-list { padding-top:8rpx; }
+.feature-class-item { padding:25rpx 2rpx 23rpx; border-bottom:1rpx solid #e8f0f3; }
+.feature-class-item:last-child { border-bottom:0; padding-bottom:6rpx; }
+.feature-class-name { display:block; color:#263840; font-size:28rpx; line-height:40rpx; font-weight:700; }
+.feature-class-text { display:block; margin-top:9rpx; color:#52646e; font-size:25rpx; line-height:38rpx; white-space:pre-wrap; }
+.feature-class-meta { margin-top:12rpx; display:flex; flex-direction:column; gap:5rpx; color:#78909d; font-size:22rpx; line-height:32rpx; }
+.reaction-header { display:flex; align-items:baseline; justify-content:space-between; gap:16rpx; margin-bottom:24rpx; }.reaction-title { color:#222; font-size:30rpx; font-weight:600; }.reaction-hint { color:#999; font-size:22rpx; }
+.reaction-list { display:flex; justify-content:space-between; }.reaction-list.disabled { opacity:.6; pointer-events:none; }.reaction-item { width:116rpx; padding:12rpx 2rpx 10rpx; display:flex; flex-direction:column; align-items:center; border:2rpx solid transparent; border-radius:14rpx; box-sizing:border-box; }.reaction-item.selected { border-color:#64a8cd; background:#f1f9fd; }
+.reaction-image-wrap { position:relative; width:68rpx; height:68rpx; }.reaction-image { width:100%; height:100%; }.reaction-check { position:absolute; top:-9rpx; right:-12rpx; width:28rpx; height:28rpx; display:flex; align-items:center; justify-content:center; color:#fff; background:#64a8cd; border:3rpx solid #fff; border-radius:50%; font-size:18rpx; }.reaction-label { margin-top:8rpx; color:#333; font-size:23rpx; }.reaction-count { color:#999; font-size:20rpx; }.reaction-login { padding:26rpx 0; color:#4385aa; background:#f3fafe; border-radius:12rpx; text-align:center; font-size:26rpx; }
+.profile-card,.content-card { overflow:hidden; background:#fff; border-radius:20rpx; }
+.profile-card { position:relative; }
+.profile-card-no-cover .profile-content { padding-top:38rpx; }
+.school-cover { position:relative; height:372rpx; overflow:hidden; background:#EAF2F6; }
+.cover-swiper { width:100%; height:100%; }
+.cover-image { width:100%; height:100%; display:block; }
+.swiper-count { position:absolute; right:20rpx; bottom:18rpx; padding:7rpx 16rpx; color:#fff; background:rgba(20,39,49,.58); border-radius:22rpx; font-size:20rpx; line-height:28rpx; }
+.cover-placeholder { height:100%; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#8AA0AD; background:linear-gradient(145deg,#E5F0F5 0%,#F2F7F9 100%); font-size:23rpx; }
+.placeholder-line { width:82rpx; height:6rpx; margin-bottom:18rpx; background:#64A8CD; border-radius:3rpx; }
+.school-logo { position:absolute; left:38rpx; top:310rpx; z-index:2; width:126rpx; height:126rpx; padding:8rpx; box-sizing:border-box; background:#fff; border:4rpx solid #fff; border-radius:50%; box-shadow:0 5rpx 16rpx rgba(36,72,93,.14); }
+.school-logo-no-cover { position:relative; left:auto; top:auto; margin:32rpx 0 0 38rpx; display:block; }
+.profile-content { padding:48rpx 38rpx 34rpx; }
+.school-logo + .profile-content { padding-top:54rpx; }
+.school-title-row { display:flex; align-items:center; gap:22rpx; }
+.school-title-row .school-name { flex:1; min-width:0; }
+.school-favorite { width:82rpx; height:82rpx; flex-shrink:0; display:flex; align-items:center; justify-content:center; border-radius:14rpx; }
+.school-favorite:active { opacity:.72; transform:scale(.96); }
+.school-favorite-icon { width:72rpx; height:72rpx; display:block; }
+.school-name { display:block; color:#30383D; font-size:43rpx; line-height:58rpx; font-weight:800; }
+.school-meta { margin-top:13rpx; display:flex; align-items:center; color:#788A94; font-size:24rpx; line-height:34rpx; }
+.school-level { display:block; margin-top:8rpx; color:#40515A; font-size:24rpx; line-height:36rpx; }
+.meta-divider { width:1rpx; height:24rpx; margin:0 18rpx; background:#CDD8DE; }
+.summary-grid { margin-top:44rpx; display:flex; }
+.summary-item { width:50%; min-width:0; padding-right:20rpx; box-sizing:border-box; }
+.summary-label,.summary-value { display:block; }
+.summary-label { color:#97A6AE; font-size:20rpx; line-height:30rpx; }
+.summary-value { margin-top:5rpx; overflow:hidden; color:#3D454A; font-size:26rpx; line-height:38rpx; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.content-card { margin-top:26rpx; padding:36rpx 32rpx; }
+.section-title { display:block; color:#36434A; font-size:34rpx; line-height:48rpx; font-weight:800; }
+.gallery-grid { margin-top:26rpx; display:grid; grid-template-columns:repeat(3,1fr); gap:10rpx; }
+.gallery-image { width:100%; height:204rpx; border-radius:10rpx; background:#EEF3F5; }
+.address-row { margin-top:24rpx; display:flex; align-items:flex-start; color:#405D6D; font-size:26rpx; line-height:39rpx; }
+.address-row text { min-width:0; flex:1; }
+.location-icon { width:30rpx; height:30rpx; margin:4rpx 17rpx 0 0; flex-shrink:0; }
+.detail-card { padding-top:8rpx; padding-bottom:8rpx; }
+.detail-block { padding:30rpx 4rpx; border-bottom:1rpx solid #E4EAED; }
+.detail-block:last-child { border-bottom:0; }
+.detail-title,.detail-text { display:block; }
+.detail-title { color:#3A474E; font-size:29rpx; line-height:42rpx; font-weight:700; }
+.detail-text { margin-top:14rpx; color:#405D6D; font-size:26rpx; line-height:40rpx; }
+.description-card { padding-bottom:40rpx; }
+
+/* 公办初中对口小学：与学校库现有蓝色信息卡保持一致。 */
+.duikou-card { padding:26rpx 22rpx 20rpx; }
+.duikou-head { display:flex; align-items:flex-start; justify-content:space-between; }
+.duikou-title { display:block; color:#171717; font-size:30rpx; font-weight:600; line-height:42rpx; }
+.duikou-subtitle { display:block; margin-top:5rpx; color:#7d929d; font-size:22rpx; line-height:32rpx; }
+.duikou-rule { width:92rpx; height:8rpx; margin-top:10rpx; background:linear-gradient(90deg,#91c9e3,#dceef6); border-radius:8rpx; }
+.duikou-list { margin-top:20rpx; border-top:1rpx solid #edf3f6; }
+.duikou-item { position:relative; display:flex; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; padding:22rpx 0; border-bottom:1rpx solid #edf3f6; }
+.duikou-item-link { cursor:pointer; }
+.duikou-item-main { min-width:0; flex:1; padding-right:14rpx; }
+.duikou-school-name { display:block; color:#20282c; font-size:27rpx; line-height:38rpx; font-weight:600; }
+.duikou-address { display:block; margin-top:6rpx; color:#89979d; font-size:22rpx; line-height:30rpx; }
+.duikou-item-side { display:flex; align-items:center; flex-shrink:0; }
+.duikou-tag { padding:4rpx 10rpx; color:#3f83aa; background:#f0f8fc; border:1rpx solid #cfe6f0; border-radius:6rpx; font-size:20rpx; line-height:28rpx; }
+.duikou-arrow { margin-left:8rpx; color:#8aa7b4; font-size:38rpx; line-height:30rpx; font-weight:200; }
+.duikou-scope { flex-basis:100%; margin-top:10rpx; color:#66777e; font-size:22rpx; line-height:34rpx; }
+.duikou-note { display:block; margin-top:16rpx; color:#a1adb2; font-size:21rpx; line-height:30rpx; }
+.description { display:block; margin-top:22rpx; color:#405D6D; font-size:25rpx; line-height:1.85; white-space:pre-wrap; text-align:justify; }
+.blessing-card { position:relative; padding:38rpx 34rpx 0; background:linear-gradient(155deg,#FFFFFF 0%,#FFFFFF 76%,#FFF9F5 100%); }
+.blessing-head { display:flex; align-items:center; justify-content:space-between; }
+.blessing-head .section-title { color:#3F4143; font-size:35rpx; line-height:50rpx; }
+.blessing-head > .blessing-action { width:180rpx; min-width:0; height:56rpx; margin:0; padding:0; display:inline-flex; align-items:center; justify-content:center; flex:0 0 180rpx; box-sizing:border-box; color:#F4512A; background:#FFF1EC; border:1rpx solid rgba(244,81,42,.7); border-radius:10rpx; font-size:26rpx; font-weight:700; line-height:1; }
+.blessing-action-active { color:#DC3F1B; background:#FFE7DE; transform:scale(.985); }
+.blessing-preview { min-height:190rpx; padding:26rpx 0 30rpx; box-sizing:border-box; }
+.blessing-row { display:flex; align-items:center; margin-top:20rpx; }
+.blessing-row:first-child { margin-top:0; }
+.blessing-avatar { width:50rpx; height:50rpx; margin-right:15rpx; flex-shrink:0; border-radius:50%; background:#F0F0F0; }
+.blessing-avatar-empty { display:flex; align-items:center; justify-content:center; }
+.blessing-avatar-empty image { width:31rpx; height:31rpx; opacity:.46; }
+.blessing-line { min-width:0; flex:1; display:flex; align-items:baseline; overflow:hidden; color:#4B4D4F; font-size:25rpx; line-height:40rpx; white-space:nowrap; }
+.blessing-name { max-width:176rpx; margin-right:10rpx; flex-shrink:1; overflow:hidden; color:#383A3C; font-weight:700; text-overflow:ellipsis; white-space:nowrap; }
+.blessing-content { min-width:0; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.blessing-empty { min-height:190rpx; padding:66rpx 0 40rpx; box-sizing:border-box; color:#A28D86; font-size:24rpx; text-align:center; }
+.blessing-more { display:flex; align-items:center; height:90rpx; color:#F4512A; border-top:1rpx solid #E9E1DD; font-size:25rpx; font-weight:700; }
+.blessing-more-active { opacity:.7; }
+.more-arrow { margin-left:9rpx; font-size:36rpx; line-height:1; }
+.plan-card { padding:34rpx 24rpx 24rpx; }
+.district-plan-head { padding:0 12rpx 22rpx; }
+.district-plan-eyebrow { display:block; color:#3F4549; font-size:24rpx; line-height:34rpx; }
+.district-plan-title { display:block; margin-top:2rpx; color:#354149; font-size:36rpx; line-height:50rpx; font-weight:800; }
+.plan-year-bar { margin:4rpx 0 0; padding:24rpx 0 22rpx; display:flex; align-items:center; border-bottom:1rpx solid #E1E1E1; }
+.plan-year { min-width:94rpx; height:52rpx; padding:0 20rpx; display:flex; align-items:center; justify-content:center; box-sizing:border-box; color:#3D454A; background:#F0F1F2; border-radius:10rpx; font-size:25rpx; line-height:52rpx; font-weight:800; }
+.plan-year.active { color:#F4512A; background:#FFF0EA; }
+.plan-tabs { height:78rpx; padding:8rpx; display:flex; align-items:stretch; gap:6rpx; background:#515151; border-radius:18rpx; box-sizing:border-box; }
+.plan-tab { min-width:0; flex:1; display:flex; align-items:center; justify-content:center; color:#fff; border-radius:11rpx; font-size:25rpx; font-weight:700; white-space:nowrap; }
+.plan-tab.active { color:#3D454A; background:#fff; }
+.plan-table-head,.plan-row { display:grid; grid-template-columns:minmax(0,1fr) 150rpx 174rpx; align-items:center; }
+.plan-table-head { height:116rpx; color:#3F4549; border-bottom:1rpx solid #E1E1E1; font-size:25rpx; text-align:center; }
+.plan-group { padding-top:16rpx; }
+.plan-group-title { margin:0 0 0; padding:12rpx 18rpx; color:#3D454A; background:#F1F1F1; border-radius:10rpx; font-size:29rpx; line-height:38rpx; font-weight:800; }
+.plan-row { min-height:92rpx; border-bottom:1rpx solid #E1E1E1; }
+.plan-row:last-child { border-bottom:0; }
+.plan-label { min-width:0; padding:20rpx 12rpx; color:#40515A; font-size:25rpx; line-height:36rpx; word-break:break-all; }
+.plan-number { color:#3D454A; font-size:30rpx; font-weight:800; text-align:center; }
+.plan-score { display:flex; align-items:baseline; justify-content:flex-start; color:#3D454A; font-size:30rpx; font-weight:800; }
+.plan-change { margin-left:9rpx; font-size:21rpx; font-weight:700; white-space:nowrap; }
+.plan-change.up { color:#FF625D; }
+.plan-change.down { color:#00A86B; }
+.plan-change.flat { color:#53616A; }
+.plan-status { min-height:190rpx; display:flex; align-items:center; justify-content:center; color:#A0A6AA; font-size:24rpx; }
+.plan-notes { padding:30rpx 10rpx 8rpx; display:flex; flex-direction:column; color:#40515A; border-top:1rpx solid #E1E1E1; font-size:23rpx; line-height:34rpx; }
+.plan-notes-title { color:#354149; font-weight:800; }
+.status { min-height:500rpx; display:flex; flex-direction:column; align-items:center; justify-content:center; color:#8AA0AD; font-size:24rpx; }
+.loading-ring { width:38rpx; height:38rpx; margin-bottom:18rpx; border:5rpx solid rgba(100,168,205,.18); border-top-color:#64A8CD; border-radius:50%; animation:spin .8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.district-query-card { padding:0 26rpx; }
+.district-query-row { min-height:102rpx; display:flex; align-items:center; border-bottom:1rpx solid #E1E5E7; }
+.district-query-row:last-child { border-bottom:0; }
+.district-query-row-active { background:#F7F9FA; }
+.district-query-icon { width:34rpx; height:34rpx; margin-right:22rpx; flex-shrink:0; }
+.district-query-text { min-width:0; flex:1; color:#36434A; font-size:27rpx; line-height:40rpx; font-weight:800; }
+.district-query-arrow { margin-left:20rpx; color:#B7BEC4; font-size:40rpx; line-height:1; }
+
+.enroll-card { padding:36rpx 32rpx 24rpx; }
+.enroll-title { display:flex; align-items:center; gap:12rpx; color:#36434A; font-size:34rpx; font-weight:800; line-height:48rpx; }
+.enroll-title-bar { width:8rpx; height:30rpx; border-radius:3rpx; background:linear-gradient(180deg,#91c9e3,#64a8cd); }
+.enroll-stage { margin-top:22rpx; padding:20rpx 18rpx; background:#f8fbfd; border:1rpx solid #e5eff5; border-radius:12rpx; }
+.enroll-stage-head { display:flex; align-items:center; gap:12rpx; }
+.enroll-stage-name { color:#222; font-size:28rpx; font-weight:600; }
+.enroll-stage-tag { color:#3f83aa; font-size:21rpx; line-height:30rpx; padding:2rpx 12rpx; border:1rpx solid #91c9e3; border-radius:6rpx; background:#f3fafe; }
+.enroll-metrics { display:flex; margin-top:18rpx; padding:18rpx 0; background:#fff; border-radius:10rpx; }
+.enroll-metric { flex:1; min-width:0; text-align:center; position:relative; }
+.enroll-metric::after { content:""; position:absolute; right:0; top:14rpx; width:1rpx; height:44rpx; background:#e2e6ea; }
+.enroll-metric:last-child::after { display:none; }
+.enroll-metric-val { display:block; font-size:30rpx; font-weight:700; color:#111; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; padding:0 8rpx; }
+.enroll-metric-label { display:block; margin-top:6rpx; font-size:22rpx; color:#777; }
+.enroll-year { display:flex; align-items:flex-start; margin-top:16rpx; }
+.enroll-year-tag { flex-shrink:0; width:92rpx; margin-top:14rpx; text-align:center; font-size:24rpx; font-weight:600; color:#4385aa; line-height:36rpx; background:#eef6fb; border-radius:8rpx; }
+.enroll-rows { flex:1; min-width:0; margin-left:16rpx; }
+.enroll-row { display:flex; align-items:center; flex-wrap:wrap; gap:12rpx; padding:14rpx 0; border-bottom:1rpx solid #eef2f5; }
+.enroll-row:last-child { border-bottom:none; }
+.enroll-campus { flex-shrink:0; min-width:110rpx; color:#333; font-size:25rpx; }
+.enroll-count { color:#222; font-size:25rpx; }
+.enroll-rate { color:#ff3b3b; font-size:25rpx; font-weight:600; }
+.enroll-note { display:block; margin-top:16rpx; text-align:center; color:#bbb; font-size:21rpx; line-height:30rpx; }

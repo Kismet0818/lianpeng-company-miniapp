@@ -1,0 +1,29 @@
+.favorites-page { min-height:100vh; padding:24rpx; background:linear-gradient(180deg,#f2f8fb 0%,#f5f6f8 260rpx); box-sizing:border-box; }
+.favorites-overview { min-height:132rpx; margin-bottom:22rpx; padding:26rpx 28rpx; display:flex; align-items:center; justify-content:space-between; box-sizing:border-box; color:#fff; background:linear-gradient(135deg,#4d92bb,#64a8cd 62%,#91c9e3); border-radius:22rpx; box-shadow:0 10rpx 24rpx rgba(77,146,187,.18); }
+.overview-title { display:block; font-size:32rpx; line-height:44rpx; font-weight:600; }
+.overview-tip { display:block; margin-top:5rpx; color:rgba(255,255,255,.82); font-size:22rpx; }
+.overview-count { display:flex; align-items:baseline; padding-left:24rpx; font-size:22rpx; }
+.overview-number { margin-right:5rpx; font-size:54rpx; line-height:60rpx; font-weight:700; }
+.favorite-card { position:relative; overflow:hidden; display:flex; align-items:center; min-height:166rpx; margin-bottom:20rpx; padding:25rpx 22rpx; background:#fff; border:1rpx solid rgba(100,168,205,.1); border-radius:20rpx; box-sizing:border-box; box-shadow:0 7rpx 20rpx rgba(43,73,92,.06); }
+.favorite-card:active { transform:translateY(1rpx); opacity:.94; }
+.card-accent { position:absolute; top:0; left:0; bottom:0; width:6rpx; background:linear-gradient(180deg,#64a8cd,#91c9e3); }
+.school-logo-wrap { width:92rpx; height:92rpx; margin-right:20rpx; display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; background:#f5fafc; border:1rpx solid #e1edf3; border-radius:16rpx; box-sizing:border-box; }
+.school-logo { width:82rpx; height:82rpx; }
+.school-logo-fallback { width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#4d92bb; background:linear-gradient(145deg,#f4fbfe,#e8f4fa); font-size:38rpx; font-weight:600; }
+.favorite-info { flex:1; min-width:0; }
+.school-name { display:block; color:#171717; font-size:29rpx; line-height:40rpx; font-weight:600; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.school-tags { display:flex; gap:9rpx; margin-top:10rpx; overflow:hidden; }
+.school-tag { max-width:170rpx; padding:4rpx 10rpx; border-radius:7rpx; font-size:20rpx; line-height:28rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.district-tag { color:#3f83aa; background:#edf7fc; }
+.curriculum-tag { color:#66757e; background:#f1f4f6; }
+.school-grade { display:block; margin-top:8rpx; color:#9a9fa4; font-size:21rpx; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.favorite-action { width:70rpx; margin-left:14rpx; display:flex; flex-direction:column; align-items:center; flex-shrink:0; }
+.favorite-star { width:54rpx; height:54rpx; display:flex; align-items:center; justify-content:center; color:#64a8cd; background:#eaf6fb; border-radius:50%; font-size:32rpx; line-height:1; }
+.favorite-label { margin-top:5rpx; color:#8aa7b7; font-size:18rpx; white-space:nowrap; }
+.card-arrow { margin-left:8rpx; color:#c5cbd0; font-size:42rpx; font-weight:200; }
+.loading-state,.empty-state { display:flex; flex-direction:column; align-items:center; padding-top:200rpx; color:#a2a7ac; font-size:24rpx; }
+.loading-ring { width:42rpx; height:42rpx; margin-bottom:20rpx; border:5rpx solid #dceef6; border-top-color:#64a8cd; border-radius:50%; animation:spin .8s linear infinite; }
+.empty-star { width:96rpx; height:96rpx; display:flex; align-items:center; justify-content:center; color:#64a8cd; background:#eaf6fb; border-radius:50%; font-size:62rpx; line-height:1; }
+.empty-title { margin-top:20rpx; color:#62686e; font-size:30rpx; }
+.empty-tip { margin-top:14rpx; color:#aeb3b7; font-size:24rpx; }
+@keyframes spin { to { transform:rotate(360deg); } }

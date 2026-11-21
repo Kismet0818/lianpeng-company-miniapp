@@ -1,0 +1,63 @@
+﻿<view class="page">
+  <view class="status" wx:if="{{loading}}">正在加载...</view>
+
+  <view class="status error" wx:elif="{{error}}">
+    <text>{{error}}</text>
+    <view class="retry" bindtap="loadArticle">重新加载</view>
+  </view>
+
+  <view class="article" wx:elif="{{article}}">
+    <view class="article-header">
+      <view class="article-heading">
+        <text class="path-name">{{article.category}} · {{article.pathName}}</text>
+        <text class="title">{{article.title}}</text>
+      </view>
+      <image class="header-guide-image" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/background/qbantu.png" mode="aspectFit"></image>
+    </view>
+    <text class="summary" wx:if="{{article.summary}}">{{article.summary}}</text>
+    <view wx:if="{{article.thumbnailUrl}}" class="preview-mask-wrap">
+      <image class="cover" src="{{article.thumbnailUrl}}" mode="widthFix" show-menu-by-longpress="{{false}}"></image>
+    </view>
+    <button wx:if="{{thumbnailImage}}" class="save-image-button" data-item="{{thumbnailImage}}" bindtap="saveGuideImage" loading="{{savingImage}}" disabled="{{savingImage}}">保存封面资料图片</button>
+    <view wx:if="{{articleImages.length}}" class="image-save-list">
+      <view class="image-save-item" wx:for="{{articleImages}}" wx:key="url">
+        <view class="preview-mask-wrap">
+          <image class="article-image" src="{{item.url}}" mode="widthFix" show-menu-by-longpress="{{false}}"></image>
+        </view>
+        <button class="save-image-button" data-item="{{item}}" bindtap="saveGuideImage" loading="{{savingImage}}" disabled="{{savingImage}}">保存第{{index + 1}}张资料图片</button>
+      </view>
+    </view>
+    <view class="divider"></view>
+    <rich-text wx:if="{{isHtml}}" class="content rich-content" nodes="{{safeContent}}"></rich-text>
+    <text wx:else class="content plain-content" user-select>{{article.content || '正文内容正在整理中'}}</text>
+
+    <view class="policy-attachments" wx:if="{{article.attachments.length}}">
+      <view class="attachment-title">政策附件</view>
+      <view wx:for="{{article.attachments}}" wx:key="id" class="attachment-item">
+        <text class="attachment-name">{{item.fileName}}</text>
+        <view class="attachment-actions">
+          <button class="attachment-button preview-button" data-url="{{item.fileUrl}}" data-name="{{item.fileName}}" data-extension="{{item.fileExtension}}" bindtap="openPolicyAttachment">预览文件</button>
+          <button class="attachment-button download-button" wx:if="{{item.fileUrl}}" data-url="{{item.fileUrl}}" data-name="{{item.fileName}}" data-extension="{{item.fileExtension}}" bindtap="downloadHighQuality">领取完整版</button>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+
+<view wx:if="{{previewVisible}}" class="file-preview-mask" catchtap="closePreview">
+  <view class="file-preview-dialog" catchtap="noop">
+    <image class="file-preview-image" src="{{previewUrl}}" mode="widthFix" show-menu-by-longpress="{{false}}"></image>
+    <view class="file-preview-close" bindtap="closePreview">关闭</view>
+  </view>
+</view>
+
+<view wx:if="{{showQr}}" class="file-preview-mask" catchtap="closeQr">
+  <view class="qr-dialog" catchtap="noop">
+    <image class="qr-dialog-image" src="{{qrImageUrl}}" mode="widthFix" show-menu-by-longpress></image>
+    <text class="qr-dialog-title">长按扫码领取完整资料</text>
+    <view class="file-preview-close" bindtap="closeQr">关闭</view>
+  </view>
+</view>
+

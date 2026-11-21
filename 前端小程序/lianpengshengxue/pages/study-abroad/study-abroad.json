@@ -1,0 +1,13 @@
+{
+    "navigationStyle":  "custom",
+    "navigationBarTitleText":  "",
+    "navigationBarTextStyle":  "white",
+    "navigationBarBackgroundColor":  "#64a8cd",
+    "backgroundColor":  "#f4f7f9",
+    "backgroundColorTop":  "#64a8cd",
+    "backgroundColorBottom":  "#f5f8fa",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal",
+                            "score-tool-content": "/components/score-tool-content/score-tool-content"
+                        }
+}

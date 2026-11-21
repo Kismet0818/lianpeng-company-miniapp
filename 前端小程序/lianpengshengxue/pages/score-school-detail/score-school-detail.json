@@ -1,0 +1,11 @@
+{
+    "navigationStyle":  "default",
+    "navigationBarTitleText":  "学校详情",
+    "navigationBarTextStyle":  "black",
+    "navigationBarBackgroundColor":  "#F2F2F2",
+    "backgroundColor":  "#F2F2F2",
+    "backgroundColorBottom":  "#F2F2F2",
+    "usingComponents":  {
+                            "phone-auth-modal":  "/components/phone-auth-modal/phone-auth-modal"
+                        }
+}

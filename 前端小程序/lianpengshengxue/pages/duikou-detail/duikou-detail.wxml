@@ -1,0 +1,46 @@
+<view class="page">
+  <view class="nav-bar" style="padding-top:{{safeTop}}px;">
+    <view class="back-button" bindtap="goBack"><view class="back-arrow"></view></view>
+    <text class="nav-title">对口资料详情</text>
+  </view>
+
+  <view class="status" wx:if="{{loading}}">
+    <view class="loading-dot"></view><text>正在加载...</text>
+  </view>
+
+  <view class="status error" wx:elif="{{error}}">
+    <text>{{error}}</text><view class="retry" bindtap="loadDetail">重新加载</view>
+  </view>
+
+  <view class="article" wx:elif="{{article}}">
+    <view class="watermark-layer" style="position:absolute;z-index:50;top:150rpx;right:0;bottom:0;left:0;display:flex;flex-wrap:wrap;align-content:space-around;justify-content:space-around;pointer-events:none;" aria-hidden="true"><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text><text class="watermark-item">联朋升学</text></view>
+    <view class="article-header">
+      <view class="topic-badge" wx:if="{{article.district}}">{{article.district}}</view>
+      <text class="title">{{article.title}}</text>
+      <text class="pub-time">{{article.timeText}}</text>
+    </view>
+    <view class="divider"></view>
+
+    <view class="content-blocks">
+      <block wx:for="{{blocks}}" wx:for-item="block" wx:for-index="bi" wx:key="bi">
+        <image wx:if="{{block.type === 'img'}}" class="content-image" src="{{block.src}}" mode="widthFix" show-menu-by-longpress data-src="{{block.src}}" bindtap="previewImage"></image>
+        <scroll-view wx:elif="{{block.type === 'table'}}" class="table-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+          <view class="table">
+            <view class="trow {{block.captions[ri] ? 'trow-caption' : (ri === block.headerIndex ? 'trow-head' : '')}}" wx:for="{{block.rows}}" wx:for-item="row" wx:for-index="ri" wx:key="ri">
+              <view wx:if="{{block.captions[ri]}}" class="tcell tcell-caption">{{row[0]}}</view>
+              <block wx:else>
+                <view class="tcell" wx:for="{{row}}" wx:for-item="cell" wx:for-index="ci" wx:key="ci">{{cell}}</view>
+              </block>
+            </view>
+          </view>
+        </scroll-view>
+        <view wx:elif="{{block.type === 'link'}}" class="file-link" data-url="{{block.url}}" catchtap="openFileLink" catchlongpress="copyFileLink">
+          <text class="file-link-name">{{block.label}}</text>
+          <text class="file-link-tip">点击用微信打开 · 长按复制链接</text>
+        </view>
+        <rich-text wx:elif="{{block.type === 'html'}}" class="rich-content" nodes="{{block.html}}"></rich-text>
+      </block>
+      <view class="content-empty" wx:if="{{!blocks.length}}">正文内容正在整理中</view>
+    </view>
+  </view>
+</view>

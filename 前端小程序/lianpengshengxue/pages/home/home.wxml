@@ -1,0 +1,237 @@
+<view class="page">
+  <view class="advisor-float" bindtap="openAdvisor"><image src="/assets/icons/aiguwen.png" mode="aspectFit"></image><text>升学顾问</text></view>
+  <view class="hero" style="padding-top: {{heroTop}}px;">
+    <!-- 后期底图放在这里：给 hero-bg 设置 background-image 即可 -->
+    <view class="hero-bg"></view>
+    <image class="hero-company-logo" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/logo/%E8%81%94%E6%9C%8Blog%E6%A8%AA%E6%9D%BF.png" mode="widthFix" style="position: absolute; left: 375rpx; top:88rpx"></image>
+    <view class="tool-row">
+      <view class="location"><image class="location-icon-image" src="/assets/icons/dingwei.png" mode="aspectFit"></image><text>上海市</text></view>
+    </view>
+
+  </view>
+
+  <view class="content">
+    <view class="home-shortcuts">
+      <view class="home-shortcut" wx:for="{{homeShortcuts}}" wx:key="label" data-action="{{item.action}}" bindtap="onHomeShortcut">
+        <view class="home-shortcut-icon"><image src="{{item.icon}}" mode="aspectFit"></image></view>
+        <text>{{item.label}}</text>
+      </view>
+    </view>
+
+    <scroll-view class="tabs" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="tab {{activeTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" data-index="{{index}}" bindtap="onTabChange">{{item}}</view>
+    </scroll-view>
+
+    <swiper wx:if="{{activeTab === 0 && displaySchools.length > 0}}" class="school-swiper" autoplay="{{displaySchools.length > 4}}" circular="{{displaySchools.length > 4}}" interval="2500" display-multiple-items="{{displaySchools.length > 4 ? 4 : displaySchools.length}}">
+      <swiper-item wx:for="{{displaySchools}}" wx:key="uid">
+        <view class="school-card" bindtap="onTapSchool" data-id="{{item.id}}" data-source="{{item.schoolSource}}">
+          <view class="logo-wrap">
+            <image wx:if="{{item.logoUrl}}" class="school-logo" src="{{item.logoUrl}}" mode="aspectFit" data-index="{{index}}" binderror="onSchoolLogoError"></image>
+            <text wx:else class="logo-fallback">{{item.shortName || '国际'}}</text>
+          </view>
+          <text class="school-name">{{item.name}}</text>
+          <text class="school-district">{{item.district}} · {{item.schoolLevel || '小学'}}</text>
+          <text class="school-badge">严选学校</text>
+        </view>
+      </swiper-item>
+    </swiper>
+    <scroll-view wx:elif="{{displaySchools.length > 0}}" class="school-list" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="school-card" wx:for="{{displaySchools}}" wx:key="uid" bindtap="onTapSchool" data-id="{{item.id}}" data-source="{{item.schoolSource}}">
+        <view class="logo-wrap">
+          <image wx:if="{{item.logoUrl}}" class="school-logo" src="{{item.logoUrl}}" mode="aspectFit" data-index="{{index}}" binderror="onSchoolLogoError"></image>
+          <text wx:else class="logo-fallback">{{item.shortName || '国际'}}</text>
+        </view>
+        <text class="school-name">{{item.name}}</text>
+        <text class="school-district">{{item.district}} · {{item.schoolLevel || '小学'}}</text>
+        <text class="school-badge">严选学校</text>
+      </view>
+    </scroll-view>
+    <view wx:else class="school-empty">{{activeTab === 1 ? '暂无最近浏览' : activeTab === 2 ? '暂无收藏学校' : '暂无热门学校'}}</view>
+    <view class="more-row" bindtap="onMoreSchools">查看全部学校 ›</view>
+
+    <!-- 热门地区 -->
+    <view class="home-topics">
+      <view class="home-topic" wx:for="{{homeTopics}}" wx:key="label" data-action="{{item.action}}" bindtap="onHomeTopic">
+        <view class="home-topic-copy">
+          <text class="home-topic-title">#{{item.label}}</text>
+          <text class="home-topic-count">{{item.count}}</text>
+        </view>
+        <image class="home-topic-icon" src="{{item.icon}}" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="district-section">
+      <view class="district-header">
+        <view class="district-title-row">
+          <view class="district-bar"></view>
+          <text class="district-title">上海热门区</text>
+          <image class="district-hot-icon" src="/assets/icons/remen.png" mode="aspectFit"></image>
+        </view>
+        <view class="chat-tag" bindtap="onParentChat">
+          <image class="chat-icon-image" src="/assets/icons/weixin.png" mode="aspectFit"></image>
+          <text class="chat-text">家长群热聊中</text>
+          <text class="chat-arrow">›</text>
+        </view>
+      </view>
+      <view class="district-grid">
+        <view class="district-card" wx:for="{{districtStats}}" wx:key="district" bindtap="onDistrictTap" data-district="{{item.district}}">
+          <text class="district-name">{{item.district}}</text>
+          <view class="district-number-row"><text class="district-count">{{item.count}}</text><text class="district-unit">所</text></view>
+          <view class="district-art-placeholder"></view>
+        </view>
+      </view>
+    </view>
+
+    <view class="quick-section">
+      <view class="quick-title">择校服务</view>
+      <view class="quick-grid">
+        <view class="quick-item" bindtap="onMaterials">
+          <view class="quick-icon-circle">
+            <image class="quick-icon-image" src="/assets/icons/ziliao.png" mode="aspectFit"></image>
+          </view>
+          <text class="quick-label">择校资料</text>
+        </view>
+        <view class="quick-item" bindtap="onContentLinkTap" data-type="LIVE">
+          <view class="quick-icon-circle">
+            <image class="quick-icon-image" src="/assets/icons/live.png" mode="aspectFit"></image>
+          </view>
+          <text class="quick-label">本月直播</text>
+        </view>
+        <view class="quick-item" wx:if="{{contentLinks.OFFICIAL_ACCOUNT}}" bindtap="onContentLinkTap" data-type="OFFICIAL_ACCOUNT">
+          <view class="quick-icon-circle">
+            <image class="quick-icon-image" src="/assets/icons/weixin.png" mode="aspectFit"></image>
+          </view>
+          <text class="quick-label">{{contentLinks.OFFICIAL_ACCOUNT.title || '公众号内容'}}</text>
+        </view>
+        <view class="quick-item" bindtap="onOpenDay">
+          <view class="quick-icon-circle">
+            <image class="quick-icon-image" src="/assets/icons/kaifangri.png" mode="aspectFit"></image>
+          </view>
+          <text class="quick-label">学校开放日</text>
+        </view>
+        <view class="quick-item" bindtap="onPlan">
+          <view class="quick-icon-circle">
+            <image class="quick-icon-image" src="/assets/icons/zixun.png" mode="aspectFit"></image>
+          </view>
+          <text class="quick-label">择校咨询</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 择校攻略 -->
+    <view class="strategy-section">
+      <view class="strategy-title-row">
+        <view class="strategy-bar"></view>
+        <text class="strategy-title">择校攻略</text>
+      </view>
+      <scroll-view class="strategy-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="strategy-card" wx:for="{{strategyCards}}" wx:key="*this"
+          data-index="{{index}}" bindtap="onStrategyCardTap">
+          <image wx:if="{{item.image}}" class="strategy-image" src="{{item.image}}" mode="aspectFill"></image>
+          <view wx:else class="strategy-image-placeholder">
+            <view class="strategy-placeholder-icon">图</view>
+            <text>图片待添加</text>
+          </view>
+          <view class="strategy-video-mark">▶</view>
+          <view wx:if="{{item.title}}" class="strategy-card-shade"></view>
+          <text wx:if="{{item.title}}" class="strategy-card-title">{{item.title}}</text>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="hot-articles-section" wx:if="{{hotArticles.length}}">
+      <view class="hot-articles-title-row"><view class="hot-articles-bar"></view><text class="hot-articles-title">热门文章</text><text class="hot-articles-more">公众号</text></view>
+      <view class="hot-article-item" wx:for="{{hotArticles}}" wx:key="id" data-index="{{index}}" bindtap="onHotArticleTap">
+        <image wx:if="{{item.coverUrl}}" class="hot-article-cover" src="{{item.coverUrl}}" mode="aspectFill"></image>
+        <view wx:else class="hot-article-cover hot-article-cover-fallback">文</view>
+        <view class="hot-article-copy"><text class="hot-article-name">{{item.name}}</text><text class="hot-article-hint">点击查看公众号文章</text></view><text class="hot-article-arrow">›</text>
+      </view>
+    </view>
+
+    <!-- 择校指南 -->
+    <view class="guide-section">
+      <view class="guide-title-row" bindtap="onAdmissionArticles">
+        <view class="guide-bar"></view>
+        <text class="guide-title">择校指南 · 招生文章</text>
+      </view>
+      <view class="guide-timeline">
+        <view class="guide-step" wx:for="{{guideSteps}}" wx:key="stepTitle">
+          <view class="step-node-row" bindtap="onGuideTap" data-index="{{index}}">
+            <view class="step-dot">
+              <image wx:if="{{item.stepIcon}}" class="step-icon-image" src="{{item.stepIcon}}" mode="aspectFit" style="width:{{item.stepIconSize}}rpx;height:{{item.stepIconSize}}rpx;transform:translate({{item.stepIconX}}rpx,{{item.stepIconY}}rpx);"></image>
+              <view wx:else class="step-icon-placeholder"></view>
+            </view>
+            <view class="step-header">
+              <text class="step-title">{{item.stepTitle}}</text>
+              <text class="step-sub">{{item.subTitle}}</text>
+            </view>
+          </view>
+          <view class="step-menu-card">
+            <view class="step-menu-item" wx:for="{{item.menus}}" wx:key="label" bindtap="onGuideMenu" data-category="{{item.category}}" data-menu="{{item.label}}">
+              <image wx:if="{{item.icon}}" class="menu-icon-image {{item.iconClass || ''}}" src="{{item.icon}}" mode="aspectFit"></image>
+              <view wx:else class="menu-icon-placeholder"></view>
+              <text class="menu-text">{{item.label}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <!-- Banner 广告轮播 -->
+    <swiper class="banner-swiper" autoplay circular interval="4000" indicator-dots indicator-color="rgba(255,255,255,.4)" indicator-active-color="#fff">
+      <swiper-item wx:for="{{banners}}" wx:key="image">
+        <view class="banner-card" bindtap="onBannerTap" data-index="{{index}}">
+          <image class="banner-image" src="{{item.image}}" mode="aspectFill"></image>
+        </view>
+      </swiper-item>
+    </swiper>
+
+    <!-- 招生动态 -->
+    <view class="notice-section">
+      <view class="notice-title-row">
+        <view class="notice-bar"></view>
+        <text class="notice-title">招生动态</text>
+      </view>
+      <view class="notice-list">
+        <view class="notice-item" wx:for="{{notices}}" wx:key="schoolId"
+              bindtap="onNoticeTap" data-id="{{item.schoolId}}">
+          {{item.schoolName}}招生动态
+        </view>
+      </view>
+    </view>
+
+    <!-- 品牌页脚 -->
+    <view class="footer-brand">
+      <view class="footer-website-section">
+        <view class="footer-website-action" bindtap="openWebsite" hover-class="footer-website-action-active" hover-stay-time="100" aria-label="访问联朋官网">
+          <view class="footer-website-copy">
+            <text class="footer-website-title">访问联朋官网</text>
+            <text class="footer-website-description">了解更多服务与资讯</text>
+          </view>
+          <view class="footer-website-arrow"></view>
+        </view>
+        <text class="footer-website-url">lianpeng.vip</text>
+      </view>
+      <image class="footer-company-logo" src="https://lianpeng.oss-cn-shanghai.aliyuncs.com/logo/%E8%81%94%E6%9C%8Blog%E6%A8%AA%E6%9D%BF.png" mode="widthFix"></image>
+      <view class="footer-book"><view></view><view></view></view>
+      <view class="footer-slogan-row"><text>Every Step Builds a Brighter Future.</text></view>
+      <view class="footer-tags"><text>择校</text><i>·</i><text>升学规划</text><i>·</i><text>国际课程</text><i>·</i><text>留学辅导</text></view>
+      <view class="beian-footer"><view class="beian-link" bindtap="openBeianMps"><image src="/assets/beian.png" mode="aspectFit"></image><text>沪公网安备31010402337112号</text></view><view class="beian-link" bindtap="openBeianMiit"><text>沪ICP备2026040088号-1</text></view></view>
+    </view>
+  </view>
+</view>
+
+<view class="qr-mask" wx:if="{{showQr}}" bindtap="closeQr"></view>
+<view class="qr-popup" wx:if="{{showQr}}">
+  <view class="qr-close" bindtap="closeQr">×</view>
+  <image class="qr-img" src="{{qrImageUrl}}" mode="widthFix" show-menu-by-longpress></image>
+</view>
+
+<!-- 每次启动小程序仅展示一次的开屏广告 -->
+<view class="startup-ad-mask" wx:if="{{showStartupAd}}" catchtouchmove="preventStartupAdTouchMove">
+  <view class="startup-ad-dialog">
+    <image class="startup-ad-image" src="{{startupAdImage}}" mode="widthFix" show-menu-by-longpress></image>
+    <view class="startup-ad-close" bindtap="closeStartupAd" aria-label="关闭广告">×</view>
+  </view>
+</view>
+

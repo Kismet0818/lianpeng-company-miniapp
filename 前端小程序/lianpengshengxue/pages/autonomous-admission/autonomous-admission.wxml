@@ -1,0 +1,25 @@
+﻿<view class="autonomous-page">
+  <view class="year-tabs">
+    <view class="year-tab active">2026年</view>
+  </view>
+  <view class="district-filter">
+    <view class="district-option {{selectedDistrict === item.value ? 'active' : ''}}" wx:for="{{districts}}" wx:key="value" data-district="{{item.value}}" bindtap="onDistrictTap">{{item.label}}</view>
+  </view>
+  <view class="school-list" wx:if="{{schools.length}}">
+    <view class="school-item" wx:for="{{schools}}" wx:key="id">
+      <text class="school-name">{{item.schoolName}}</text>
+      <view class="school-meta"><text>{{item.schoolTypeLabel}}</text><text>{{item.nature}}</text><text wx:if="{{item.boarding}}">{{item.boarding}}</text></view>
+      <view class="quota-grid">
+        <view class="quota-item"><text class="quota-label">学科优秀生</text><view><text class="quota-value">{{item.subjectExcellent}}</text><text class="quota-trend">平</text></view></view>
+        <view class="quota-item"><text class="quota-label">优秀体育生</text><view><text class="quota-value">{{item.sportsExcellent}}</text><text class="quota-trend">平</text></view></view>
+        <view class="quota-item"><text class="quota-label">艺术骨干生</text><view><text class="quota-value">{{item.artBackbone}}</text><text class="quota-trend">平</text></view></view>
+      </view>
+    </view>
+  </view>
+  <view class="page-status" wx:elif="{{loading}}"><view class="loading-ring"></view><text>正在加载2026年自主招生信息...</text></view>
+  <view class="page-status" wx:elif="{{error}}"><text>{{error}}</text><view class="retry" bindtap="loadData">重新加载</view></view>
+  <view class="page-status" wx:else><text>暂无2026年自主招生信息</text></view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

@@ -1,0 +1,14 @@
+page { height: 100%; background: linear-gradient(160deg, #eef8ff 0%, #f8fbff 52%, #fff8ed 100%); }
+.page { box-sizing: border-box; min-height: 100%; padding: 150rpx 48rpx 80rpx; }
+.brand { color: #277aa8; font-size: 38rpx; font-weight: 700; letter-spacing: 4rpx; text-align: center; }
+.card { margin-top: 72rpx; padding: 68rpx 48rpx 48rpx; border-radius: 32rpx; background: rgba(255,255,255,.96); box-shadow: 0 20rpx 60rpx rgba(43,105,139,.12); text-align: center; }
+.icon { font-size: 78rpx; line-height: 1; }
+.title { margin-top: 32rpx; color: #202936; font-size: 40rpx; font-weight: 700; }
+.description { margin-top: 24rpx; color: #66717d; font-size: 27rpx; line-height: 1.75; text-align: left; }
+.checking { margin: 64rpx 0 32rpx; color: #6c7884; font-size: 28rpx; }
+.authorize-button, .retry-button { margin-top: 56rpx; height: 92rpx; line-height: 92rpx; border: 0; border-radius: 46rpx; color: #fff; font-size: 31rpx; font-weight: 600; background: linear-gradient(90deg, #3b9bc8, #267aaa); }
+.authorize-button::after, .retry-button::after { border: 0; }
+.authorize-button[disabled] { color: rgba(255,255,255,.8); background: #8db9ce; }
+.error { margin-top: 48rpx; color: #d45b51; font-size: 27rpx; }
+.retry-button { margin-top: 28rpx; }
+.privacy { margin-top: 40rpx; color: #a0a8af; font-size: 22rpx; line-height: 1.6; }

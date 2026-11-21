@@ -1,0 +1,27 @@
+﻿<view class="agreement-page">
+  <view class="tab-bar">
+    <view class="tab {{activeTab === 'user' ? 'active' : ''}}" data-type="user" bindtap="switchTab">用户协议</view>
+    <view class="tab {{activeTab === 'privacy' ? 'active' : ''}}" data-type="privacy" bindtap="switchTab">隐私政策</view>
+  </view>
+
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}">
+    <block wx:if="{{activeTab === 'user'}}">
+      <view class="section" wx:for="{{userAgreement}}" wx:key="title">
+        <view class="section-title">{{item.title}}</view>
+        <text class="section-body">{{item.body}}</text>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="section" wx:for="{{privacyPolicy}}" wx:key="title">
+        <view class="section-title">{{item.title}}</view>
+        <text class="section-body">{{item.body}}</text>
+      </view>
+    </block>
+
+    <view class="footer-note">更新日期：2026年8月31日</view>
+  </scroll-view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+

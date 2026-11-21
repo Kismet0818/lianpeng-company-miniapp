@@ -1,0 +1,61 @@
+﻿<view class="page">
+  <view class="hero">
+    <text class="hero-en">NEW SENIOR ONE PLANNING</text>
+    <text class="hero-title">新高一，不只是提前学</text>
+    <text class="hero-sub">看懂语数英学习变化，提前安排三年节奏，帮助孩子更平稳地完成初高衔接。</text>
+    <view class="hero-tags"><text>语数英考点</text><text>初高衔接</text><text>三年规划</text></view>
+  </view>
+
+  <view class="summary-card">
+    <view class="section-title"><view></view><text>进入高中，变化在哪里？</text></view>
+    <text class="summary-copy">知识容量增加、课堂节奏加快、题目综合性提升。真正需要提前准备的，不只是某几个知识点，而是学习方法、时间管理和持续复盘能力。</text>
+    <view class="change-grid">
+      <view><text>知识</text><text>模块更多</text></view>
+      <view><text>题目</text><text>综合性强</text></view>
+      <view><text>节奏</text><text>进度更快</text></view>
+      <view><text>目标</text><text>选科升学</text></view>
+    </view>
+  </view>
+
+  <view class="content-section">
+    <view class="section-title"><view></view><text>语数英核心学习地图</text></view>
+    <text class="section-note">以下为常见学习方向，具体教学进度和考查范围以学校及所在地区要求为准。</text>
+    <view class="subject-card subject-{{item.theme}}" wx:for="{{subjects}}" wx:key="name">
+      <view class="subject-head">
+        <view><text>{{item.en}}</text><text>{{item.name}}</text></view>
+        <text class="subject-number">0{{index + 1}}</text>
+      </view>
+      <text class="subject-desc">{{item.desc}}</text>
+      <view class="point-list"><view wx:for="{{item.points}}" wx:for-item="point" wx:key="*this"><text>✓</text>{{point}}</view></view>
+      <view class="score-chart" wx:if="{{item.scoreImage}}">
+        <text>{{item.name}}高考题型分数占比</text>
+        <image src="{{item.scoreImage}}" mode="widthFix" show-menu-by-longpress></image>
+      </view>
+    </view>
+  </view>
+
+  <view class="content-section">
+    <view class="section-title"><view></view><text>高中三年节奏参考</text></view>
+    <view class="timeline">
+      <view class="timeline-item" wx:for="{{timeline}}" wx:key="term">
+        <view class="timeline-axis"><view></view><text></text></view>
+        <view class="timeline-copy"><text>{{item.term}} · {{item.title}}</text><text>{{item.desc}}</text></view>
+      </view>
+    </view>
+  </view>
+
+  <view class="cta-card">
+    <text class="cta-title">规划不是把时间排满</text>
+    <text class="cta-copy">我们会结合孩子当前成绩、薄弱模块、目标学校和可投入时间，梳理更适合的学习优先级。</text>
+    <view class="cta-button" bindtap="onConsult">咨询新高一课程规划</view>
+  </view>
+
+  <view class="bottom-space"></view>
+  <view class="bottom-bar">
+    <view><text>新高一一对一规划</text><text>分析现状 · 明确优先级</text></view>
+    <view class="bottom-button" bindtap="onConsult">立即咨询</view>
+  </view>
+</view>
+
+<phone-auth-modal required="{{phoneAuthRequired}}" />
+
